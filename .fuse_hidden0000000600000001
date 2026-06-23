@@ -3,31 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <title>PR-278 Neživot Auta – v12</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:14px;background:#f5f6f8;color:#1e2330;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:14px;background:#f0f2f8;color:#1a1d23;height:100vh;display:flex;flex-direction:column;overflow:hidden}
 
-/* ══ WIZARD BAR (chevron stepper dle Bety2) ══════════════════ */
-.wbar{background:#fff;border-bottom:1px solid #e8ecf5;min-height:60px;display:flex;align-items:center;padding:8px 16px;gap:12px;flex-shrink:0;box-shadow:0 1px 3px rgba(0,0,0,.04)}
-.wsteps{display:flex;align-items:stretch;flex:1;gap:4px;min-width:0}
-.wstep{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;gap:9px;height:44px;font-size:14px;font-weight:600;color:#9aa3b2;white-space:nowrap;background:#eef1f5;padding:0 16px 0 30px;cursor:default;transition:background .2s,color .2s;overflow:hidden;clip-path:polygon(0 0,calc(100% - 18px) 0,100% 50%,calc(100% - 18px) 100%,0 100%,18px 50%)}
-.wstep:first-child{padding-left:20px;clip-path:polygon(9px 0,calc(100% - 18px) 0,100% 50%,calc(100% - 18px) 100%,9px 100%,2.6px calc(100% - 2.6px),0 calc(100% - 9px),0 9px,2.6px 2.6px)}
-.wstep-lbl{overflow:hidden;text-overflow:ellipsis}
-.wstep.active{background:#2563eb;color:#fff}
-.wstep.done{background:#e3f5ea;color:#16a34a}
-.wstep-ic{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;color:#aab2c0}
-.wstep.active .wstep-ic{color:#fff}
-.wstep .wstep-ic>[data-lucide],.wstep .wstep-ic>svg{width:17px;height:17px;stroke-width:2.25}
-.wstep-ic .wbadge{width:20px;height:20px;border-radius:50%;background:#16a34a;color:#fff;display:inline-flex;align-items:center;justify-content:center}
-.wstep-ic .wbadge [data-lucide],.wstep-ic .wbadge svg{width:13px;height:13px;stroke-width:3.25}
-.wbar-tools{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.wbar-tool{width:38px;height:38px;border:1px solid #e6e9ef;border-radius:10px;background:#fff;color:#6b7480;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s}
-.wbar-tool:hover{background:#f4f6fb;border-color:#d6dbe6;color:#1e2330}
-.wbar-tool [data-lucide],.wbar-tool svg{width:18px;height:18px}
+/* ══ WIZARD BAR ══════════════════════════════════════════════ */
+.wbar{background:#fff;border-bottom:1px solid #e8ecf5;height:52px;display:flex;align-items:center;padding:0 28px;gap:0;flex-shrink:0;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.wsteps{display:flex;align-items:center;flex:1;gap:0;overflow:hidden}
+.wstep{display:flex;align-items:center;gap:6px;padding:6px 12px;height:36px;font-size:12.5px;font-weight:500;color:#9aa3b2;white-space:nowrap;border-radius:6px;flex-shrink:0;transition:all .2s}
+.wstep.active{background:#1a1d23;color:#fff;font-weight:600}
+.wstep.done{color:#16a34a}
+.wstep-n{width:18px;height:18px;border-radius:50%;background:currentColor;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;font-weight:700;opacity:.25}
+.wstep.active .wstep-n{background:#fff;color:#1a1d23;opacity:1}
+.wstep.done .wstep-n{background:#16a34a;color:#fff;opacity:1}
+.warrow{color:#d0d6e2;margin:0 2px;font-size:13px}
 .wbar-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
 .wbar-client{display:flex;align-items:center;gap:8px;padding:5px 10px;background:#f4f6fb;border-radius:8px;border:1px solid #e8ecf5}
 .wbar-av{width:26px;height:26px;border-radius:50%;background:#1a1d23;color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}
@@ -46,7 +36,7 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:14px;backg
 .scr-hdr p{font-size:13px;color:#818da0;margin-top:4px}
 
 /* ══ CARD ════════════════════════════════════════════════════ */
-.card{background:#fff;border:1px solid #e6e9ef;border-radius:16px;margin-bottom:14px;overflow:hidden;box-shadow:0 1px 2px rgba(16,24,40,.04),0 1px 3px rgba(16,24,40,.05)}
+.card{background:#fff;border:1px solid #e4e8f0;border-radius:12px;margin-bottom:14px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.04)}
 .card-hdr{padding:14px 20px;border-bottom:1px solid #f0f2f8;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none}
 .card-hdr:hover{background:#fcfcfe}
 .card-ttl{font-size:14px;font-weight:600;color:#1a1d23}
@@ -55,39 +45,39 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:14px;backg
 
 /* ══ ROZCESTNÍK ══════════════════════════════════════════════ */
 .entry-choice{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
-.entry-btn{border:2px solid #e6e9ef;border-radius:16px;padding:24px 22px;background:#fff;cursor:pointer;text-align:left;transition:all .18s;display:flex;flex-direction:column;gap:10px}
-.entry-btn:hover{border-color:#2563eb;background:#f8f9ff;transform:translateY(-1px);box-shadow:0 4px 16px rgba(37,99,235,.1)}
-.entry-btn.selected{border-color:#2563eb;background:#f0f4ff;box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.entry-btn{border:2px solid #e4e8f0;border-radius:14px;padding:24px 22px;background:#fff;cursor:pointer;text-align:left;transition:all .18s;display:flex;flex-direction:column;gap:10px}
+.entry-btn:hover{border-color:#4466dd;background:#f8f9ff;transform:translateY(-1px);box-shadow:0 4px 16px rgba(68,102,221,.1)}
+.entry-btn.selected{border-color:#4466dd;background:#f0f4ff;box-shadow:0 0 0 3px rgba(68,102,221,.12)}
 .entry-btn-ico{font-size:28px}
 .entry-btn-ttl{font-size:15px;font-weight:700;color:#1a1d23}
 .entry-btn-sub{font-size:12px;color:#818da0;line-height:1.5}
 
 /* ══ GUIDED QUESTIONS ════════════════════════════════════════ */
 .q-wrap{display:flex;flex-direction:column;gap:20px}
-.q-block{background:#fff;border:1px solid #e6e9ef;border-radius:16px;padding:20px 22px;box-shadow:0 1px 3px rgba(0,0,0,.03)}
-.q-label{font-size:15px;font-weight:700;color:#1a1d23;margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.q-num{width:22px;height:22px;border-radius:50%;background:#2563eb;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.q-block{background:#fff;border:1px solid #e4e8f0;border-radius:12px;padding:20px 22px;box-shadow:0 1px 3px rgba(0,0,0,.03)}
+.q-label{font-size:13px;font-weight:700;color:#1a1d23;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.q-num{width:22px;height:22px;border-radius:50%;background:#1a1d23;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .q-opts{display:flex;flex-wrap:wrap;gap:8px}
-.q-opt{padding:8px 16px;border:1.5px solid #e6e9ef;border-radius:8px;background:#fff;cursor:pointer;font-size:13px;font-weight:500;color:#4a5568;transition:all .15s;user-select:none}
-.q-opt:hover{border-color:#9bb8fb;color:#1a1d23}
-.q-opt.sel{border-color:#2563eb;background:#eff4fe;color:#2563eb;font-weight:600}
+.q-opt{padding:8px 16px;border:1.5px solid #e4e8f0;border-radius:8px;background:#fff;cursor:pointer;font-size:13px;font-weight:500;color:#4a5568;transition:all .15s;user-select:none}
+.q-opt:hover{border-color:#8899ee;color:#1a1d23}
+.q-opt.sel{border-color:#4466dd;background:#eef1fb;color:#4466dd;font-weight:600}
 .q-opt.sel-green{border-color:#16a34a;background:#f0fdf4;color:#16a34a;font-weight:600}
 
 /* ══ CHIP-GRID (připojištění) ════════════════════════════════ */
 .chip-grid{display:flex;flex-wrap:wrap;gap:8px}
-.chip{padding:7px 13px;border:1.5px solid #e6e9ef;border-radius:20px;background:#fff;cursor:pointer;font-size:12.5px;font-weight:500;color:#4a5568;transition:all .15s;user-select:none;display:flex;align-items:center;gap:5px}
-.chip:hover{border-color:#9bb8fb}
-.chip.sel{border-color:#2563eb;background:#eff4fe;color:#2563eb;font-weight:600}
+.chip{padding:7px 13px;border:1.5px solid #e4e8f0;border-radius:20px;background:#fff;cursor:pointer;font-size:12.5px;font-weight:500;color:#4a5568;transition:all .15s;user-select:none;display:flex;align-items:center;gap:5px}
+.chip:hover{border-color:#8899ee}
+.chip.sel{border-color:#4466dd;background:#eef1fb;color:#4466dd;font-weight:600}
 .chip .chip-ico{font-size:14px}
 
 /* ══ UPLOAD ZONE ═════════════════════════════════════════════ */
 .upzone{border:2px dashed #c8d0e8;border-radius:12px;padding:28px;text-align:center;background:#f8f9ff;cursor:pointer;transition:all .2s}
-.upzone:hover{border-color:#2563eb;background:#f0f4ff}
+.upzone:hover{border-color:#4466dd;background:#f0f4ff}
 .upzone-ico{font-size:32px;margin-bottom:8px}
 .upzone-ttl{font-size:14px;font-weight:600;color:#1a1d23;margin-bottom:4px}
 .upzone-sub{font-size:12px;color:#818da0}
 .up-file-list{display:flex;flex-direction:column;gap:8px;margin-top:12px}
-.up-file{display:flex;align-items:center;gap:10px;padding:10px 13px;background:#fff;border:1px solid #e6e9ef;border-radius:9px}
+.up-file{display:flex;align-items:center;gap:10px;padding:10px 13px;background:#fff;border:1px solid #e4e8f0;border-radius:9px}
 .up-file-ico{font-size:18px}
 .up-file-name{flex:1;font-size:13px;font-weight:500;color:#1a1d23}
 .up-file-status{font-size:11px;font-weight:600;padding:3px 8px;border-radius:10px}
@@ -97,55 +87,50 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:14px;backg
 .up-file-rm:hover{background:#fee2e2;color:#e53e3e}
 
 /* ══ REC CARDS (Doporučení) ══════════════════════════════════ */
-.rec-card{border:1.5px solid #e6e9ef;border-radius:12px;padding:18px 20px;background:#fff;margin-bottom:12px;position:relative}
+.rec-card{border:1.5px solid #e4e8f0;border-radius:12px;padding:18px 20px;background:#fff;margin-bottom:12px;position:relative}
 .rec-card-hdr{display:flex;align-items:center;gap:10px;margin-bottom:16px}
 .rec-badge{padding:3px 10px;border-radius:10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
 .rec-badge.pov{background:#dbeafe;color:#1d4ed8}
 .rec-badge.hav{background:#fce7f3;color:#be185d}
 .rec-badge.oba{background:#ede9fe;color:#6d28d9}
-.rec-del{position:absolute;top:14px;right:14px;width:26px;height:26px;border:1px solid #e6e9ef;border-radius:6px;background:#fff;cursor:pointer;color:#818da0;font-size:14px;display:flex;align-items:center;justify-content:center}
+.rec-del{position:absolute;top:14px;right:14px;width:26px;height:26px;border:1px solid #e4e8f0;border-radius:6px;background:#fff;cursor:pointer;color:#818da0;font-size:14px;display:flex;align-items:center;justify-content:center}
 .rec-del:hover{background:#fee2e2;color:#e53e3e;border-color:#fca5a5}
 .rec-add-row{display:flex;gap:10px;flex-wrap:wrap}
-.rec-add-btn{padding:9px 16px;border:1.5px dashed #c8d0e8;border-radius:9px;background:#f8f9ff;cursor:pointer;font-size:13px;font-weight:600;color:#2563eb;transition:all .2s;display:flex;align-items:center;gap:6px}
-.rec-add-btn:hover{border-color:#2563eb;background:#eff4fe}
+.rec-add-btn{padding:9px 16px;border:1.5px dashed #c8d0e8;border-radius:9px;background:#f8f9ff;cursor:pointer;font-size:13px;font-weight:600;color:#4466dd;transition:all .2s;display:flex;align-items:center;gap:6px}
+.rec-add-btn:hover{border-color:#4466dd;background:#eef1fb}
 
 /* ══ COMPARE TABLE ════════════════════════════════════════════ */
-.cmp-tbl{border:1px solid #e6e9ef;border-radius:10px;overflow:hidden;font-size:12px}
-.cmp-hdr{display:grid;background:#f4f6fb;border-bottom:1px solid #e6e9ef}
+.cmp-tbl{border:1px solid #e4e8f0;border-radius:10px;overflow:hidden;font-size:12px}
+.cmp-hdr{display:grid;background:#f4f6fb;border-bottom:1px solid #e4e8f0}
 .cmp-row{display:grid;border-bottom:1px solid #f0f2f8}
 .cmp-row:last-child{border-bottom:none}
 .cmp-cell{padding:9px 11px;display:flex;align-items:center}
 .cmp-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#9aa3b2}
 
 /* ══ ZZJ LIVE PANEL ══════════════════════════════════════════ */
-.rpanel{width:320px;flex-shrink:0;background:#fff;border-left:1px solid #e8ecf5;display:flex;flex-direction:column;overflow:hidden}
+.rpanel{width:290px;flex-shrink:0;background:#fff;border-left:1px solid #e8ecf5;display:flex;flex-direction:column;overflow:hidden}
 .rpanel-tabs{display:flex;border-bottom:1px solid #e8ecf5;flex-shrink:0}
 .rpanel-tab{flex:1;padding:11px 8px;text-align:center;font-size:12px;font-weight:600;color:#9aa3b2;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s}
-.rpanel-tab.active{color:#2563eb;border-bottom-color:#2563eb}
-.rpanel-body{flex:1;overflow-y:auto;padding:18px 18px}
+.rpanel-tab.active{color:#1a1d23;border-bottom-color:#1a1d23}
+.rpanel-body{flex:1;overflow-y:auto;padding:14px 16px}
 
-/* Legislativní checklist (timeline dle Bety2) */
-.rp-check-item{position:relative;display:flex;flex-direction:column;padding:4px 0 14px}
-.rp-check-item:not(:last-child)::before{content:'';position:absolute;left:11px;top:28px;bottom:-4px;width:2px;background:#e6e9ef;z-index:0}
-.rp-check-top{display:flex;align-items:center;gap:11px}
-.rp-dot{width:24px;height:24px;border-radius:50%;border:2px solid #d1d5db;background:#fff;flex-shrink:0;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;transition:all .25s}
+/* Legislativní checklist */
+.rp-check-item{display:flex;flex-direction:column;padding:10px 0;border-bottom:1px solid #f0f2f8}
+.rp-check-item:last-child{border-bottom:none}
+.rp-check-top{display:flex;align-items:center;gap:9px}
+.rp-dot{width:20px;height:20px;border-radius:50%;border:2px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .25s}
 .rp-dot.done{background:#16a34a;border-color:#16a34a}
-.rp-dot.done [data-lucide],.rp-dot.done svg{width:13px;height:13px;color:#fff;stroke-width:3.5}
-.rp-check-lbl{font-size:15px;font-weight:700;color:#1a1d23}
-.rp-info{display:inline-flex;align-items:center;color:#b4bccb;margin-left:1px}
-.rp-info [data-lucide],.rp-info svg{width:15px;height:15px}
-.rp-check-item.dim .rp-check-lbl{color:#1a1d23}
-.rp-meta{margin-left:35px;margin-top:9px}
-.rp-meta-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.rp-av{width:42px;height:42px;border-radius:50%;background:#e7e9ef;color:#8a93a4;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative}
-.rp-av-badge{position:absolute;top:-1px;right:-1px;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid #fff}
-.rp-av-badge.ok{background:#16a34a;color:#fff}
-.rp-av-badge.x{background:#c3cad6;color:#fff}
-.rp-av-badge [data-lucide],.rp-av-badge svg{width:10px;height:10px;stroke-width:3.5}
-.rp-meta-text{display:flex;flex-direction:column;gap:1px;text-align:right;flex:1}
-.rp-date{font-size:12px;color:#9aa3b2}
-.rp-sublabel{font-size:12px;color:#9aa3b2}
-.rp-link{font-size:13px;font-weight:700;color:#2563eb;text-decoration:underline;cursor:pointer;white-space:nowrap}
+.rp-dot.done::after{content:'✓';color:#fff;font-size:10px;font-weight:700}
+.rp-dot.pending::after{content:'';width:6px;height:6px;border-radius:50%;background:#d1d5db;display:block;margin:auto}
+.rp-check-lbl{font-size:13px;font-weight:600;color:#1a1d23}
+.rp-check-item.dim .rp-check-lbl{color:#c0c8d8}
+.rp-meta{margin-left:29px;margin-top:5px}
+.rp-meta-row{display:flex;align-items:center;gap:7px;margin-top:3px}
+.rp-av{width:24px;height:24px;border-radius:50%;background:#1a1d23;color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.rp-av.green{background:#16a34a}
+.rp-av.err{background:#b45309}
+.rp-date{font-size:11px;color:#9aa3b2}
+.rp-sublabel{font-size:11px;color:#9aa3b2;font-style:italic}
 
 /* ZZJ Preview tab */
 .zzj-section{margin-bottom:14px}
@@ -158,7 +143,7 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:14px;backg
 .zzj-completion{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:8px;margin-bottom:14px;font-size:12px;font-weight:600}
 .zzj-completion.ok{background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0}
 .zzj-completion.warn{background:#fff9f0;color:#b45309;border:1px solid #fed7aa}
-.zzj-prog{height:4px;background:#e6e9ef;border-radius:2px;margin-bottom:16px;overflow:hidden}
+.zzj-prog{height:4px;background:#e4e8f0;border-radius:2px;margin-bottom:16px;overflow:hidden}
 .zzj-prog-bar{height:100%;background:#16a34a;border-radius:2px;transition:width .4s ease}
 
 /* ══ FORM ELEMENTS ═══════════════════════════════════════════ */
@@ -166,22 +151,21 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:14px;backg
 .f{display:flex;flex-direction:column;gap:5px;flex:1}
 .f.f2{flex:2}
 .f.f3{flex:3}
-.f label{font-size:13px;font-weight:600;color:#475467;letter-spacing:0}
-input[type=text],input[type=number],input[type=date],select,textarea{width:100%;border:1px solid #e6e9ef;border-radius:12px;padding:11px 14px;font-size:14px;font-family:inherit;color:#1e2330;background:#f7f8fa;outline:none;transition:all .15s}
-input:focus,select:focus,textarea:focus{border-color:#2563eb;background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.12)}
-input::placeholder,textarea::placeholder{color:#98a2b3}
-textarea{resize:vertical;line-height:1.55;min-height:84px}
+.f label{font-size:11px;font-weight:600;color:#6e768b;text-transform:uppercase;letter-spacing:.4px}
+input[type=text],input[type=number],input[type=date],select,textarea{width:100%;border:1.5px solid #e4e8f0;border-radius:8px;padding:8px 11px;font-size:13px;font-family:inherit;color:#1a1d23;background:#fff;outline:none;transition:border-color .15s}
+input:focus,select:focus,textarea:focus{border-color:#4466dd}
+textarea{resize:vertical;line-height:1.5}
 .req{color:#e53e3e}
-.slbl{font-size:13px;font-weight:600;color:#475467;letter-spacing:0;margin-bottom:8px}
+.slbl{font-size:11px;font-weight:700;color:#6e768b;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
 
 /* ══ BUTTONS ═════════════════════════════════════════════════ */
-.btn{padding:10px 18px;border-radius:10px;border:none;cursor:pointer;font-size:13.5px;font-weight:600;font-family:inherit;transition:all .15s;display:inline-flex;align-items:center;gap:6px}
-.btn-p{background:#2563eb;color:#fff}
-.btn-p:hover{background:#1d4ed8}
-.btn-s{background:#fff;color:#1a1d23;border:1.5px solid #e6e9ef}
+.btn{padding:9px 18px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:600;font-family:inherit;transition:all .15s}
+.btn-p{background:#1a1d23;color:#fff}
+.btn-p:hover{background:#2d3142}
+.btn-s{background:#fff;color:#1a1d23;border:1.5px solid #e4e8f0}
 .btn-s:hover{background:#f4f6fb;border-color:#c8d0e8}
-.btn-ai{padding:8px 14px;border-radius:10px;border:1.5px solid #cdddfb;background:#fff;color:#2563eb;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;display:inline-flex;align-items:center;gap:6px}
-.btn-ai:hover{background:#eff4fe;border-color:#2563eb}
+.btn-ai{padding:7px 14px;border-radius:7px;border:1.5px solid #7c3aed;background:#faf5ff;color:#7c3aed;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;display:inline-flex;align-items:center;gap:5px}
+.btn-ai:hover{background:#ede9fe;border-color:#6d28d9}
 .btn-sm{font-size:12px;padding:6px 12px}
 .brow{display:flex;align-items:center;gap:10px}
 .brow.btw{justify-content:space-between}
@@ -192,7 +176,7 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
 .banner-blue{background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af}
 .banner-warn{background:#fff9f0;border:1px solid #fed7aa;color:#92400e}
 .banner-ok{background:#f0fdf4;border:1px solid #bbf7d0;color:#166534}
-.banner-info{background:#f8f9ff;border:1px solid #e6e9ef;color:#4a5568}
+.banner-info{background:#f8f9ff;border:1px solid #e4e8f0;color:#4a5568}
 
 /* ══ DL GRID ═════════════════════════════════════════════════ */
 .dlg{display:grid;grid-template-columns:160px 1fr;gap:4px 12px}
@@ -208,23 +192,23 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
 /* ══ SPOL SLIDER ═════════════════════════════════════════════ */
 .sl-row{display:flex;gap:12px;align-items:center}
 .sl-track{flex:1;display:flex;flex-direction:column;gap:4px}
-.sl-track input[type=range]{width:100%;accent-color:#2563eb;height:4px}
+.sl-track input[type=range]{width:100%;accent-color:#1a1d23;height:4px}
 .sl-lbl{display:flex;justify-content:space-between;font-size:10px;color:#b0b8c8}
 .num-wrap{display:flex;align-items:center;gap:5px;flex-shrink:0}
 .num-wrap input{width:90px}
 .num-wrap span{font-size:12px;color:#818da0}
 
 /* ══ TOGGLE ══════════════════════════════════════════════════ */
-.tog-row{display:flex;align-items:center;gap:11px;padding:11px 14px;border:1.5px solid #e6e9ef;border-radius:9px;cursor:pointer;user-select:none;transition:all .15s;background:#fff}
-.tog-row:hover{border-color:#9bb8fb}
-.tog-row.on{border-color:#2563eb;background:#eff4fe}
+.tog-row{display:flex;align-items:center;gap:11px;padding:11px 14px;border:1.5px solid #e4e8f0;border-radius:9px;cursor:pointer;user-select:none;transition:all .15s;background:#fff}
+.tog-row:hover{border-color:#8899ee}
+.tog-row.on{border-color:#1a1d23;background:#f8f9fb}
 .tog{width:36px;height:20px;border-radius:10px;background:#d1d5db;flex-shrink:0;position:relative;transition:background .2s}
 .tog::after{content:'';position:absolute;width:14px;height:14px;border-radius:50%;background:#fff;top:3px;left:3px;transition:left .2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
-.tog-row.on .tog{background:#2563eb}
+.tog-row.on .tog{background:#1a1d23}
 .tog-row.on .tog::after{left:19px}
 
 /* ══ ACCORDION (ZZJ) ═════════════════════════════════════════ */
-.acc{border:1px solid #e6e9ef;border-radius:10px;margin-bottom:8px;overflow:hidden;background:#fff}
+.acc{border:1px solid #e4e8f0;border-radius:10px;margin-bottom:8px;overflow:hidden;background:#fff}
 .acc-hdr{padding:13px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-size:13px;font-weight:600;color:#1a1d23;user-select:none}
 .acc-hdr:hover{background:#f8f9fb}
 .acc-arr{font-size:11px;color:#9aa3b2;transition:transform .2s}
@@ -232,34 +216,12 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
 .acc-body{padding:14px 16px;border-top:1px solid #f0f2f8;font-size:13px}
 .acc-body.shut{display:none}
 
-/* ══ ZZJ DOKUMENT (kompaktní read-only souhrn) ═══════════════ */
-.zzj-doc{background:#fff;border:1px solid #e6e9ef;border-radius:16px;padding:4px 22px;box-shadow:0 1px 2px rgba(16,24,40,.04),0 1px 3px rgba(16,24,40,.05)}
-.zzj-doc-sec{padding:15px 0;border-bottom:1px solid #f0f2f8}
-.zzj-doc-sec:last-child{border-bottom:none}
-.zzj-doc-h{font-size:13px;font-weight:700;color:#1a1d23;margin-bottom:11px;display:flex;align-items:center;gap:8px}
-.zzj-doc-h .znum{width:20px;height:20px;border-radius:6px;background:#eff4fe;color:#2563eb;font-size:11px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
-
 /* ══ K4 SMLOUVY TABS ═════════════════════════════════════════ */
 .sml-tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
-.sml-tab{padding:8px 16px;border:1.5px solid #e6e9ef;border-radius:8px;background:#fff;cursor:pointer;font-size:13px;font-weight:600;color:#818da0;transition:all .15s}
-.sml-tab.active{border-color:#2563eb;color:#2563eb;background:#eff4fe}
+.sml-tab{padding:8px 16px;border:1.5px solid #e4e8f0;border-radius:8px;background:#fff;cursor:pointer;font-size:13px;font-weight:600;color:#818da0;transition:all .15s}
+.sml-tab.active{border-color:#1a1d23;color:#1a1d23;background:#f8f9fb}
 .sml-pane{display:none}
 .sml-pane.active{display:block}
-
-/* ══ VÝSLEDEK JEDNÁNÍ (volby vedle sebe) ═════════════════════ */
-.vj-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.vj-opt{position:relative;border:2px solid #e6e9ef;border-radius:14px;padding:16px 18px;cursor:pointer;display:flex;align-items:center;gap:13px;transition:all .15s;background:#fff;user-select:none}
-.vj-opt:hover{border-color:#cdd4e0;background:#fcfcfe}
-.vj-opt input{position:absolute;opacity:0;pointer-events:none}
-.vj-opt-ic{width:40px;height:40px;border-radius:11px;background:#f1f3f8;color:#8a93a4;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
-.vj-opt-ic [data-lucide],.vj-opt-ic svg{width:21px;height:21px}
-.vj-opt-ttl{font-size:14.5px;font-weight:700;color:#1a1d23;line-height:1.3}
-.vj-opt.ok:has(input:checked){border-color:#16a34a;background:#eef9f1}
-.vj-opt.ok:has(input:checked) .vj-opt-ic{background:#16a34a;color:#fff}
-.vj-opt.ok:has(input:checked) .vj-opt-ttl{color:#15803d}
-.vj-opt.no:has(input:checked){border-color:#dc2626;background:#fdf1f1}
-.vj-opt.no:has(input:checked) .vj-opt-ic{background:#dc2626;color:#fff}
-.vj-opt.no:has(input:checked) .vj-opt-ttl{color:#b91c1c}
 
 /* ══ SUCCESS ═════════════════════════════════════════════════ */
 .success-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;text-align:center;gap:16px}
@@ -269,13 +231,8 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
 .modal-box{background:#fff;border-radius:16px;padding:32px 28px;width:340px;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,.18);position:relative}
 .modal-close{position:absolute;top:14px;right:16px;font-size:18px;cursor:pointer;color:#818da0}
 .modal-close:hover{color:#1a1d23}
-.modal-box.modal-form{text-align:left;width:440px;padding:24px}
-.modal-form-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
-.modal-form-ttl{font-size:17px;font-weight:700;color:#1a1d23}
-.modal-form .modal-close{position:static;display:inline-flex;align-items:center}
-.modal-form .modal-close [data-lucide],.modal-form .modal-close svg{width:18px;height:18px}
 @keyframes spin{to{transform:rotate(360deg)}}
-.spnr{width:13px;height:13px;border:2px solid #cdddfb;border-top-color:#2563eb;border-radius:50%;animation:spin .6s linear infinite;display:inline-block}
+.spnr{width:13px;height:13px;border:2px solid #d4b8ff;border-top-color:#7c3aed;border-radius:50%;animation:spin .6s linear infinite;display:inline-block}
 
 /* ══ BOTTOM BAR ══════════════════════════════════════════════ */
 .bbar{background:#fff;border-top:1px solid #e8ecf5;padding:11px 32px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
@@ -284,16 +241,7 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
 
 /* ══ RADIO / CHECKBOX HELPERS ════════════════════════════════ */
 .rdr{display:flex;align-items:flex-start;gap:9px;cursor:pointer;font-size:13px;line-height:1.4}
-.rdr input{margin-top:2px;accent-color:#2563eb}
-
-/* ══ LUCIDE IKONY ════════════════════════════════════════════ */
-[data-lucide],svg.lucide{width:1.1em;height:1.1em;stroke-width:2;vertical-align:-.15em;flex-shrink:0;display:inline-block}
-.entry-btn-ico [data-lucide],.entry-btn-ico svg{width:30px;height:30px;stroke-width:1.75;color:#2563eb}
-.upzone-ico [data-lucide],.upzone-ico svg{width:30px;height:30px;color:#2563eb}
-.chip-ico{display:inline-flex;align-items:center}
-.q-opt [data-lucide],.q-opt svg{margin-right:3px}
-.btn [data-lucide],.btn svg,.btn-ai [data-lucide],.btn-ai svg{width:15px;height:15px}
-/* (velikosti ikon stepperu řešeny v sekci WIZARD BAR výše) */
+.rdr input{margin-top:2px;accent-color:#1a1d23}
 </style>
 </head>
 <body>
@@ -301,15 +249,24 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
 <!-- ══ WIZARD BAR ══════════════════════════════════════════════ -->
 <div class="wbar">
   <div class="wsteps">
-    <div class="wstep active" id="ws1"><span class="wstep-ic"></span><span class="wstep-lbl">Požadavky klienta</span></div>
-    <div class="wstep" id="ws2"><span class="wstep-ic"></span><span class="wstep-lbl">Doporučení poradce</span></div>
-    <div class="wstep" id="ws3"><span class="wstep-ic"></span><span class="wstep-lbl">Odeslání ZZJ</span></div>
-    <div class="wstep" id="ws4"><span class="wstep-ic"></span><span class="wstep-lbl">K předání na BT</span></div>
-    <div class="wstep" id="ws5"><span class="wstep-ic"></span><span class="wstep-lbl">Zpracování na BT</span></div>
+    <div class="wstep active" id="ws1"><span class="wstep-n" style="background:currentColor;color:transparent">1</span>Požadavky klienta</div>
+    <span class="warrow">›</span>
+    <div class="wstep" id="ws2"><span class="wstep-n">2</span>Doporučení poradce</div>
+    <span class="warrow">›</span>
+    <div class="wstep" id="ws3"><span class="wstep-n">3</span>Odeslání ZZJ</div>
+    <span class="warrow">›</span>
+    <div class="wstep" id="ws4"><span class="wstep-n">4</span>K předání na BT</div>
+    <span class="warrow">›</span>
+    <div class="wstep" id="ws5"><span class="wstep-n">5</span>Zpracování na BT</div>
   </div>
-  <div class="wbar-tools">
-    <button class="wbar-tool" title="Nápověda"><i data-lucide="lightbulb"></i></button>
-    <button class="wbar-tool" title="Smazat"><i data-lucide="trash-2"></i></button>
+  <div class="wbar-right">
+    <div class="wbar-client">
+      <div class="wbar-av">EN</div>
+      <div>
+        <div class="wbar-name">Eva Nováková</div>
+        <div class="wbar-sub">Neživot Auta</div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -330,12 +287,12 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
       <!-- ROZCESTNÍK -->
       <div class="entry-choice">
         <button class="entry-btn" id="entry-upload" onclick="selectEntry('upload')">
-          <div class="entry-btn-ico"><i data-lucide="paperclip"></i></div>
+          <div class="entry-btn-ico">📎</div>
           <div class="entry-btn-ttl">Mám modelaci od pojišťovny</div>
           <div class="entry-btn-sub">Nahraju soubor a systém vytěží parametry automaticky. Šetří čas.</div>
         </button>
         <button class="entry-btn" id="entry-manual" onclick="selectEntry('manual')">
-          <div class="entry-btn-ico"><i data-lucide="pencil"></i></div>
+          <div class="entry-btn-ico">✏️</div>
           <div class="entry-btn-ttl">Zadám ručně</div>
           <div class="entry-btn-sub">Projdu pár krátkých otázek a vyplním, co klient chce.</div>
         </button>
@@ -350,14 +307,14 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
           </div>
           <div class="card-body">
             <div class="upzone" id="up-zone-k1" onclick="showUpFiles('k1')">
-              <div class="upzone-ico"><i data-lucide="file-text"></i></div>
+              <div class="upzone-ico">📄</div>
               <div class="upzone-ttl">Klikni nebo přetáhni soubor</div>
               <div class="upzone-sub">PDF, XLS, DOC — kalkulace nebo návrh smlouvy</div>
             </div>
             <div class="up-file-list" id="up-files-k1" style="display:none"></div>
             <div id="up-k1-done" style="display:none;margin-top:14px">
-              <div class="banner banner-ok"><i data-lucide="circle-check"></i> Modelace vytěžena. Parametry předvyplněny níže – zkontrolujte a upravte podle potřeby.</div>
-              <button class="btn-ai" onclick="showManualSection()" style="margin-top:4px"><i data-lucide="clipboard-list"></i> Zobrazit / upravit parametry</button>
+              <div class="banner banner-ok">✅ Modelace vytěžena. Parametry předvyplněny níže – zkontrolujte a upravte podle potřeby.</div>
+              <button class="btn-ai" onclick="showManualSection()" style="margin-top:4px">📋 Zobrazit / upravit parametry</button>
             </div>
           </div>
         </div>
@@ -370,12 +327,12 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
           <!-- Q0: AI vytěžení z volného textu (email, poznámky atd.) -->
           <div class="q-block" style="border-style:dashed;border-color:#c8d0e8;background:#f8f9ff">
             <div class="q-label" style="margin-bottom:8px">
-              <span style="font-size:18px"><i data-lucide="sparkles"></i></span>
+              <span style="font-size:18px">✨</span>
               Máte text s požadavky klienta? (e-mail, poznámky, přepis hovoru)
             </div>
             <textarea id="k1-ai-text" rows="3" placeholder="Vložte text – např. e-mail od klienta nebo poznámky z telefonátu. AI z toho vytěží a předvyplní formulář níže…"></textarea>
             <div style="display:flex;align-items:center;gap:8px;margin-top:9px">
-              <button class="btn-ai" onclick="aiExtractFromText()"><i data-lucide="sparkles"></i> Vytěžit a vyplnit formulář</button>
+              <button class="btn-ai" onclick="aiExtractFromText()">✨ Vytěžit a vyplnit formulář</button>
               <span id="ai-extract-sp" style="display:none;font-size:12px;color:#818da0"><span class="spnr"></span> Analyzuji text…</span>
               <span id="ai-extract-done" style="display:none;font-size:12px;color:#16a34a;font-weight:600">✓ Formulář předvyplněn níže</span>
             </div>
@@ -387,11 +344,11 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
 
             <!-- RZ/VIN lookup -->
             <div style="margin-bottom:14px">
-              <label style="font-size:13px;font-weight:600;color:#475467;display:block;margin-bottom:5px">SPZ nebo VIN <span class="req">*</span></label>
+              <label style="font-size:11px;font-weight:600;color:#6e768b;text-transform:uppercase;letter-spacing:.4px;display:block;margin-bottom:5px">SPZ nebo VIN <span class="req">*</span></label>
               <div style="display:flex;gap:8px;align-items:center">
                 <input type="text" id="k1-rz" placeholder="např. 1AE Z080 nebo WVW…" style="flex:1;text-transform:uppercase" oninput="onRzInput()" onkeydown="if(event.key==='Enter')lookupRz()">
                 <button class="btn btn-s" id="rz-lookup-btn" onclick="lookupRz()" style="white-space:nowrap;flex-shrink:0;display:flex;align-items:center;gap:6px;padding:8px 14px" disabled>
-                  <span id="rz-btn-ico"><i data-lucide="search"></i></span>
+                  <span id="rz-btn-ico">🔍</span>
                   <span id="rz-btn-lbl">Vyhledat z registru</span>
                 </button>
               </div>
@@ -403,7 +360,7 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
               <div id="rz-result-card" style="border:1.5px solid #bbf7d0;border-radius:10px;padding:14px 16px;background:#f0fdf4">
                 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
                   <div style="display:flex;align-items:center;gap:7px">
-                    <span style="font-size:16px"><i data-lucide="car"></i></span>
+                    <span style="font-size:16px">🚗</span>
                     <span style="font-size:13px;font-weight:700;color:#166534" id="rz-result-ttl">Vozidlo nalezeno</span>
                   </div>
                   <button onclick="clearRzResult()" style="font-size:11px;color:#9aa3b2;background:none;border:none;cursor:pointer;text-decoration:underline">Zadat jiné</button>
@@ -419,8 +376,8 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
             <!-- Ruční pole – zobrazí se po přijetí výsledku nebo po "Zadat ručně" -->
             <div id="rz-manual-fields" style="display:none">
               <div id="rz-from-lookup-bar" style="display:none;align-items:center;gap:7px;margin-bottom:12px;padding:7px 10px;background:#f4f6fb;border-radius:7px;font-size:12px;color:#6e768b">
-                <span><i data-lucide="pencil"></i></span> Data načtena z registru – lze upravit
-                <button onclick="clearRzResult()" style="margin-left:auto;font-size:11px;color:#2563eb;background:none;border:none;cursor:pointer;text-decoration:underline">Vymazat a hledat znovu</button>
+                <span>✏️</span> Data načtena z registru – lze upravit
+                <button onclick="clearRzResult()" style="margin-left:auto;font-size:11px;color:#4466dd;background:none;border:none;cursor:pointer;text-decoration:underline">Vymazat a hledat znovu</button>
               </div>
               <div class="frow" style="margin-bottom:0">
                 <div class="f f2"><label>Značka</label><input type="text" id="k1-znacka" placeholder="Škoda" oninput="liveZzj()"></div>
@@ -436,7 +393,7 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
               <!-- Pojištěný – jen pokud jiný než pojistník -->
               <div style="margin-top:12px" id="pojisteny-wrap">
                 <button class="btn btn-s btn-sm" id="add-pojisteny-btn" onclick="addPojisteny()">+ Přidat pojištěného (pokud jiný než klient)</button>
-                <div id="pojisteny-fields" style="display:none;margin-top:10px;border:1.5px solid #e6e9ef;border-radius:9px;padding:13px;background:#fafbfd">
+                <div id="pojisteny-fields" style="display:none;margin-top:10px;border:1.5px solid #e4e8f0;border-radius:9px;padding:13px;background:#fafbfd">
                   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px">
                     <span style="font-size:12px;font-weight:600;color:#6e768b">Pojištěný (jiná osoba)</span>
                     <button onclick="removePojisteny()" style="background:none;border:none;color:#9aa3b2;cursor:pointer;font-size:13px">✕</button>
@@ -451,7 +408,7 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
 
             <!-- Stav: nič nenalezeno -->
             <div id="rz-not-found" style="display:none;padding:12px 14px;border:1.5px solid #fca5a5;border-radius:10px;background:#fff5f5;font-size:13px;color:#9b2335;margin-bottom:10px">
-              <i data-lucide="circle-x"></i> Vozidlo s touto SPZ/VIN nenalezeno. Zkontrolujte zadání nebo <button onclick="showManualOnly()" style="background:none;border:none;color:#2563eb;cursor:pointer;font-size:13px;text-decoration:underline;padding:0">zadejte ručně</button>.
+              ❌ Vozidlo s touto SPZ/VIN nenalezeno. Zkontrolujte zadání nebo <button onclick="showManualOnly()" style="background:none;border:none;color:#4466dd;cursor:pointer;font-size:13px;text-decoration:underline;padding:0">zadejte ručně</button>.
             </div>
 
           </div>
@@ -470,9 +427,9 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
             </div>
             <div class="slbl" style="margin-top:4px">Co chce klient pojistit?</div>
             <div class="q-opts" id="q-ins">
-              <div class="q-opt" data-v="pov" onclick="selQ('q-ins',this,'single');showPovHav();liveZzj()"><i data-lucide="shield"></i> Jen povinné ručení (POV)</div>
-              <div class="q-opt" data-v="hav" onclick="selQ('q-ins',this,'single');showPovHav();liveZzj()"><i data-lucide="car"></i> Jen havarijní pojištění (HAV)</div>
-              <div class="q-opt" data-v="both" onclick="selQ('q-ins',this,'single');showPovHav();liveZzj()"><i data-lucide="shield"></i>+<i data-lucide="car"></i> POV i HAV</div>
+              <div class="q-opt" data-v="pov" onclick="selQ('q-ins',this,'single');showPovHav();liveZzj()">🛡️ Jen povinné ručení (POV)</div>
+              <div class="q-opt" data-v="hav" onclick="selQ('q-ins',this,'single');showPovHav();liveZzj()">🚗 Jen havarijní pojištění (HAV)</div>
+              <div class="q-opt" data-v="both" onclick="selQ('q-ins',this,'single');showPovHav();liveZzj()">🛡️+🚗 POV i HAV</div>
             </div>
           </div>
 
@@ -490,8 +447,8 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
           <div class="q-block" id="q-hav-block" style="display:none">
             <div class="q-label"><span class="q-num" id="q-hav-num">4</span><span style="background:#fce7f3;color:#be185d;font-size:10px;font-weight:700;border-radius:5px;padding:2px 7px;text-transform:uppercase;letter-spacing:.4px;margin-right:6px">HAV</span>Jak velké riziko chce klient krýt?</div>
             <div class="q-opts" style="margin-bottom:14px">
-              <div class="q-opt" data-ar="1" onclick="selQ('q-ar',this,'single');toggleARGuided(true);liveZzj()"><i data-lucide="star"></i> Allrisk – vše</div>
-              <div class="q-opt" data-ar="0" onclick="selQ('q-ar',this,'single');toggleARGuided(false);liveZzj()"><i data-lucide="clipboard-list"></i> Vyberu rizika sám</div>
+              <div class="q-opt" data-ar="1" onclick="selQ('q-ar',this,'single');toggleARGuided(true);liveZzj()">⭐ Allrisk – vše</div>
+              <div class="q-opt" data-ar="0" onclick="selQ('q-ar',this,'single');toggleARGuided(false);liveZzj()">📋 Vyberu rizika sám</div>
             </div>
             <div id="q-riz-detail" style="display:none">
               <div style="display:flex;align-items:center;gap:8px;margin-bottom:9px">
@@ -499,12 +456,12 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
                 <span id="q-ar-badge" style="display:none;font-size:11px;font-weight:600;background:#1a1d23;color:#fff;border-radius:5px;padding:2px 8px">ALLRISK – zahrnuto vše</span>
               </div>
               <div class="chip-grid" id="q-rizika">
-                <div class="chip" data-v="r-hav" onclick="togChip(this);liveZzj()"><span class="chip-ico"><i data-lucide="car-front"></i></span>Havárie</div>
-                <div class="chip" data-v="r-odc" onclick="togChip(this);liveZzj()"><span class="chip-ico"><i data-lucide="lock-open"></i></span>Odcizení</div>
-                <div class="chip" data-v="r-ziv" onclick="togChip(this);liveZzj()"><span class="chip-ico"><i data-lucide="cloud-lightning"></i></span>Živel</div>
-                <div class="chip" data-v="r-van" onclick="togChip(this);liveZzj()"><span class="chip-ico"><i data-lucide="hammer"></i></span>Vandalismus</div>
-                <div class="chip" data-v="r-zver" onclick="togChip(this);liveZzj()"><span class="chip-ico"><i data-lucide="paw-print"></i></span>Střet se zvěří</div>
-                <div class="chip" data-v="r-zvire" onclick="togChip(this);liveZzj()"><span class="chip-ico"><i data-lucide="squirrel"></i></span>Poškození zvířetem</div>
+                <div class="chip" data-v="r-hav" onclick="togChip(this);liveZzj()"><span class="chip-ico">💥</span>Havárie</div>
+                <div class="chip" data-v="r-odc" onclick="togChip(this);liveZzj()"><span class="chip-ico">🔓</span>Odcizení</div>
+                <div class="chip" data-v="r-ziv" onclick="togChip(this);liveZzj()"><span class="chip-ico">⛈️</span>Živel</div>
+                <div class="chip" data-v="r-van" onclick="togChip(this);liveZzj()"><span class="chip-ico">🔨</span>Vandalismus</div>
+                <div class="chip" data-v="r-zver" onclick="togChip(this);liveZzj()"><span class="chip-ico">🦌</span>Střet se zvěří</div>
+                <div class="chip" data-v="r-zvire" onclick="togChip(this);liveZzj()"><span class="chip-ico">🐿️</span>Poškození zvířetem</div>
               </div>
             </div>
 
@@ -526,10 +483,10 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
             <div class="slbl">Zabezpečení vozidla <span style="font-weight:400;color:#b0b8c8;text-transform:none;letter-spacing:0">(lze vybrat víc)</span></div>
             <div class="chip-grid" id="q-zabezpeceni" style="margin-bottom:4px">
               <div class="chip" data-v="z-zadne" onclick="togChip(this)"><span class="chip-ico">∅</span>Žádné</div>
-              <div class="chip" data-v="z-mech" onclick="togChip(this)"><span class="chip-ico"><i data-lucide="wrench"></i></span>Mechanické</div>
-              <div class="chip" data-v="z-alarm" onclick="togChip(this)"><span class="chip-ico"><i data-lucide="siren"></i></span>Alarm</div>
-              <div class="chip" data-v="z-imob" onclick="togChip(this)"><span class="chip-ico"><i data-lucide="key-round"></i></span>Imobilizér</div>
-              <div class="chip" data-v="z-gps" onclick="togChip(this)"><span class="chip-ico"><i data-lucide="map-pin"></i></span>GPS lokátor</div>
+              <div class="chip" data-v="z-mech" onclick="togChip(this)"><span class="chip-ico">🔧</span>Mechanické</div>
+              <div class="chip" data-v="z-alarm" onclick="togChip(this)"><span class="chip-ico">🚨</span>Alarm</div>
+              <div class="chip" data-v="z-imob" onclick="togChip(this)"><span class="chip-ico">🔑</span>Imobilizér</div>
+              <div class="chip" data-v="z-gps" onclick="togChip(this)"><span class="chip-ico">📍</span>GPS lokátor</div>
             </div>
           </div>
 
@@ -538,16 +495,16 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
           <div class="q-block" id="q-pripoj-block" style="display:none">
             <div class="q-label"><span class="q-num" id="q-pp-num">5</span>Co chce mít navíc?</div>
             <div class="chip-grid" id="q-pripoj">
-              <div class="chip" data-v="p-skla" onclick="togChip(this);toggleSklarLim();liveZzj()"><span class="chip-ico"><i data-lucide="square"></i></span>Skla</div>
-              <div class="chip" data-v="p-asist" onclick="togChip(this);liveZzj()"><span class="chip-ico"><i data-lucide="siren"></i></span>Rozšířená asistence</div>
-              <div class="chip" data-v="p-nahr" onclick="togChip(this);liveZzj()"><span class="chip-ico"><i data-lucide="car"></i></span>Náhradní vozidlo</div>
-              <div class="chip" data-v="p-uraz" onclick="togChip(this);liveZzj()"><span class="chip-ico"><i data-lucide="heart-pulse"></i></span>Úraz posádky</div>
-              <div class="chip" data-v="p-zavaz" onclick="togChip(this);liveZzj()"><span class="chip-ico"><i data-lucide="luggage"></i></span>Zavazadla</div>
-              <div class="chip" data-v="p-zver2" onclick="togChip(this);liveZzj()"><span class="chip-ico"><i data-lucide="paw-print"></i></span>Střet se zvěří</div>
-              <div class="chip" data-v="p-zvire2" onclick="togChip(this);liveZzj()"><span class="chip-ico"><i data-lucide="squirrel"></i></span>Poškození zvířetem</div>
-              <div class="chip" data-v="p-gap" onclick="togChip(this);liveZzj()"><span class="chip-ico"><i data-lucide="banknote"></i></span>GAP</div>
-              <div class="chip" data-v="p-pravni" onclick="togChip(this);liveZzj()"><span class="chip-ico"><i data-lucide="scale"></i></span>Právní ochrana</div>
-              <div class="chip" data-v="p-prima" onclick="togChip(this);liveZzj()"><span class="chip-ico"><i data-lucide="wrench"></i></span>Přímá likvidace</div>
+              <div class="chip" data-v="p-skla" onclick="togChip(this);toggleSklarLim();liveZzj()"><span class="chip-ico">🔲</span>Skla</div>
+              <div class="chip" data-v="p-asist" onclick="togChip(this);liveZzj()"><span class="chip-ico">🚨</span>Rozšířená asistence</div>
+              <div class="chip" data-v="p-nahr" onclick="togChip(this);liveZzj()"><span class="chip-ico">🚗</span>Náhradní vozidlo</div>
+              <div class="chip" data-v="p-uraz" onclick="togChip(this);liveZzj()"><span class="chip-ico">🏥</span>Úraz posádky</div>
+              <div class="chip" data-v="p-zavaz" onclick="togChip(this);liveZzj()"><span class="chip-ico">🧳</span>Zavazadla</div>
+              <div class="chip" data-v="p-zver2" onclick="togChip(this);liveZzj()"><span class="chip-ico">🦌</span>Střet se zvěří</div>
+              <div class="chip" data-v="p-zvire2" onclick="togChip(this);liveZzj()"><span class="chip-ico">🐿️</span>Poškození zvířetem</div>
+              <div class="chip" data-v="p-gap" onclick="togChip(this);liveZzj()"><span class="chip-ico">💰</span>GAP</div>
+              <div class="chip" data-v="p-pravni" onclick="togChip(this);liveZzj()"><span class="chip-ico">⚖️</span>Právní ochrana</div>
+              <div class="chip" data-v="p-prima" onclick="togChip(this);liveZzj()"><span class="chip-ico">🔧</span>Přímá likvidace</div>
             </div>
             <div id="q-skla-lim" style="display:none;margin-top:12px">
               <div class="f" style="max-width:200px">
@@ -567,7 +524,7 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
             <div class="q-label"><span class="q-num" id="q-txt-num">6</span>Chce klient ještě něco jiného?</div>
             <textarea id="k1-text" rows="2" placeholder="Volitelné – speciální požadavky, priority, poznámky k jednání…" oninput="liveZzj()"></textarea>
             <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
-              <button class="btn-ai" onclick="aiText()"><i data-lucide="sparkles"></i> Zpracovat text pomocí AI</button>
+              <button class="btn-ai" onclick="aiText()">✨ Zpracovat text pomocí AI</button>
               <span id="ai-sp" style="display:none;font-size:12px;color:#818da0"><span class="spnr"></span> Zpracovávám…</span>
             </div>
           </div>
@@ -578,7 +535,7 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
       <!-- Bottom nav K1 -->
       <div id="k1-nav" style="display:none;margin-top:24px">
         <div class="brow end">
-          <button class="btn btn-p" onclick="goK2()">Doporučení poradce <i data-lucide="arrow-right"></i></button>
+          <button class="btn btn-p" onclick="goK2()">Doporučení poradce →</button>
         </div>
       </div>
 
@@ -613,12 +570,12 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
       <div class="card">
         <div class="card-hdr" style="cursor:default"><span class="card-ttl">Výsledek jednání</span></div>
         <div class="card-body">
-          <div class="vj-grid" id="volba-grp">
-            <label class="vj-opt ok"><input type="radio" name="volba" value="vybrano" onchange="onVolba()"><span class="vj-opt-ic"><i data-lucide="circle-check"></i></span><span class="vj-opt-ttl">Klient přijal doporučení</span></label>
-            <label class="vj-opt no"><input type="radio" name="volba" value="odmitl" onchange="onVolba()"><span class="vj-opt-ic"><i data-lucide="circle-x"></i></span><span class="vj-opt-ttl">Klient odmítl navrhované řešení</span></label>
+          <div style="display:flex;flex-direction:column;gap:9px" id="volba-grp">
+            <label class="rdr"><input type="radio" name="volba" value="odmitl"> Klient odmítl navrhované řešení</label>
+            <label class="rdr"><input type="radio" name="volba" value="vybrano" onchange="onVolba()"> Klient přijal doporučení</label>
           </div>
           <div id="volba-dd" style="display:none;margin-top:12px">
-            <div class="banner banner-info" style="margin-bottom:10px"><i data-lucide="lightbulb"></i> Označte které produkty klient přijal – mohou být i všechny.</div>
+            <div class="banner banner-info" style="margin-bottom:10px">💡 Označte které produkty klient přijal – mohou být i všechny.</div>
             <div id="volba-checkboxes" style="display:flex;flex-direction:column;gap:8px"></div>
           </div>
         </div>
@@ -644,15 +601,15 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
 
       <!-- Evidence -->
       <div class="card">
-        <div class="card-hdr" onclick="toggleCard(this)"><span class="card-ttl">Evidence procesu</span><span style="font-size:11px;color:#9aa3b2">▲</span></div>
-        <div class="card-body">
+        <div class="card-hdr" onclick="toggleCard(this)"><span class="card-ttl">Evidence procesu</span><span style="font-size:11px;color:#9aa3b2">▼</span></div>
+        <div class="card-body shut">
           <div class="frow"><div class="f"><label>Poradce představil informační list</label><input type="date" id="ev1"></div><div class="f"><label>Poradce zjistil požadavky</label><input type="date" id="ev2"></div><div class="f"><label>Klient vybral řešení</label><input type="date" id="ev3"></div></div>
         </div>
       </div>
 
       <div class="brow btw" style="margin-top:8px">
-        <button class="btn btn-s" onclick="goK1()"><i data-lucide="arrow-left"></i> Zpět</button>
-        <button class="btn btn-p" onclick="tryGoK3()">Náhled ZZJ <i data-lucide="arrow-right"></i></button>
+        <button class="btn btn-s" onclick="goK1()">← Zpět</button>
+        <button class="btn btn-p" onclick="tryGoK3()">Náhled ZZJ →</button>
       </div>
     </div><!-- /scr-k2 -->
 
@@ -662,35 +619,40 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
     <div class="screen" id="scr-k3">
       <div class="scr-hdr">
         <h1>Záznam z jednání</h1>
-        <p>Souhrn ZZJ ke kontrole před odesláním. Povinné dle § 77 zák. č. 170/2018 Sb.</p>
+        <p>Zkontrolujte a doplňte ZZJ před odesláním. Povinné dle § 77 zák. č. 170/2018 Sb.</p>
       </div>
 
-      <div class="zzj-doc">
-        <div class="zzj-doc-sec"><div class="zzj-doc-h"><span class="znum">1</span>Informace o klientovi</div><div id="k3-klient"></div></div>
-        <div class="zzj-doc-sec"><div class="zzj-doc-h"><span class="znum">2</span>Informace o poradci</div>
-          <div class="dlg">
-            <div class="dll">Jméno poradce</div><div class="dlv">Martin Veselý</div>
-            <div class="dll">Reg. číslo ČNB</div><div class="dlv">98765432</div>
-            <div class="dll">Zprostředkovatel</div><div class="dlv">BrokerTrust a.s.</div>
-          </div>
+      <div class="acc"><div class="acc-hdr" onclick="toggleAcc(this)"><span>1 · Informace o klientovi</span><span class="acc-arr open">▼</span></div><div class="acc-body" id="k3-klient"></div></div>
+      <div class="acc"><div class="acc-hdr" onclick="toggleAcc(this)"><span>2 · Informace o poradci</span><span class="acc-arr open">▼</span></div><div class="acc-body">
+        <div class="dlg">
+          <div class="dll">Jméno poradce</div><div class="dlv">Martin Veselý</div>
+          <div class="dll">Reg. číslo ČNB</div><div class="dlv">98765432</div>
+          <div class="dll">Zprostředkovatel</div><div class="dlv">BrokerTrust a.s.</div>
         </div>
-        <div class="zzj-doc-sec"><div class="zzj-doc-h"><span class="znum">3</span>Vozidlo</div><div id="k3-voz"></div></div>
-        <div class="zzj-doc-sec"><div class="zzj-doc-h"><span class="znum">4</span>Cíle klienta</div>
-          <div class="dlg"><div class="dll">Cíl klienta</div><div class="dlv">Ochrana před finanční ztrátou při pojistné události</div></div>
+      </div></div>
+      <div class="acc"><div class="acc-hdr" onclick="toggleAcc(this)"><span>3 · Vozidlo</span><span class="acc-arr">▼</span></div><div class="acc-body shut" id="k3-voz"></div></div>
+      <div class="acc"><div class="acc-hdr" onclick="toggleAcc(this)"><span>4 · Cíle klienta</span><span class="acc-arr">▼</span></div><div class="acc-body shut">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <label class="rdr"><input type="radio" name="k3-cil" checked> Ochrana před finanční ztrátou při pojistné události</label>
+          <label class="rdr"><input type="radio" name="k3-cil"> Splnění zákonné povinnosti – povinné ručení</label>
+          <label class="rdr"><input type="radio" name="k3-cil"> Ochrana financování vozidla (leasing / úvěr)</label>
+          <label class="rdr"><input type="radio" name="k3-cil"> Komplexní ochrana majetku (allrisk)</label>
+          <label class="rdr"><input type="radio" name="k3-cil" onchange="document.getElementById('k3-cil-jine').style.display='block'"> Jiné</label>
         </div>
-        <div class="zzj-doc-sec"><div class="zzj-doc-h"><span class="znum">5</span>Požadavky a potřeby</div><div id="k3-poz"></div></div>
-        <div class="zzj-doc-sec"><div class="zzj-doc-h"><span class="znum">6</span>Doporučení poradce</div><div id="k3-rec"></div></div>
-        <div class="zzj-doc-sec"><div class="zzj-doc-h"><span class="znum">7</span>Upozornění</div><div id="k3-up"></div></div>
-        <div class="zzj-doc-sec"><div class="zzj-doc-h"><span class="znum">8</span>Odmítnutá rizika</div><div id="k3-odmit"></div></div>
-        <div class="zzj-doc-sec"><div class="zzj-doc-h"><span class="znum">9</span>Evidence procesu</div><div id="k3-ev"></div></div>
-        <div class="zzj-doc-sec"><div class="zzj-doc-h"><span class="znum">10</span>Závěrečné prohlášení</div>
-          <p style="font-size:12px;color:#555;line-height:1.7;margin:0">Potvrzuji, že jsem klienta řádně informoval/a o všech podstatných skutečnostech týkajících se navrhovaného pojistného produktu, zjistil/a jeho požadavky a potřeby a doporučil/a vhodné řešení. Tento záznam slouží jako doklad splnění povinností dle § 77 zákona č. 170/2018 Sb.</p>
-        </div>
-      </div>
+        <div id="k3-cil-jine" style="display:none;margin-top:9px"><textarea rows="2" placeholder="Popište cíl…"></textarea></div>
+      </div></div>
+      <div class="acc"><div class="acc-hdr" onclick="toggleAcc(this)"><span>5 · Požadavky a potřeby</span><span class="acc-arr">▼</span></div><div class="acc-body shut" id="k3-poz"></div></div>
+      <div class="acc"><div class="acc-hdr" onclick="toggleAcc(this)"><span>6 · Doporučení poradce</span><span class="acc-arr open">▼</span></div><div class="acc-body" id="k3-rec"></div></div>
+      <div class="acc"><div class="acc-hdr" onclick="toggleAcc(this)"><span>7 · Upozornění</span><span class="acc-arr">▼</span></div><div class="acc-body shut" id="k3-up"></div></div>
+      <div class="acc"><div class="acc-hdr" onclick="toggleAcc(this)"><span>8 · Odmítnutá rizika</span><span class="acc-arr">▼</span></div><div class="acc-body shut" id="k3-odmit"></div></div>
+      <div class="acc"><div class="acc-hdr" onclick="toggleAcc(this)"><span>9 · Evidence procesu</span><span class="acc-arr">▼</span></div><div class="acc-body shut" id="k3-ev"></div></div>
+      <div class="acc"><div class="acc-hdr" onclick="toggleAcc(this)"><span>10 · Závěrečné prohlášení</span><span class="acc-arr">▼</span></div><div class="acc-body shut">
+        <p style="font-size:12px;color:#555;line-height:1.7;margin-bottom:0">Potvrzuji, že jsem klienta řádně informoval/a o všech podstatných skutečnostech týkajících se navrhovaného pojistného produktu, zjistil/a jeho požadavky a potřeby a doporučil/a vhodné řešení. Tento záznam slouží jako doklad splnění povinností dle § 77 zákona č. 170/2018 Sb.</p>
+      </div></div>
 
       <div class="brow btw" style="margin-top:8px">
-        <button class="btn btn-s" onclick="goK2()"><i data-lucide="arrow-left"></i> Zpět</button>
-        <button class="btn btn-p" id="k3-next-btn" onclick="tryGoK4()">K předání na BT <i data-lucide="arrow-right"></i></button>
+        <button class="btn btn-s" onclick="goK2()">← Zpět</button>
+        <button class="btn btn-p" id="k3-next-btn" onclick="tryGoK4()">K předání na BT →</button>
       </div>
     </div><!-- /scr-k3 -->
 
@@ -718,15 +680,15 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
       </div>
 
       <div class="brow btw" style="margin-top:8px">
-        <button class="btn btn-s" onclick="goK3()"><i data-lucide="arrow-left"></i> Zpět</button>
-        <button class="btn btn-p" id="k4-send-btn" onclick="sendToBT()" disabled style="opacity:.4;cursor:not-allowed">Odeslat na BT <i data-lucide="arrow-right"></i></button>
+        <button class="btn btn-s" onclick="goK3()">← Zpět</button>
+        <button class="btn btn-p" id="k4-send-btn" onclick="sendToBT()" disabled style="opacity:.4;cursor:not-allowed">Odeslat na BT →</button>
       </div>
     </div><!-- /scr-k4 -->
 
     <!-- SUCCESS -->
     <div class="screen" id="scr-ok">
       <div class="success-wrap">
-        <div style="font-size:60px;color:#16a34a;line-height:1"><i data-lucide="circle-check"></i></div>
+        <div style="font-size:64px">✅</div>
         <div style="font-size:24px;font-weight:700">Odesláno na BT</div>
         <div style="font-size:14px;color:#818da0;max-width:380px;line-height:1.6">ZZJ a smlouvy byly úspěšně předány Broker Trust ke zpracování.</div>
         <button class="btn btn-p" onclick="resetAll()" style="margin-top:8px">Nový případ</button>
@@ -753,7 +715,7 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
 
 <!-- ══ BOTTOM BAR ══════════════════════════════════════════════ -->
 <div class="bbar">
-  <span class="reset-a" onclick="resetAll()"><i data-lucide="rotate-ccw"></i> Reset prototypu</span>
+  <span class="reset-a" onclick="resetAll()">↺ Reset prototypu</span>
   <span style="font-size:12px;color:#9aa3b2">v12 – nový koncept</span>
 </div>
 
@@ -761,27 +723,9 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
 <div class="modal-bg" id="ai-modal" style="display:none">
   <div class="modal-box">
     <span class="modal-close" onclick="document.getElementById('ai-modal').style.display='none'">✕</span>
-    <div style="font-size:40px;margin-bottom:14px;color:#2563eb;line-height:1"><i data-lucide="sparkles"></i></div>
+    <div style="font-size:42px;margin-bottom:14px">✨</div>
     <div style="font-size:15px;font-weight:600;margin-bottom:8px" id="ai-modal-ttl">Vytěžuji dokument…</div>
     <div style="font-size:13px;color:#818da0">Porovnávám s požadavky klienta</div>
-  </div>
-</div>
-
-<!-- INPUT MODAL (univerzální) -->
-<div class="modal-bg" id="input-modal" style="display:none">
-  <div class="modal-box modal-form">
-    <div class="modal-form-hd">
-      <span class="modal-form-ttl" id="input-modal-ttl">Vlastní upozornění</span>
-      <span class="modal-close" onclick="closeInputModal()"><i data-lucide="x"></i></span>
-    </div>
-    <div class="f" style="margin-bottom:22px">
-      <label id="input-modal-lbl" style="margin-bottom:6px">Text upozornění</label>
-      <textarea id="input-modal-field" rows="2" placeholder="" onkeydown="if(event.key==='Escape')closeInputModal();if(event.key==='Enter'&&(event.ctrlKey||event.metaKey))confirmInputModal()"></textarea>
-    </div>
-    <div class="brow btw">
-      <button class="btn btn-s" onclick="closeInputModal()">Zrušit</button>
-      <button class="btn btn-p" onclick="confirmInputModal()">Vytvořit</button>
-    </div>
   </div>
 </div>
 
@@ -864,12 +808,11 @@ function setWizard(step){
   [1,2,3,4,5].forEach(i=>{
     const el=document.getElementById('ws'+i);
     el.classList.remove('active','done');
-    const ic=el.querySelector('.wstep-ic');
-    if(i<step){el.classList.add('done');ic.innerHTML='<span class="wbadge"><i data-lucide="check"></i></span>';}
-    else if(i===step){el.classList.add('active');ic.innerHTML='<i data-lucide="pencil"></i>';}
-    else{ic.innerHTML='<i data-lucide="circle-check"></i>';}
+    const n=el.querySelector('.wstep-n');
+    if(i<step){el.classList.add('done');n.innerHTML='✓';n.style.background='#16a34a';n.style.opacity='1';}
+    else if(i===step){el.classList.add('active');n.textContent=i;n.style.background='';n.style.opacity='';}
+    else{n.textContent=i;n.style.background='';n.style.opacity='';}
   });
-  if(window.lucide)lucide.createIcons();
   updateRpanel(step);
 }
 
@@ -1039,7 +982,7 @@ function aiExtractFromText(){
     // Zobraz ruční pole vozidla
     document.getElementById('rz-manual-fields').style.display='block';
     document.getElementById('rz-from-lookup-bar').style.display='flex';
-    document.getElementById('rz-from-lookup-bar').innerHTML=`<span><i data-lucide="sparkles"></i></span> Data vytěžena z textu AI – lze upravit <button onclick="clearRzResult()" style="margin-left:auto;font-size:11px;color:#2563eb;background:none;border:none;cursor:pointer;text-decoration:underline">Vymazat</button>`;
+    document.getElementById('rz-from-lookup-bar').innerHTML=`<span>✨</span> Data vytěžena z textu AI – lze upravit <button onclick="clearRzResult()" style="margin-left:auto;font-size:11px;color:#4466dd;background:none;border:none;cursor:pointer;text-decoration:underline">Vymazat</button>`;
 
     // Vyber typ pojištění
     document.querySelectorAll('#q-ins .q-opt').forEach(o=>{o.classList.toggle('sel',o.dataset.v===sim.ins);});
@@ -1104,13 +1047,13 @@ function lookupRz(){
   const ico = document.getElementById('rz-btn-ico');
   const lbl = document.getElementById('rz-btn-lbl');
   btn.disabled = true;
-  ico.textContent = '<i data-lucide="clock"></i>';
+  ico.textContent = '⏳';
   lbl.textContent = 'Hledám…';
   document.getElementById('rz-result').style.display='none';
   document.getElementById('rz-not-found').style.display='none';
 
   setTimeout(()=>{
-    ico.textContent = '<i data-lucide="search"></i>';
+    ico.textContent = '🔍';
     lbl.textContent = 'Vyhledat z registru';
     btn.disabled = false;
 
@@ -1180,9 +1123,9 @@ function showUpFiles(ctx){
   zone.style.display='none';
   fileList.style.display='flex';
   const sim=SIMS[1];
-  fileList.innerHTML=`<div class="up-file"><span class="up-file-ico"><i data-lucide="file-text"></i></span><span class="up-file-name">${sim.fname}</span><span class="up-file-status loading">Vytěžuji…</span><button class="up-file-rm" onclick="resetUpload('${ctx}')">✕</button></div>`;
+  fileList.innerHTML=`<div class="up-file"><span class="up-file-ico">📄</span><span class="up-file-name">${sim.fname}</span><span class="up-file-status loading">Vytěžuji…</span><button class="up-file-rm" onclick="resetUpload('${ctx}')">✕</button></div>`;
   setTimeout(()=>{
-    fileList.innerHTML=`<div class="up-file"><span class="up-file-ico"><i data-lucide="file-text"></i></span><span class="up-file-name">${sim.fname}</span><span class="up-file-status ok">✓ Vytěženo</span><button class="up-file-rm" onclick="resetUpload('${ctx}')">✕</button></div>`;
+    fileList.innerHTML=`<div class="up-file"><span class="up-file-ico">📄</span><span class="up-file-name">${sim.fname}</span><span class="up-file-status ok">✓ Vytěženo</span><button class="up-file-rm" onclick="resetUpload('${ctx}')">✕</button></div>`;
     if(ctx==='k1'){
       document.getElementById('up-k1-done').style.display='block';
       S.simData=SIMS[1];
@@ -1195,7 +1138,7 @@ function showUpFiles(ctx){
       document.getElementById('path-manual').style.display='block';
       // Zobrazit lookup bar s info o načtení z modelace
       document.getElementById('rz-from-lookup-bar').style.display='flex';
-      document.getElementById('rz-from-lookup-bar').innerHTML=`<span><i data-lucide="file-text"></i></span> Data vozidla načtena z modelace – lze upravit <button onclick="clearRzResult()" style="margin-left:auto;font-size:11px;color:#2563eb;background:none;border:none;cursor:pointer;text-decoration:underline">Vymazat</button>`;
+      document.getElementById('rz-from-lookup-bar').innerHTML=`<span>📄</span> Data vozidla načtena z modelace – lze upravit <button onclick="clearRzResult()" style="margin-left:auto;font-size:11px;color:#4466dd;background:none;border:none;cursor:pointer;text-decoration:underline">Vymazat</button>`;
     }
     liveZzj();
   },1600);
@@ -1281,14 +1224,14 @@ function renderRecs(){
     return`<div class="rec-card" id="card-${r.id}" style="${mismatch?'border-color:#fed7aa;background:#fffaf5':''}">
       <div class="rec-card-hdr">
         <span class="rec-badge ${badge[r.type]}">${badgeLbl[r.type]}</span>
-        ${hasK1Sim?`<span style="font-size:11px;color:#9aa3b2;background:#f4f6fb;border:1px solid #e6e9ef;border-radius:6px;padding:2px 8px">Z modelace: <b>${simPoj}</b></span>`:''}
+        ${hasK1Sim?`<span style="font-size:11px;color:#9aa3b2;background:#f4f6fb;border:1px solid #e4e8f0;border-radius:6px;padding:2px 8px">Z modelace: <b>${simPoj}</b></span>`:''}
         ${S.recs.length>1?`<button class="rec-del" onclick="delRec('${r.id}')">✕</button>`:''}
       </div>
 
       ${hasK1Sim?`<div style="margin-bottom:12px">
         <div style="font-size:11px;font-weight:600;color:#6e768b;text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px">Modelace pro K2 (volitelná změna)</div>
         <div class="upzone" id="k2-upzone-${r.id}" onclick="showUpFilesK2('${r.id}')" style="padding:14px;border-radius:9px">
-          <div style="display:flex;align-items:center;gap:8px;justify-content:center"><span style="font-size:18px"><i data-lucide="paperclip"></i></span><span style="font-size:13px;font-weight:600;color:#2563eb">Nahrát jinou modelaci</span><span style="font-size:12px;color:#9aa3b2">nebo pokračujte s modelací z Kroku 1</span></div>
+          <div style="display:flex;align-items:center;gap:8px;justify-content:center"><span style="font-size:18px">📎</span><span style="font-size:13px;font-weight:600;color:#4466dd">Nahrát jinou modelaci</span><span style="font-size:12px;color:#9aa3b2">nebo pokračujte s modelací z Kroku 1</span></div>
         </div>
         <div class="up-file-list" id="k2-files-${r.id}" style="display:none"></div>
       </div>`:''}
@@ -1296,7 +1239,7 @@ function renderRecs(){
       <div class="frow">
         <div class="f f2"><label>Pojišťovna <span class="req">*</span></label>
           <select id="${r.id}-poj" onchange="updateRec('${r.id}','poj',this.value);checkK2Mismatch('${r.id}');updateVolbaDD()"><option value="">Vyberte…</option>${pojOpts}</select>
-          ${mismatch?`<div style="font-size:11px;color:#b45309;margin-top:3px"><i data-lucide="triangle-alert"></i> Liší se od modelace (${simPoj})</div>`:match?`<div style="font-size:11px;color:#16a34a;margin-top:3px">✓ Shoduje se s modelací</div>`:''}
+          ${mismatch?`<div style="font-size:11px;color:#b45309;margin-top:3px">⚠ Liší se od modelace (${simPoj})</div>`:match?`<div style="font-size:11px;color:#16a34a;margin-top:3px">✓ Shoduje se s modelací</div>`:''}
         </div>
         <div class="f f2"><label>Produkt</label>
           <input type="text" id="${r.id}-prod" value="${r.prod}" placeholder="Název produktu" oninput="updateRec('${r.id}','prod',this.value)"></div>
@@ -1313,7 +1256,7 @@ function renderRecs(){
         <textarea id="${r.id}-zdv" rows="2" placeholder="Proč tento produkt klientovi vyhovuje…" style="margin-top:5px" oninput="updateRec('${r.id}','zdv',this.value)">${r.zdv||''}</textarea>
         <div id="${r.id}-zdv-status" style="margin-top:5px"></div>
         <div style="display:flex;align-items:center;gap:8px;margin-top:7px">
-          <button class="btn-ai" onclick="aiZdv('${r.id}')"><i data-lucide="sparkles"></i> Navrhnout zdůvodnění</button>
+          <button class="btn-ai" onclick="aiZdv('${r.id}')">✨ Navrhnout zdůvodnění</button>
           <span id="${r.id}-zdv-sp" style="display:none;font-size:12px;color:#818da0"><span class="spnr"></span> Generuji…</span>
         </div>
       </div>
@@ -1337,7 +1280,7 @@ function checkK2Mismatch(rid){
 
   // Refresh card border
   const card=document.getElementById('card-'+rid);
-  if(card){ card.style.borderColor=mismatch?'#fed7aa':match?'#bbf7d0':'#e6e9ef'; card.style.background=mismatch?'#fffaf5':match?'#f9fffe':''; }
+  if(card){ card.style.borderColor=mismatch?'#fed7aa':match?'#bbf7d0':'#e4e8f0'; card.style.background=mismatch?'#fffaf5':match?'#f9fffe':''; }
 
   // Refresh mismatch label inline under select
   const pojSel=document.getElementById(rid+'-poj');
@@ -1347,7 +1290,7 @@ function checkK2Mismatch(rid){
     const note=document.createElement('div');
     note.className='poj-note';
     note.style.cssText=`font-size:11px;margin-top:3px;color:${mismatch?'#b45309':match?'#16a34a':'#9aa3b2'}`;
-    note.textContent=mismatch?`<i data-lucide="triangle-alert"></i> Liší se od modelace (${simPoj})`:match?'✓ Shoduje se s modelací':'';
+    note.textContent=mismatch?`⚠ Liší se od modelace (${simPoj})`:match?'✓ Shoduje se s modelací':'';
     pojSel.parentElement.appendChild(note);
   }
 
@@ -1363,7 +1306,7 @@ function checkK2Mismatch(rid){
     r.zdv=zdvEl.value;
     if(zdvStatus) zdvStatus.innerHTML=`<span style="font-size:11px;color:#16a34a;font-weight:600">✓ Zdůvodnění předvyplněno automaticky</span>`;
   } else if(mismatch&&zdvStatus){
-    zdvStatus.innerHTML=`<span style="font-size:11px;color:#b45309;font-weight:600"><i data-lucide="triangle-alert"></i> Doporučení se liší od modelace – doplňte zdůvodnění</span>`;
+    zdvStatus.innerHTML=`<span style="font-size:11px;color:#b45309;font-weight:600">⚠ Doporučení se liší od modelace – doplňte zdůvodnění</span>`;
   } else if(zdvStatus){
     zdvStatus.innerHTML='';
   }
@@ -1425,7 +1368,7 @@ function renderK2Compare(rid){
   const hasConflict=rows.some(rr=>rr.status==='conflict');
   const hasIssues=hasMissing||hasConflict;
 
-  const sIcon={ok:'✓',missing:'✕',surplus:'·',conflict:'<i data-lucide="triangle-alert"></i>'};
+  const sIcon={ok:'✓',missing:'✕',surplus:'·',conflict:'⚠'};
   const sColor={ok:'#16a34a',missing:'#9b2335',surplus:'#b0b8c8',conflict:'#92400e'};
   const sBg={ok:'#fff',missing:'#fff0f0',surplus:'#fafbfd',conflict:'#fffbeb'};
 
@@ -1433,7 +1376,7 @@ function renderK2Compare(rid){
     <div class="cmp-hdr" style="grid-template-columns:1fr 80px 80px 28px">
       <div class="cmp-cell cmp-label">Parametr</div>
       <div class="cmp-cell cmp-label" style="color:#1d4ed8">Klient žádal</div>
-      <div class="cmp-cell cmp-label" style="color:#475467">Modelace</div>
+      <div class="cmp-cell cmp-label" style="color:#7c3aed">Modelace</div>
       <div></div>
     </div>`;
   rows.forEach((row,i)=>{
@@ -1454,7 +1397,7 @@ function renderK2Compare(rid){
   const totalSurplus=rows.filter(rr=>rr.status==='surplus').length;
   const summaryTxt=!hasIssues&&totalSurplus===0?'Modelace odpovídá požadavkům klienta':!hasIssues?`Požadavky splněny, ${totalSurplus} položka navíc (balíček)`:[hasMissing?'chybějící položky v modelaci':'',hasConflict?'konflikt s odmítnutými riziky':''].filter(Boolean).join(', ');
   html+=`<div style="padding:9px 12px;background:${hasIssues?'#fff9f0':'#f0fdf4'};border-top:2px solid ${hasIssues?'#fed7aa':'#bbf7d0'};display:flex;align-items:center;gap:7px">
-    <span>${hasIssues?'<i data-lucide="triangle-alert"></i>':'<i data-lucide="circle-check"></i>'}</span>
+    <span>${hasIssues?'⚠️':'✅'}</span>
     <span style="font-size:12px;font-weight:600;color:${hasIssues?'#92400e':'#16a34a'}">${summaryTxt}</span>
   </div></div>`;
 
@@ -1468,9 +1411,9 @@ function showUpFilesK2(rid){
   if(!zone||!list) return;
   zone.style.display='none';list.style.display='flex';
   const simAlt=SIMS[2];
-  list.innerHTML=`<div class="up-file"><span class="up-file-ico"><i data-lucide="file-text"></i></span><span class="up-file-name">${simAlt.fname}</span><span class="up-file-status loading">Vytěžuji…</span><button class="up-file-rm" onclick="resetUpK2('${rid}')">✕</button></div>`;
+  list.innerHTML=`<div class="up-file"><span class="up-file-ico">📄</span><span class="up-file-name">${simAlt.fname}</span><span class="up-file-status loading">Vytěžuji…</span><button class="up-file-rm" onclick="resetUpK2('${rid}')">✕</button></div>`;
   setTimeout(()=>{
-    list.innerHTML=`<div class="up-file"><span class="up-file-ico"><i data-lucide="file-text"></i></span><span class="up-file-name">${simAlt.fname}</span><span class="up-file-status ok">✓ Vytěženo</span><button class="up-file-rm" onclick="resetUpK2('${rid}')">✕</button></div>`;
+    list.innerHTML=`<div class="up-file"><span class="up-file-ico">📄</span><span class="up-file-name">${simAlt.fname}</span><span class="up-file-status ok">✓ Vytěženo</span><button class="up-file-rm" onclick="resetUpK2('${rid}')">✕</button></div>`;
     // Přepiš pojišťovnu z nové modelace
     const pojSel=document.getElementById(rid+'-poj');
     if(pojSel){ pojSel.value=simAlt.pojistovna||''; }
@@ -1529,22 +1472,8 @@ function renderUpOdmit(){
   if(S.odmit.length===0) S.odmit=ODMIT_PREDEFINED.map(t=>({text:t,checked:false}));
   ol.innerHTML=S.odmit.map((o,i)=>`<label class="rdr"><input type="checkbox" ${o.checked?'checked':''} onchange="S.odmit[${i}].checked=this.checked"> ${o.text}</label>`).join('');
 }
-// Univerzální vstupní modál
-let _inputModalCb=null;
-function openInputModal(title,label,placeholder,cb){
-  document.getElementById('input-modal-ttl').textContent=title;
-  document.getElementById('input-modal-lbl').textContent=label;
-  const f=document.getElementById('input-modal-field');
-  f.value='';f.placeholder=placeholder||'';
-  _inputModalCb=cb;
-  document.getElementById('input-modal').style.display='flex';
-  if(window.lucide)lucide.createIcons();
-  setTimeout(()=>f.focus(),30);
-}
-function closeInputModal(){document.getElementById('input-modal').style.display='none';_inputModalCb=null;}
-function confirmInputModal(){const v=document.getElementById('input-modal-field').value.trim();if(v&&_inputModalCb)_inputModalCb(v);closeInputModal();}
-function addUp(){openInputModal('Vlastní upozornění','Text upozornění','Zadejte text upozornění…',t=>{S.ups.push({text:t,checked:true,custom:true});renderUpOdmit();});}
-function addOdmit(){openInputModal('Odmítnuté riziko klientem','Popis rizika','Zadejte odmítnuté riziko…',t=>{S.odmit.push({text:t,checked:true});renderUpOdmit();});}
+function addUp(){const t=prompt('Text upozornění:');if(t){S.ups.push({text:t,checked:true,custom:true});renderUpOdmit();}}
+function addOdmit(){const t=prompt('Odmítnuté riziko:');if(t){S.odmit.push({text:t,checked:true});renderUpOdmit();}}
 function getCheckedUps(){return S.ups.filter(u=>u.checked).map(u=>u.text);}
 function getCheckedOdmit(){return S.odmit.filter(o=>o.checked).map(o=>o.text);}
 
@@ -1590,7 +1519,7 @@ function initK3(){
   const rz=gv('k1-rz');const znacka=gv('k1-znacka');const model=gv('k1-model');
   const vozHtml=(rz||znacka||model)
     ?`<div class="dlg">${dl('RZ/VIN',rz)+dl('Značka',znacka)+dl('Model',model)+dl('Datum uvedení',gv('k1-datum'))+dl('Nájezd (km)',gv('k1-najezd'))}</div>`
-    :`<div class="banner banner-warn"><i data-lucide="triangle-alert"></i> Informace o vozidle nejsou vyplněny.</div>`;
+    :`<div class="banner banner-warn">⚠️ Informace o vozidle nejsou vyplněny.</div>`;
   document.getElementById('k3-voz').innerHTML=vozHtml;
 
   // Požadavky
@@ -1609,7 +1538,7 @@ function initK3(){
     const prod=document.getElementById(r.id+'-prod')?.value||'—';
     const zdv=document.getElementById(r.id+'-zdv')?.value||'';
     const badgeLbl={pov:'POV',hav:'HAV',oba:'POV+HAV'};
-    return`<div style="border:1px solid #e6e9ef;border-radius:9px;padding:12px 14px;margin-bottom:8px;background:#fafbfd">
+    return`<div style="border:1px solid #e4e8f0;border-radius:9px;padding:12px 14px;margin-bottom:8px;background:#fafbfd">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span class="rec-badge ${r.type}">Doporučení ${i+1} – ${badgeLbl[r.type]}</span></div>
       <div class="dlg">${dl('Pojišťovna',poj)+dl('Produkt',prod)+(zdv?dl('Zdůvodnění',zdv):'')}</div>
     </div>`;
@@ -1641,18 +1570,18 @@ function initK4(){
       const badgeLbl={pov:'POV',hav:'HAV',oba:'POV+HAV'};
       const recList=recs.map((r,i)=>{
         const poj=document.getElementById(r.id+'-poj')?.value||'(nezadáno)';
-        return `<span style="display:inline-flex;align-items:center;gap:5px;background:#fff;border:1.5px solid #e6e9ef;border-radius:6px;padding:4px 10px;font-size:12px;font-weight:600"><span class="rec-badge ${r.type}" style="padding:1px 6px;font-size:10px">${badgeLbl[r.type]}</span>${poj}</span>`;
+        return `<span style="display:inline-flex;align-items:center;gap:5px;background:#fff;border:1.5px solid #e4e8f0;border-radius:6px;padding:4px 10px;font-size:12px;font-weight:600"><span class="rec-badge ${r.type}" style="padding:1px 6px;font-size:10px">${badgeLbl[r.type]}</span>${poj}</span>`;
       }).join('');
       banner.innerHTML=`<div style="background:#fff9f0;border:2px solid #fb923c;border-radius:12px;padding:14px 18px;margin-bottom:16px;display:flex;flex-direction:column;gap:10px">
         <div style="display:flex;align-items:center;gap:8px">
-          <span style="font-size:20px"><i data-lucide="clipboard-list"></i></span>
+          <span style="font-size:20px">📋</span>
           <div>
             <div style="font-size:14px;font-weight:700;color:#9a3412">Nutné nahrát ${recs.length} smlouvy</div>
             <div style="font-size:12px;color:#c2410c;margin-top:2px">Klient přijal ${recs.length} produkty od různých pojišťoven – každý vyžaduje vlastní smlouvu</div>
           </div>
         </div>
         <div style="display:flex;flex-wrap:wrap;gap:6px">${recList}</div>
-        <div style="font-size:12px;color:#9a3412;background:#fff;border-radius:7px;padding:8px 11px;border:1px solid #fed7aa"><i data-lucide="triangle-alert"></i> Odeslání na BT bude možné až po nahrání <b>všech ${recs.length} smluv</b> a ověření souladu.</div>
+        <div style="font-size:12px;color:#9a3412;background:#fff;border-radius:7px;padding:8px 11px;border:1px solid #fed7aa">⚠ Odeslání na BT bude možné až po nahrání <b>všech ${recs.length} smluv</b> a ověření souladu.</div>
       </div>`;
     } else {
       banner.innerHTML='';
@@ -1677,9 +1606,9 @@ function initK4(){
           <span class="card-ttl">Smlouva – ${badgeLbl[r.type]} (${poj})</span>
         </div>
         <div class="card-body">
-          <div class="banner banner-blue" style="margin-bottom:14px"><i data-lucide="file-text"></i> Nahrajte <b>finální návrh smlouvy</b> od pojišťovny ${poj}.</div>
+          <div class="banner banner-blue" style="margin-bottom:14px">📄 Nahrajte <b>finální návrh smlouvy</b> od pojišťovny ${poj}.</div>
           <div class="upzone" id="up-zone-k4-${r.id}" onclick="showUpFilesK4('${r.id}')">
-            <div class="upzone-ico"><i data-lucide="file-text"></i></div>
+            <div class="upzone-ico">📄</div>
             <div class="upzone-ttl">Nahrát smlouvu</div>
             <div class="upzone-sub">PDF nebo XLS</div>
           </div>
@@ -1716,9 +1645,9 @@ function showUpFilesK4(recId){
   const list=document.getElementById('up-files-k4-'+recId);
   const sim=SIMS[1];
   zone.style.display='none';list.style.display='flex';
-  list.innerHTML=`<div class="up-file"><span class="up-file-ico"><i data-lucide="file-text"></i></span><span class="up-file-name">smlouva_${recId}.pdf</span><span class="up-file-status loading">Vytěžuji…</span></div>`;
+  list.innerHTML=`<div class="up-file"><span class="up-file-ico">📄</span><span class="up-file-name">smlouva_${recId}.pdf</span><span class="up-file-status loading">Vytěžuji…</span></div>`;
   setTimeout(()=>{
-    list.innerHTML=`<div class="up-file"><span class="up-file-ico"><i data-lucide="file-text"></i></span><span class="up-file-name">smlouva_${recId}.pdf</span><span class="up-file-status ok">✓ Vytěženo</span></div>`;
+    list.innerHTML=`<div class="up-file"><span class="up-file-ico">📄</span><span class="up-file-name">smlouva_${recId}.pdf</span><span class="up-file-status ok">✓ Vytěženo</span></div>`;
     document.getElementById('k4-fields-'+recId).style.display='block';
     const sv=(id,v)=>{const e=document.getElementById(id);if(e)e.value=v||'';};
     sv('k4-cislo-'+recId,sim.k4cislo||'PJ-2026-'+(Math.floor(Math.random()*90000)+10000));
@@ -1774,7 +1703,7 @@ function renderK4Compare(rid){
   const hasIssues=hasMissing||hasConflict;
   const visible=finalRows2.filter(r=>r.status!=='ok'||true); // show all
 
-  const sIcon={ok:'✓',missing:'✕',surplus:'·',conflict:'<i data-lucide="triangle-alert"></i>'};
+  const sIcon={ok:'✓',missing:'✕',surplus:'·',conflict:'⚠'};
   const sColor={ok:'#16a34a',missing:'#9b2335',surplus:'#b0b8c8',conflict:'#92400e'};
   const sBg={ok:'#fff',missing:'#fff0f0',surplus:'#fafbfd',conflict:'#fffbeb'};
 
@@ -1803,16 +1732,16 @@ function renderK4Compare(rid){
   const totalSurplus=finalRows2.filter(r=>r.status==='surplus').length;
   const summaryTxt=!hasIssues&&totalSurplus===0?'Smlouva odpovídá požadavkům':!hasIssues?`Požadavky splněny, ${totalSurplus} položka navíc (balíček)`:[(hasMissing?'chybějící položky':''),hasConflict?'konflikt s odmítnutými':''].filter(Boolean).join(', ');
   html+=`<div style="padding:9px 12px;background:${hasIssues?'#fff9f0':'#f0fdf4'};border-top:2px solid ${hasIssues?'#fed7aa':'#bbf7d0'};display:flex;align-items:center;gap:7px">
-    <span>${hasIssues?'<i data-lucide="triangle-alert"></i>':'<i data-lucide="circle-check"></i>'}</span>
+    <span>${hasIssues?'⚠️':'✅'}</span>
     <span style="font-size:12px;font-weight:600;color:${hasIssues?'#92400e':'#16a34a'}">${summaryTxt}</span>
   </div></div>`;
 
   if(hasIssues){
     html+=`<div style="background:#fff8e1;border:1.5px solid #fde68a;border-radius:9px;padding:13px 15px;margin-bottom:4px">
-      <div style="font-size:12px;font-weight:600;color:#92400e;margin-bottom:7px"><i data-lucide="pencil"></i> Zdůvodnění nesouladu</div>
+      <div style="font-size:12px;font-weight:600;color:#92400e;margin-bottom:7px">✏️ Zdůvodnění nesouladu</div>
       <textarea id="k4-zdv-${rid}" rows="2" style="width:100%;border:1.5px solid #fde68a;border-radius:7px;padding:8px 11px;font-size:13px;font-family:inherit;color:#1a1d23;background:#fff;outline:none;resize:vertical;line-height:1.5;box-sizing:border-box"></textarea>
       <div style="display:flex;align-items:center;gap:8px;margin-top:7px">
-        <button class="btn-ai" onclick="aiZdvK4('${rid}')"><i data-lucide="sparkles"></i> Navrhnout zdůvodnění</button>
+        <button class="btn-ai" onclick="aiZdvK4('${rid}')">✨ Navrhnout zdůvodnění</button>
         <span id="k4-zdv-${rid}-sp" style="display:none;font-size:12px;color:#818da0"><span class="spnr"></span> Generuji…</span>
       </div>
     </div>`;
@@ -1828,7 +1757,7 @@ function aiZdvK4(rid){
   setTimeout(()=>{
     if(sp)sp.style.display='none';ta.disabled=false;
     ta.value='Vybrané pojistné řešení bylo s klientem projednáno. Odchylka od původních požadavků je výsledkem dostupnosti produktu a vzájemné dohody. Klient byl řádně informován a s navrženým řešením souhlasí.';
-    ta.style.borderColor='#2563eb';setTimeout(()=>{ta.style.borderColor='#fde68a';},2000);
+    ta.style.borderColor='#4466dd';setTimeout(()=>{ta.style.borderColor='#fde68a';},2000);
   },1600);
 }
 
@@ -1857,7 +1786,7 @@ function renderK4Summary(recs){
     const freq=document.getElementById('k4-freq-'+r.id)?.value||'';
     const poc=document.getElementById('k4-poc-'+r.id)?.value;
     const pocFmt=poc?new Date(poc).toLocaleDateString('cs-CZ'):'—';
-    return`<div style="border:1px solid #e6e9ef;border-radius:9px;padding:12px 14px;margin-bottom:8px;background:#fafbfd">
+    return`<div style="border:1px solid #e4e8f0;border-radius:9px;padding:12px 14px;margin-bottom:8px;background:#fafbfd">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span class="rec-badge ${r.type}">${badgeLbl[r.type]}</span><span style="font-size:13px;font-weight:600">${poj}</span></div>
       <div class="dlg">${[['Číslo smlouvy',cislo],['Splátka',splatka?Number(splatka).toLocaleString('cs')+' Kč':'—'],['Frekvence',freq],['Počátek',pocFmt]].map(([l,v])=>`<div class="dll">${l}</div><div class="dlv">${v}</div>`).join('')}</div>
     </div>`;
@@ -1888,19 +1817,15 @@ function updateRpanel(step){
 
   function item(label,done,active,sublabel,date,av,avGreen,warn){
     const dim=!done&&!active&&!warn;
-    const dotInner=done?'<i data-lucide="check"></i>':warn?'<span style="color:#fff;font-size:11px;font-weight:800;line-height:1">!</span>':'';
-    const dotStyle=warn?'background:#e0a23c;border-color:#e0a23c':'';
-    const badgeCls=(done||avGreen)?'ok':'x';
-    const badgeIcon=(done||avGreen)?'<i data-lucide="check"></i>':'<i data-lucide="x"></i>';
-    const metaText=(sublabel||date)?`<div class="rp-meta-text">${sublabel?`<span class="rp-sublabel" style="${warn?'color:#b45309':''}">${sublabel}</span>`:''}${date?`<span class="rp-date">${date}</span>`:''}</div>`:'';
-    const showMeta=(done||active||warn)&&(av||sublabel||date);
+    const dotCls=warn?'':''+( done?'done':'pending');
     return`<div class="rp-check-item${dim?' dim':''}">
       <div class="rp-check-top">
-        <div class="rp-dot ${done?'done':'pending'}" style="${dotStyle}">${dotInner}</div>
+        <div class="rp-dot ${done?'done':'pending'}" style="${warn?'background:#b45309;border-color:#b45309':''}">
+          ${warn?`<span style="color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;width:100%;height:100%">!</span>`:''}
+        </div>
         <span class="rp-check-lbl" style="${warn?'color:#b45309':''}">${label}</span>
-        <span class="rp-info"><i data-lucide="info"></i></span>
       </div>
-      ${showMeta?`<div class="rp-meta"><div class="rp-meta-row">${av?`<div class="rp-av"><span>${av}</span><span class="rp-av-badge ${badgeCls}">${badgeIcon}</span></div>`:''}${metaText}</div></div>`:''}
+      ${(done||active||warn)&&(sublabel||date)?`<div class="rp-meta"><div class="rp-meta-row">${av?`<div class="rp-av${avGreen?' green':warn?' err':''}">${av}</div>`:''}${sublabel||date?`<div style="display:flex;flex-direction:column;gap:1px">${sublabel?`<span class="rp-sublabel" style="${warn?'color:#b45309':''}">${sublabel}</span>`:''}${date?`<span class="rp-date">${date}</span>`:''}</div>`:''}</div></div>`:''}
     </div>`;
   }
 
@@ -1911,7 +1836,7 @@ function updateRpanel(step){
   const recMismatch=simPoj&&recPoj&&recPoj!==simPoj;
   const recMatch=simPoj&&recPoj&&recPoj===simPoj;
   const recDone=hasRecs&&recPoj&&step>=2;
-  const recSubl=recMismatch?`<i data-lucide="triangle-alert"></i> Jiná pojišťovna než v modelaci`:recMatch?`✓ Shoduje se s modelací`:recPoj?recPoj:'';
+  const recSubl=recMismatch?`⚠ Jiná pojišťovna než v modelaci`:recMatch?`✓ Shoduje se s modelací`:recPoj?recPoj:'';
 
   // Zdůvodnění status
   const zdvEl=S.recs.length>0?document.getElementById(S.recs[0].id+'-zdv'):null;
@@ -1927,7 +1852,6 @@ function updateRpanel(step){
     item('Zdůvodnění',zdvOk&&!zdvWarn,step===2&&!zdvOk,zdvSubl,zdvOk?today:null,zdvOk?'MV':null,zdvOk&&!zdvWarn,zdvWarn)+
     item('ZZJ odeslán',step>=3,step===2,step>=3?'Odesláno klientovi':null,step>=3?today:null,step>=3?'MV':null,step>=3,false);
 
-  if(window.lucide)lucide.createIcons();
   liveZzj();
 }
 
@@ -1954,7 +1878,7 @@ function liveZzj(){
   const odmit=S.odmit.filter(o=>o.checked).map(o=>o.text);
 
   document.getElementById('rpanel-zzj').innerHTML=`
-    <div class="zzj-completion ${pct>=80?'ok':'warn'}">${pct>=80?'<i data-lucide="circle-check"></i>':'<i data-lucide="clock"></i>'} ZZJ ${pct}% vyplněn</div>
+    <div class="zzj-completion ${pct>=80?'ok':'warn'}">${pct>=80?'✅':'⏳'} ZZJ ${pct}% vyplněn</div>
     <div class="zzj-prog"><div class="zzj-prog-bar" style="width:${pct}%"></div></div>
     <div class="zzj-section">
       <div class="zzj-section-ttl">Klient</div>
@@ -2016,13 +1940,7 @@ function resetAll(){
   showScr('scr-k1');setWizard(1);
 }
 
-document.addEventListener('DOMContentLoaded',()=>{setWizard(1);renderUpOdmit();});
-</script>
-<script src="https://unpkg.com/lucide@latest"></script>
-<script>
-function renderIcons(){try{window.lucide&&lucide.createIcons();}catch(e){}}
-renderIcons();
-new MutationObserver(function(){clearTimeout(window.__icT);window.__icT=setTimeout(renderIcons,40);}).observe(document.body,{childList:true,subtree:true});
+document.addEventListener('DOMContentLoaded',()=>{updateRpanel(1);renderUpOdmit();});
 </script>
 </body>
 </html>

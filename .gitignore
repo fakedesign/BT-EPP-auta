@@ -13,3 +13,6 @@ node_modules/
 
 # Původní upload (pracujeme s index.html)
 prototype-pr278-v12b 4.html
+
+# Zálohy
+*.bak
