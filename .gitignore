@@ -1,0 +1,15 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Dependencies (pokud později přibydou)
+node_modules/
+
+# Vercel
+.vercel/
+
+# Původní upload (pracujeme s index.html)
+prototype-pr278-v12b 4.html
