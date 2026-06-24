@@ -38,7 +38,7 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:14px;backg
 .main{display:flex;flex:1;min-height:0}
 .content{flex:1;overflow-y:auto;padding:28px 36px 0}
 .screen{display:none}
-.screen.active{display:block}
+.screen.active{display:flex;flex-direction:column;min-height:100%}
 
 /* ══ SCREEN HEADER ═══════════════════════════════════════════ */
 .scr-hdr{margin-bottom:24px}
@@ -187,10 +187,15 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
 .brow{display:flex;align-items:center;gap:10px}
 .brow.btw{justify-content:space-between}
 .brow.end{justify-content:flex-end}
-/* Sticky lišta akcí ve spodní části kroku */
-.step-actions{position:sticky;bottom:0;display:flex;align-items:center;justify-content:space-between;gap:12px;background:#fff;border-top:1px solid #e8ecf5;margin:24px -36px 0;padding:13px 36px;z-index:5}
+/* Sticky lišta akcí – vždy na spodní hraně viewportu kroku */
+.step-actions{position:sticky;bottom:0;display:flex;align-items:center;justify-content:space-between;gap:12px;background:#fff;border-top:1px solid #e8ecf5;margin:auto -36px 0;padding:13px 36px;z-index:5}
 .link-btn{background:none;border:none;padding:0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#2563eb;text-decoration:underline}
 .link-btn:hover{color:#1d4ed8}
+/* Karta sekundární cesty (ruční zadání) */
+.alt-card{transition:all .15s;cursor:pointer}
+.alt-card:hover{border-color:#cdd4e0;background:#fcfcfe}
+.alt-ic{width:42px;height:42px;border-radius:11px;background:#eff4fe;color:#2563eb;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.alt-ic [data-lucide],.alt-ic svg{width:21px;height:21px}
 
 /* ══ BANNERS ═════════════════════════════════════════════════ */
 .banner{padding:11px 14px;border-radius:9px;font-size:13px;margin-bottom:14px;display:flex;align-items:flex-start;gap:8px}
@@ -349,9 +354,16 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
               <div class="banner banner-ok"><i data-lucide="circle-check"></i> Parametry byly vytěženy a předvyplněny. Zkontrolujte je a v případě potřeby upravte.</div>
               <button class="btn-ai" onclick="showManualSection()" style="margin-top:4px"><i data-lucide="clipboard-list"></i> Zobrazit a upravit parametry</button>
             </div>
-            <div id="up-secondary" style="margin-top:14px;display:flex;align-items:center;gap:6px;font-size:13px;color:#6e768b">
-              Nemáte modelaci? <button class="link-btn" onclick="selectEntry('manual')">Zadejte údaje ručně</button>
+          </div>
+        </div>
+        <div class="card alt-card" id="up-secondary" onclick="selectEntry('manual')">
+          <div class="card-body" style="display:flex;align-items:center;gap:14px">
+            <span class="alt-ic"><i data-lucide="pencil"></i></span>
+            <div style="flex:1">
+              <div style="font-size:14px;font-weight:700;color:#1a1d23">Nemáte modelaci? Zadejte údaje ručně</div>
+              <div style="font-size:12.5px;color:#6e768b;margin-top:2px">Projděte krátkým průvodcem a vyplňte požadavky klienta krok za krokem.</div>
             </div>
+            <i data-lucide="arrow-right" style="color:#9aa3b2;flex-shrink:0"></i>
           </div>
         </div>
       </div>
@@ -1243,7 +1255,7 @@ function resetUpload(ctx){
   document.getElementById('up-files-'+ctx).style.display='none';
   if(ctx==='k1'){
     document.getElementById('up-k1-done').style.display='none';
-    const sec=document.getElementById('up-secondary');if(sec)sec.style.display='flex';
+    const sec=document.getElementById('up-secondary');if(sec)sec.style.display='';
   }
 }
 
@@ -2052,7 +2064,7 @@ function resetAll(){
   document.getElementById('path-manual').style.display='none';
   resetUpload('k1');
   const upDone=document.getElementById('up-k1-done');if(upDone)upDone.style.display='none';
-  const upSec=document.getElementById('up-secondary');if(upSec)upSec.style.display='flex';
+  const upSec=document.getElementById('up-secondary');if(upSec)upSec.style.display='';
   document.querySelectorAll('.q-opt').forEach(o=>o.classList.remove('sel'));
   document.querySelectorAll('.chip').forEach(c=>c.classList.remove('sel'));
   ['k1-rz','k1-znacka','k1-model','k1-datum','k1-najezd','k1-cena','inp-spol','k1-text','k1-barva','k1-ai-text','k1-poc','k1-freq','k1-poj-jmeno','k1-poj-rc'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
