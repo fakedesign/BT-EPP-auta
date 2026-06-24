@@ -2047,7 +2047,8 @@ function validateK1(){
   const btn=document.getElementById('k1-next-btn');
   const hint=document.getElementById('k1-nav-hint');
   if(btn)btn.disabled=!ok;
-  if(hint)hint.style.display=ok?'none':'inline';
+  // necháváme prvek v layoutu (jen skryjeme), aby tlačítko zůstalo vpravo (space-between)
+  if(hint)hint.style.visibility=ok?'hidden':'visible';
 }
 
 // ═══════════════════════════════════════════════════════════════
