@@ -196,6 +196,11 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
 .alt-card:hover{border-color:#cdd4e0;background:#fcfcfe}
 .alt-ic{width:42px;height:42px;border-radius:11px;background:#eff4fe;color:#2563eb;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .alt-ic [data-lucide],.alt-ic svg{width:21px;height:21px}
+/* primární akce vždy na pravé straně lišty */
+.step-actions .btn-p{margin-left:auto}
+/* destruktivní (nevratná) akce */
+.btn-danger{background:#dc2626;color:#fff}
+.btn-danger:hover{background:#b91c1c}
 
 /* ══ BANNERS ═════════════════════════════════════════════════ */
 .banner{padding:11px 14px;border-radius:9px;font-size:13px;margin-bottom:14px;display:flex;align-items:flex-start;gap:8px}
@@ -389,7 +394,7 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
 
           <!-- Q1: Vozidlo -->
           <div class="q-block">
-            <div class="q-label"><span class="q-num">1</span>O jaké auto jde?</div>
+            <div class="q-label"><span class="q-num">1</span>Údaje o vozidle</div>
 
             <!-- RZ/VIN lookup -->
             <div style="margin-bottom:14px">
@@ -422,8 +427,8 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
               </div>
             </div>
 
-            <!-- Ruční pole – zobrazí se po přijetí výsledku nebo po "Zadat ručně" -->
-            <div id="rz-manual-fields" style="display:none">
+            <!-- Ruční pole vozidla – sekce se zobrazuje vždy celá -->
+            <div id="rz-manual-fields" style="display:block">
               <div id="rz-from-lookup-bar" style="display:none;align-items:center;gap:7px;margin-bottom:12px;padding:7px 10px;background:#f4f6fb;border-radius:7px;font-size:12px;color:#6e768b">
                 <span><i data-lucide="pencil"></i></span> Data načtena z registru – lze upravit
                 <button onclick="clearRzResult()" style="margin-left:auto;font-size:11px;color:#2563eb;background:none;border:none;cursor:pointer;text-decoration:underline">Vymazat a hledat znovu</button>
@@ -602,9 +607,13 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
       <div class="card">
         <div class="card-hdr" style="cursor:default">
           <span class="card-ttl">Doporučené produkty</span>
-          <span id="rec-count-badge" style="font-size:12px;color:#818da0"></span>
+          <div style="display:flex;align-items:center;gap:10px">
+            <span id="rec-count-badge" style="font-size:12px;color:#818da0"></span>
+            <button class="btn btn-s btn-sm" onclick="uploadDocsK2()" style="display:inline-flex;align-items:center;gap:6px"><i data-lucide="upload"></i> Nahrát dokumenty</button>
+          </div>
         </div>
         <div class="card-body">
+          <div class="up-file-list" id="k2-docs-list" style="display:none;margin-bottom:12px"></div>
           <div id="rec-cont"></div>
           <div class="rec-add-row" id="rec-add-row" style="margin-top:8px">
             <button class="rec-add-btn" onclick="addRec('pov')">+ POV produkt</button>
@@ -812,6 +821,25 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
   </div>
 </div>
 
+<!-- ENDCASE MODAL (ukončení / smazání obchodního případu) -->
+<div class="modal-bg" id="endcase-modal" style="display:none">
+  <div class="modal-box modal-form" style="width:440px">
+    <div class="modal-form-hd">
+      <span class="modal-form-ttl">Ukončení obchodního případu</span>
+      <span class="modal-close" onclick="cancelEndCase()"><i data-lucide="x"></i></span>
+    </div>
+    <div style="display:flex;gap:13px;align-items:flex-start;background:#fdf1f1;border:1px solid #f3c6c6;border-radius:12px;padding:14px;margin-bottom:16px">
+      <span style="width:40px;height:40px;border-radius:10px;background:#fbe3e3;color:#dc2626;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i data-lucide="trash-2"></i></span>
+      <div style="font-size:13.5px;color:#7a1f1f;line-height:1.55">Klient odmítl navrhované řešení. Potvrzením <b>ukončíte aktuální obchodní případ</b> a rozpracovaná data nebudou uložena. Tuto akci nelze vrátit zpět.</div>
+    </div>
+    <p style="font-size:14px;font-weight:600;color:#1a1d23;margin-bottom:20px">Opravdu chcete případ ukončit?</p>
+    <div class="brow btw">
+      <button class="btn btn-s" onclick="cancelEndCase()">Zrušit</button>
+      <button class="btn btn-danger" onclick="confirmEndCase()"><i data-lucide="trash-2"></i> Ukončit případ</button>
+    </div>
+  </div>
+</div>
+
 <script>
 // ═══════════════════════════════════════════════════════════════
 // STATE
@@ -982,7 +1010,8 @@ function updateQnums(){
   // Re-number visible q-blocks
   let n=1;
   rzLookupResult=null;
-  ['rz-result','rz-not-found','rz-manual-fields'].forEach(id=>{const e=document.getElementById(id);if(e)e.style.display='none';});
+  ['rz-result','rz-not-found'].forEach(id=>{const e=document.getElementById(id);if(e)e.style.display='none';});
+  {const rmf=document.getElementById('rz-manual-fields');if(rmf)rmf.style.display='block';}
   const rzBtn=document.getElementById('rz-lookup-btn');if(rzBtn){rzBtn.disabled=true;rzBtn.style.opacity='.45';}
   document.querySelectorAll('.q-block').forEach(b=>{
     if(b.style.display==='none') return;
@@ -1301,6 +1330,22 @@ function initK2(){
   }
   renderRecs();
   renderUpOdmit();
+  // Evidence procesu – předvyplnit aktuální datum
+  const todayISO=new Date().toISOString().slice(0,10);
+  ['ev1','ev2','ev3'].forEach(id=>{const e=document.getElementById(id);if(e&&!e.value)e.value=todayISO;});
+}
+
+// Nahrání doplňujících dokumentů v K2 (simulace)
+function uploadDocsK2(){
+  const list=document.getElementById('k2-docs-list');
+  if(!list)return;
+  list.style.display='flex';
+  list.innerHTML=`<div class="up-file"><span class="up-file-ico"><i data-lucide="file-text"></i></span><span class="up-file-name">dokumenty_klienta.pdf</span><span class="up-file-status loading">Nahrávám…</span></div>`;
+  if(window.lucide)lucide.createIcons();
+  setTimeout(()=>{
+    list.innerHTML=`<div class="up-file"><span class="up-file-ico"><i data-lucide="file-text"></i></span><span class="up-file-name">dokumenty_klienta.pdf</span><span class="up-file-status ok">✓ Nahráno</span><button class="up-file-rm" onclick="const l=this.closest('.up-file-list');l.style.display='none';l.innerHTML='';">✕</button></div>`;
+    if(window.lucide)lucide.createIcons();
+  },1400);
 }
 
 function addRec(type){
@@ -1336,14 +1381,6 @@ function renderRecs(){
         ${hasK1Sim?`<span style="font-size:11px;color:#9aa3b2;background:#f4f6fb;border:1px solid #e6e9ef;border-radius:6px;padding:2px 8px">Z modelace: <b>${simPoj}</b></span>`:''}
         ${S.recs.length>1?`<button class="rec-del" onclick="delRec('${r.id}')">✕</button>`:''}
       </div>
-
-      ${hasK1Sim?`<div style="margin-bottom:12px">
-        <div style="font-size:11px;font-weight:600;color:#6e768b;text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px">Modelace pro K2 (volitelná změna)</div>
-        <div class="upzone" id="k2-upzone-${r.id}" onclick="showUpFilesK2('${r.id}')" style="padding:14px;border-radius:9px">
-          <div style="display:flex;align-items:center;gap:8px;justify-content:center"><span style="font-size:18px"><i data-lucide="paperclip"></i></span><span style="font-size:13px;font-weight:600;color:#2563eb">Nahrát jinou modelaci</span><span style="font-size:12px;color:#9aa3b2">nebo pokračujte s modelací z Kroku 1</span></div>
-        </div>
-        <div class="up-file-list" id="k2-files-${r.id}" style="display:none"></div>
-      </div>`:''}
 
       <div class="frow">
         <div class="f f2"><label>Pojišťovna <span class="req">*</span></label>
@@ -1557,8 +1594,30 @@ function updateVolbaDD(){
 
 function onVolba(){
   const v=document.querySelector('input[name="volba"]:checked')?.value;
+  if(v==='odmitl'){
+    document.getElementById('volba-dd').style.display='none';
+    openEndCaseModal();
+    return;
+  }
   document.getElementById('volba-dd').style.display=(v==='vybrano')?'block':'none';
   updateVolbaDD();
+}
+
+// Ukončení obchodního případu (nevratná akce)
+function openEndCaseModal(){
+  document.getElementById('endcase-modal').style.display='flex';
+  if(window.lucide)lucide.createIcons();
+}
+function cancelEndCase(){
+  document.getElementById('endcase-modal').style.display='none';
+  // zrušení – odznačit volbu, zůstat v kroku
+  document.querySelectorAll('input[name="volba"]').forEach(r=>r.checked=false);
+  document.getElementById('volba-dd').style.display='none';
+}
+function confirmEndCase(){
+  document.getElementById('endcase-modal').style.display='none';
+  // ukončení případu → návrat na začátek, rozpracovaná data se zahodí
+  resetAll();
 }
 
 function getSelectedRecs(){
@@ -2047,8 +2106,7 @@ function validateK1(){
   const btn=document.getElementById('k1-next-btn');
   const hint=document.getElementById('k1-nav-hint');
   if(btn)btn.disabled=!ok;
-  // necháváme prvek v layoutu (jen skryjeme), aby tlačítko zůstalo vpravo (space-between)
-  if(hint)hint.style.visibility=ok?'hidden':'visible';
+  if(hint)hint.style.display=ok?'none':'inline';
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -2070,7 +2128,8 @@ function resetAll(){
   document.querySelectorAll('.chip').forEach(c=>c.classList.remove('sel'));
   ['k1-rz','k1-znacka','k1-model','k1-datum','k1-najezd','k1-cena','inp-spol','k1-text','k1-barva','k1-ai-text','k1-poc','k1-freq','k1-poj-jmeno','k1-poj-rc'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
   rzLookupResult=null;
-  ['rz-result','rz-not-found','rz-manual-fields'].forEach(id=>{const e=document.getElementById(id);if(e)e.style.display='none';});
+  ['rz-result','rz-not-found'].forEach(id=>{const e=document.getElementById(id);if(e)e.style.display='none';});
+  {const rmf=document.getElementById('rz-manual-fields');if(rmf)rmf.style.display='block';}
   const rzBtn=document.getElementById('rz-lookup-btn');if(rzBtn){rzBtn.disabled=true;rzBtn.style.opacity='.45';}
   // Pojištěný – schovat a vrátit tlačítko
   document.getElementById('pojisteny-fields').style.display='none';
