@@ -833,7 +833,7 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
 </div>
 
 <!-- ENDCASE MODAL (ukončení / smazání obchodního případu) -->
-<div class="modal-bg" id="endcase-modal" style="display:none">
+<div class="modal-bg" id="endcase-modal" style="display:none" onclick="if(event.target===this)cancelEndCase()">
   <div class="modal-box modal-form" style="width:440px">
     <div class="modal-form-hd">
       <span class="modal-form-ttl">Ukončení obchodního případu</span>
@@ -847,6 +847,25 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
     <div class="brow btw">
       <button class="btn btn-s" onclick="cancelEndCase()">Zrušit</button>
       <button class="btn btn-danger" onclick="confirmEndCase()"><i data-lucide="trash-2"></i> Ukončit případ</button>
+    </div>
+  </div>
+</div>
+
+<!-- DELREC MODAL (smazání doporučeného produktu) -->
+<div class="modal-bg" id="delrec-modal" style="display:none" onclick="if(event.target===this)cancelDelRec()">
+  <div class="modal-box modal-form" style="width:440px">
+    <div class="modal-form-hd">
+      <span class="modal-form-ttl">Smazání doporučeného produktu</span>
+      <span class="modal-close" onclick="cancelDelRec()"><i data-lucide="x"></i></span>
+    </div>
+    <div style="display:flex;gap:13px;align-items:flex-start;background:#fdf1f1;border:1px solid #f3c6c6;border-radius:12px;padding:14px;margin-bottom:16px">
+      <span style="width:40px;height:40px;border-radius:10px;background:#fbe3e3;color:#dc2626;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i data-lucide="trash-2"></i></span>
+      <div style="font-size:13.5px;color:#7a1f1f;line-height:1.55">Doporučený produkt bude odstraněn z aktuálního případu. Tuto akci nelze vrátit zpět.</div>
+    </div>
+    <p style="font-size:14px;font-weight:600;color:#1a1d23;margin-bottom:20px">Opravdu chcete doporučení smazat?</p>
+    <div class="brow btw">
+      <button class="btn btn-s" onclick="cancelDelRec()">Zrušit</button>
+      <button class="btn btn-danger" onclick="confirmDelRec()"><i data-lucide="trash-2"></i> Smazat</button>
     </div>
   </div>
 </div>
@@ -1375,6 +1394,22 @@ function addRec(type){
 }
 
 function delRec(id){S.recs=S.recs.filter(r=>r.id!==id);renderRecs();updateVolbaDD();}
+// Smazání doporučení s potvrzením
+let _delRecId=null;
+function askDelRec(id){
+  _delRecId=id;
+  document.getElementById('delrec-modal').style.display='flex';
+  if(window.lucide)lucide.createIcons();
+}
+function cancelDelRec(){
+  document.getElementById('delrec-modal').style.display='none';
+  _delRecId=null;
+}
+function confirmDelRec(){
+  document.getElementById('delrec-modal').style.display='none';
+  if(_delRecId)delRec(_delRecId);
+  _delRecId=null;
+}
 
 function renderRecs(){
   const cont=document.getElementById('rec-cont');
@@ -1399,7 +1434,7 @@ function renderRecs(){
         ${hasK1Sim?`<span style="font-size:11px;color:#9aa3b2;background:#f4f6fb;border:1px solid #e6e9ef;border-radius:6px;padding:2px 8px">Z modelace: <b>${simPoj}</b></span>`:''}
         <div class="rec-actions">
           <button class="btn btn-s btn-sm" onclick="uploadDocsRec('${r.id}')" style="display:inline-flex;align-items:center;gap:6px"><i data-lucide="upload"></i> Nahrát dokumenty</button>
-          ${S.recs.length>1?`<button class="rec-iconbtn danger" title="Smazat doporučení" onclick="delRec('${r.id}')"><i data-lucide="trash-2"></i></button>`:''}
+          ${S.recs.length>1?`<button class="rec-iconbtn danger" title="Smazat doporučení" onclick="askDelRec('${r.id}')"><i data-lucide="trash-2"></i></button>`:''}
         </div>
       </div>
       <div class="up-file-list" id="rec-docs-${r.id}" style="display:none;margin-bottom:12px"></div>
