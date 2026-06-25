@@ -292,7 +292,8 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
 .modal-box.modal-form{text-align:left;width:440px;padding:24px}
 .modal-form-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
 .modal-form-ttl{font-size:17px;font-weight:700;color:#1a1d23}
-.modal-form .modal-close{position:static;display:inline-flex;align-items:center}
+.modal-form .modal-close{position:static;display:inline-flex;align-items:center;justify-content:center;padding:6px;margin:-6px;border-radius:8px;cursor:pointer}
+.modal-form .modal-close:hover{background:#f1f3f8}
 .modal-form .modal-close [data-lucide],.modal-form .modal-close svg{width:18px;height:18px}
 @keyframes spin{to{transform:rotate(360deg)}}
 .spnr{width:13px;height:13px;border:2px solid #cdddfb;border-top-color:#2563eb;border-radius:50%;animation:spin .6s linear infinite;display:inline-block}
@@ -1410,6 +1411,22 @@ function confirmDelRec(){
   if(_delRecId)delRec(_delRecId);
   _delRecId=null;
 }
+
+// Robustní zavírání modálů: klik na jakýkoli křížek (.modal-close) nebo Escape
+function closeModalBg(bg){
+  if(!bg)return;
+  bg.style.display='none';
+  if(bg.id==='endcase-modal'){document.querySelectorAll('input[name="volba"]').forEach(r=>r.checked=false);const dd=document.getElementById('volba-dd');if(dd)dd.style.display='none';}
+  if(bg.id==='delrec-modal'){_delRecId=null;}
+  if(bg.id==='doctype-modal'&&_docTypeCtx){resetUpload(_docTypeCtx.ctx);_docTypeCtx=null;}
+}
+document.addEventListener('click',function(e){
+  const x=e.target.closest&&e.target.closest('.modal-close');
+  if(x){e.preventDefault();closeModalBg(x.closest('.modal-bg'));}
+});
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){document.querySelectorAll('.modal-bg').forEach(bg=>{const d=getComputedStyle(bg).display;if(d!=='none')closeModalBg(bg);});}
+});
 
 function renderRecs(){
   const cont=document.getElementById('rec-cont');
