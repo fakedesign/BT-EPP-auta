@@ -292,8 +292,9 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
 .modal-box.modal-form{text-align:left;width:440px;padding:24px}
 .modal-form-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
 .modal-form-ttl{font-size:17px;font-weight:700;color:#1a1d23}
-.modal-form .modal-close{position:static;display:inline-flex;align-items:center;justify-content:center;padding:6px;margin:-6px;border-radius:8px;cursor:pointer}
-.modal-form .modal-close:hover{background:#f1f3f8}
+.modal-close{background:none;border:none}
+.modal-form .modal-close{position:static;display:inline-flex;align-items:center;justify-content:center;padding:8px;margin:-8px;border-radius:8px;cursor:pointer;color:#818da0}
+.modal-form .modal-close:hover{background:#f1f3f8;color:#1a1d23}
 .modal-form .modal-close [data-lucide],.modal-form .modal-close svg{width:18px;height:18px}
 @keyframes spin{to{transform:rotate(360deg)}}
 .spnr{width:13px;height:13px;border:2px solid #cdddfb;border-top-color:#2563eb;border-radius:50%;animation:spin .6s linear infinite;display:inline-block}
@@ -798,7 +799,7 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
   <div class="modal-box modal-form">
     <div class="modal-form-hd">
       <span class="modal-form-ttl" id="input-modal-ttl">Vlastní upozornění</span>
-      <span class="modal-close" onclick="closeInputModal()"><i data-lucide="x"></i></span>
+      <button type="button" class="modal-close" aria-label="Zavřít" onclick="closeInputModal()"><i data-lucide="x"></i></button>
     </div>
     <div class="f" style="margin-bottom:22px">
       <label id="input-modal-lbl" style="margin-bottom:6px">Text upozornění</label>
@@ -812,11 +813,11 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
 </div>
 
 <!-- DOCTYPE MODAL (ověření typu nahraného dokumentu) -->
-<div class="modal-bg" id="doctype-modal" style="display:none">
+<div class="modal-bg" id="doctype-modal" style="display:none" onclick="if(event.target===this)cancelDocType()">
   <div class="modal-box modal-form" style="width:460px">
     <div class="modal-form-hd">
       <span class="modal-form-ttl">Rozpoznán dokument</span>
-      <span class="modal-close" onclick="cancelDocType()"><i data-lucide="x"></i></span>
+      <button type="button" class="modal-close" aria-label="Zavřít" onclick="cancelDocType()"><i data-lucide="x"></i></button>
     </div>
     <div style="display:flex;gap:13px;align-items:flex-start;background:#f7f8fa;border:1px solid #e6e9ef;border-radius:12px;padding:14px;margin-bottom:18px">
       <span style="width:40px;height:40px;border-radius:10px;background:#eff4fe;color:#2563eb;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i data-lucide="file-text"></i></span>
@@ -838,7 +839,7 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
   <div class="modal-box modal-form" style="width:440px">
     <div class="modal-form-hd">
       <span class="modal-form-ttl">Ukončení obchodního případu</span>
-      <span class="modal-close" onclick="cancelEndCase()"><i data-lucide="x"></i></span>
+      <button type="button" class="modal-close" aria-label="Zavřít" onclick="cancelEndCase()"><i data-lucide="x"></i></button>
     </div>
     <div style="display:flex;gap:13px;align-items:flex-start;background:#fdf1f1;border:1px solid #f3c6c6;border-radius:12px;padding:14px;margin-bottom:16px">
       <span style="width:40px;height:40px;border-radius:10px;background:#fbe3e3;color:#dc2626;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i data-lucide="trash-2"></i></span>
@@ -857,7 +858,7 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
   <div class="modal-box modal-form" style="width:440px">
     <div class="modal-form-hd">
       <span class="modal-form-ttl">Smazání doporučeného produktu</span>
-      <span class="modal-close" onclick="cancelDelRec()"><i data-lucide="x"></i></span>
+      <button type="button" class="modal-close" aria-label="Zavřít" onclick="cancelDelRec()"><i data-lucide="x"></i></button>
     </div>
     <div style="display:flex;gap:13px;align-items:flex-start;background:#fdf1f1;border:1px solid #f3c6c6;border-radius:12px;padding:14px;margin-bottom:16px">
       <span style="width:40px;height:40px;border-radius:10px;background:#fbe3e3;color:#dc2626;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i data-lucide="trash-2"></i></span>
