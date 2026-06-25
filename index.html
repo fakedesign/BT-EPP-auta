@@ -105,6 +105,11 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:14px;backg
 .rec-badge.oba{background:#ede9fe;color:#6d28d9}
 .rec-del{position:absolute;top:14px;right:14px;width:26px;height:26px;border:1px solid #e6e9ef;border-radius:6px;background:#fff;cursor:pointer;color:#818da0;font-size:14px;display:flex;align-items:center;justify-content:center}
 .rec-del:hover{background:#fee2e2;color:#e53e3e;border-color:#fca5a5}
+.rec-actions{margin-left:auto;display:flex;align-items:center;gap:8px}
+.rec-iconbtn{width:34px;height:34px;border:1px solid #e6e9ef;border-radius:9px;background:#fff;color:#6b7480;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;flex-shrink:0}
+.rec-iconbtn:hover{background:#f4f6fb;border-color:#d6dbe6;color:#1e2330}
+.rec-iconbtn.danger:hover{background:#fdf1f1;border-color:#f3c6c6;color:#dc2626}
+.rec-iconbtn [data-lucide],.rec-iconbtn svg{width:17px;height:17px}
 .rec-add-row{display:flex;gap:10px;flex-wrap:wrap}
 .rec-add-btn{padding:9px 16px;border:1.5px dashed #c8d0e8;border-radius:9px;background:#f8f9ff;cursor:pointer;font-size:13px;font-weight:600;color:#2563eb;transition:all .2s;display:flex;align-items:center;gap:6px}
 .rec-add-btn:hover{border-color:#2563eb;background:#eff4fe}
@@ -357,7 +362,7 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
             <div class="up-file-list" id="up-files-k1" style="display:none"></div>
             <div id="up-k1-done" style="display:none;margin-top:14px">
               <div class="banner banner-ok"><i data-lucide="circle-check"></i> Parametry byly vytěženy a předvyplněny. Zkontrolujte je a v případě potřeby upravte.</div>
-              <button class="btn-ai" onclick="showManualSection()" style="margin-top:4px"><i data-lucide="clipboard-list"></i> Zobrazit a upravit parametry</button>
+              <button class="btn-ai" onclick="editParams()" style="margin-top:4px"><i data-lucide="clipboard-list"></i> Upravit parametry</button>
             </div>
           </div>
         </div>
@@ -393,7 +398,7 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
           </div>
 
           <!-- Q1: Vozidlo -->
-          <div class="q-block">
+          <div class="q-block" id="q-vozidlo">
             <div class="q-label"><span class="q-num">1</span>Údaje o vozidle</div>
 
             <!-- RZ/VIN lookup -->
@@ -607,13 +612,9 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
       <div class="card">
         <div class="card-hdr" style="cursor:default">
           <span class="card-ttl">Doporučené produkty</span>
-          <div style="display:flex;align-items:center;gap:10px">
-            <span id="rec-count-badge" style="font-size:12px;color:#818da0"></span>
-            <button class="btn btn-s btn-sm" onclick="uploadDocsK2()" style="display:inline-flex;align-items:center;gap:6px"><i data-lucide="upload"></i> Nahrát dokumenty</button>
-          </div>
+          <span id="rec-count-badge" style="font-size:12px;color:#818da0"></span>
         </div>
         <div class="card-body">
-          <div class="up-file-list" id="k2-docs-list" style="display:none;margin-bottom:12px"></div>
           <div id="rec-cont"></div>
           <div class="rec-add-row" id="rec-add-row" style="margin-top:8px">
             <button class="rec-add-btn" onclick="addRec('pov')">+ POV produkt</button>
@@ -744,6 +745,16 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
         <div style="font-size:24px;font-weight:700">Odesláno na BT</div>
         <div style="font-size:14px;color:#818da0;max-width:380px;line-height:1.6">ZZJ a smlouvy byly úspěšně předány Broker Trust ke zpracování.</div>
         <button class="btn btn-p" onclick="resetAll()" style="margin-top:8px">Nový případ</button>
+      </div>
+    </div>
+
+    <!-- UKONČENO -->
+    <div class="screen" id="scr-ended">
+      <div class="success-wrap">
+        <div style="width:72px;height:72px;border-radius:50%;background:#fdf1f1;color:#dc2626;display:flex;align-items:center;justify-content:center"><i data-lucide="circle-x" style="width:36px;height:36px"></i></div>
+        <div style="font-size:24px;font-weight:700">Obchodní případ byl ukončen</div>
+        <div style="font-size:14px;color:#818da0;max-width:420px;line-height:1.6">Klient odmítl navrhované řešení. Případ byl uzavřen a rozpracovaná data nebyla uložena.</div>
+        <button class="btn btn-p" onclick="resetAll()" style="margin-top:8px"><i data-lucide="plus"></i> Založit nový případ</button>
       </div>
     </div>
 
@@ -953,6 +964,13 @@ function validateK2(){
 // ═══════════════════════════════════════════════════════════════
 // K1 – ENTRY + GUIDED
 // ═══════════════════════════════════════════════════════════════
+// Kotva: zobrazí parametry a nascrolluje na 1. sekci Údaje o vozidle
+function editParams(){
+  showManualSection();
+  const t=document.getElementById('q-vozidlo');
+  if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
 function selectEntry(type){
   S.entry=type;
   document.getElementById('path-upload').style.display=(type==='upload')?'block':'none';
@@ -1335,15 +1353,15 @@ function initK2(){
   ['ev1','ev2','ev3'].forEach(id=>{const e=document.getElementById(id);if(e&&!e.value)e.value=todayISO;});
 }
 
-// Nahrání doplňujících dokumentů v K2 (simulace)
-function uploadDocsK2(){
-  const list=document.getElementById('k2-docs-list');
+// Nahrání dokumentů k danému doporučenému produktu (simulace)
+function uploadDocsRec(rid){
+  const list=document.getElementById('rec-docs-'+rid);
   if(!list)return;
   list.style.display='flex';
-  list.innerHTML=`<div class="up-file"><span class="up-file-ico"><i data-lucide="file-text"></i></span><span class="up-file-name">dokumenty_klienta.pdf</span><span class="up-file-status loading">Nahrávám…</span></div>`;
+  list.innerHTML=`<div class="up-file"><span class="up-file-ico"><i data-lucide="file-text"></i></span><span class="up-file-name">dokumenty_${rid}.pdf</span><span class="up-file-status loading">Nahrávám…</span></div>`;
   if(window.lucide)lucide.createIcons();
   setTimeout(()=>{
-    list.innerHTML=`<div class="up-file"><span class="up-file-ico"><i data-lucide="file-text"></i></span><span class="up-file-name">dokumenty_klienta.pdf</span><span class="up-file-status ok">✓ Nahráno</span><button class="up-file-rm" onclick="const l=this.closest('.up-file-list');l.style.display='none';l.innerHTML='';">✕</button></div>`;
+    list.innerHTML=`<div class="up-file"><span class="up-file-ico"><i data-lucide="file-text"></i></span><span class="up-file-name">dokumenty_${rid}.pdf</span><span class="up-file-status ok">✓ Nahráno</span><button class="up-file-rm" onclick="const l=this.closest('.up-file-list');l.style.display='none';l.innerHTML='';">✕</button></div>`;
     if(window.lucide)lucide.createIcons();
   },1400);
 }
@@ -1379,8 +1397,12 @@ function renderRecs(){
       <div class="rec-card-hdr">
         <span class="rec-badge ${badge[r.type]}">${badgeLbl[r.type]}</span>
         ${hasK1Sim?`<span style="font-size:11px;color:#9aa3b2;background:#f4f6fb;border:1px solid #e6e9ef;border-radius:6px;padding:2px 8px">Z modelace: <b>${simPoj}</b></span>`:''}
-        ${S.recs.length>1?`<button class="rec-del" onclick="delRec('${r.id}')">✕</button>`:''}
+        <div class="rec-actions">
+          <button class="btn btn-s btn-sm" onclick="uploadDocsRec('${r.id}')" style="display:inline-flex;align-items:center;gap:6px"><i data-lucide="upload"></i> Nahrát dokumenty</button>
+          ${S.recs.length>1?`<button class="rec-iconbtn danger" title="Smazat doporučení" onclick="delRec('${r.id}')"><i data-lucide="trash-2"></i></button>`:''}
+        </div>
       </div>
+      <div class="up-file-list" id="rec-docs-${r.id}" style="display:none;margin-bottom:12px"></div>
 
       <div class="frow">
         <div class="f f2"><label>Pojišťovna <span class="req">*</span></label>
@@ -1616,8 +1638,9 @@ function cancelEndCase(){
 }
 function confirmEndCase(){
   document.getElementById('endcase-modal').style.display='none';
-  // ukončení případu → návrat na začátek, rozpracovaná data se zahodí
-  resetAll();
+  // ukončení případu → info stránka s nabídkou nového případu
+  showScr('scr-ended');
+  if(window.lucide)lucide.createIcons();
 }
 
 function getSelectedRecs(){
