@@ -9,7 +9,7 @@
 <title>PR-278 Neživot Auta – v12</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:14px;background:#f5f6f8;color:#1e2330;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:14px;background:#fafafa;color:#1e2330;height:100vh;display:flex;flex-direction:column;overflow:hidden}
 
 /* ══ WIZARD BAR (chevron stepper dle Bety2) ══════════════════ */
 .wbar{background:#fff;border-bottom:1px solid #e8ecf5;min-height:60px;display:flex;align-items:center;padding:8px 16px;gap:12px;flex-shrink:0;box-shadow:0 1px 3px rgba(0,0,0,.04)}
@@ -382,7 +382,6 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
 
       <!-- GUIDED QUESTIONS PATH -->
       <div id="path-manual" style="display:none">
-        <div style="margin-bottom:14px"><button class="link-btn" onclick="selectEntry('upload')" style="display:inline-flex;align-items:center;gap:5px"><i data-lucide="arrow-left"></i> Nahrát modelaci místo ručního zadání</button></div>
         <div class="q-wrap">
 
           <!-- Q0: AI vytěžení z volného textu (email, poznámky atd.) -->
@@ -1421,10 +1420,15 @@ function closeModalBg(bg){
   if(bg.id==='delrec-modal'){_delRecId=null;}
   if(bg.id==='doctype-modal'&&_docTypeCtx){resetUpload(_docTypeCtx.ctx);_docTypeCtx=null;}
 }
+// Capture fáze + ruční traverze – zavře dialog při kliku na křížek i na pozadí
 document.addEventListener('click',function(e){
-  const x=e.target.closest&&e.target.closest('.modal-close');
-  if(x){e.preventDefault();closeModalBg(x.closest('.modal-bg'));}
-});
+  let n=e.target;
+  while(n&&n.nodeType===1){
+    if(n.classList&&n.classList.contains('modal-close')){closeModalBg(n.closest('.modal-bg'));return;}
+    if(n.classList&&n.classList.contains('modal-bg')&&n===e.target){closeModalBg(n);return;}
+    n=n.parentNode;
+  }
+},true);
 document.addEventListener('keydown',function(e){
   if(e.key==='Escape'){document.querySelectorAll('.modal-bg').forEach(bg=>{const d=getComputedStyle(bg).display;if(d!=='none')closeModalBg(bg);});}
 });
