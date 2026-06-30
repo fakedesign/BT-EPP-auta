@@ -1444,7 +1444,10 @@ function renderRecs(){
   const addRow=document.getElementById('rec-add-row');
   addRow.style.display=S.recs.length<3?'flex':'none';
 
-  cont.innerHTML=S.recs.map(r=>{
+  const specReq=(document.getElementById('k1-text')?.value||'').trim()
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+  cont.innerHTML=S.recs.map((r,idx)=>{
     const pojOpts=POJISTOVNY.map(p=>`<option ${r.poj===p?'selected':''}>${p}</option>`).join('');
     const hasK1Sim=!!S.simData;
     const simPoj=S.simData?.pojistovna||'';
@@ -1489,6 +1492,11 @@ function renderRecs(){
           <span id="${r.id}-zdv-sp" style="display:none;font-size:12px;color:#818da0"><span class="spnr"></span> Generuji…</span>
         </div>
       </div>
+
+      ${idx===0&&specReq?`<div style="margin-top:14px">
+        <label style="font-size:11px;font-weight:600;color:#6e768b;text-transform:uppercase;letter-spacing:.4px">Speciální požadavek klienta</label>
+        <div style="margin-top:5px;border:1px solid #e6e9ef;border-radius:12px;padding:11px 14px;font-size:14px;color:#1e2330;background:#f7f8fa;line-height:1.55;white-space:pre-wrap">${specReq}</div>
+      </div>`:''}
     </div>`;
   }).join('');
 
