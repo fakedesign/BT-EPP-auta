@@ -577,15 +577,14 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
                 </select>
               </div>
             </div>
-          </div>
 
-          <!-- Q6: Volný text -->
-          <div class="q-block" id="q-text-block" style="display:none">
-            <div class="q-label"><span class="q-num" id="q-txt-num">6</span>Chce klient ještě něco jiného?</div>
-            <textarea id="k1-text" rows="2" placeholder="Volitelné – speciální požadavky, priority, poznámky k jednání…" oninput="liveZzj()"></textarea>
-            <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
-              <button class="btn-ai" onclick="aiText()"><i data-lucide="sparkles"></i> Zpracovat text pomocí AI</button>
-              <span id="ai-sp" style="display:none;font-size:12px;color:#818da0"><span class="spnr"></span> Zpracovávám…</span>
+            <!-- Speciální požadavek (volitelné) -->
+            <div style="margin-top:16px">
+              <button class="rec-add-btn" id="spec-req-btn" onclick="toggleSpecReq()"><i data-lucide="plus"></i> Přidat speciální požadavek</button>
+              <div id="spec-req-wrap" style="display:none;margin-top:10px">
+                <label class="slbl" style="display:block;margin-bottom:6px">Speciální požadavek klienta</label>
+                <textarea id="k1-text" rows="2" placeholder="Popište speciální požadavek, prioritu nebo poznámku k jednání…" oninput="liveZzj()"></textarea>
+              </div>
             </div>
           </div>
 
@@ -1011,10 +1010,16 @@ function showManualSection(){
   document.querySelectorAll('.q-block').forEach(b=>{
     if(b.id!=='q-pov-block'&&b.id!=='q-hav-block'&&b.id!=='q-pripoj-block') b.style.display='block';
   });
-  document.getElementById('q-text-block').style.display='block';
   document.getElementById('q-pripoj-block').style.display='block';
   document.getElementById('k1-nav').style.display='';
   updateQnums();
+}
+
+// Speciální požadavek – CTA otevře textareu
+function toggleSpecReq(){
+  document.getElementById('spec-req-wrap').style.display='block';
+  document.getElementById('spec-req-btn').style.display='none';
+  const t=document.getElementById('k1-text');if(t)t.focus();
 }
 
 function selQ(grp,el,mode){
@@ -1030,7 +1035,6 @@ function showPovHav(){
   document.getElementById('q-pov-block').style.display=(ins==='pov'||ins==='both')?'block':'none';
   document.getElementById('q-hav-block').style.display=(ins==='hav'||ins==='both')?'block':'none';
   document.getElementById('q-pripoj-block').style.display=ins?'block':'none';
-  document.getElementById('q-text-block').style.display=ins?'block':'none';
   document.getElementById('k1-nav').style.display='';
   updateQnums();
 }
@@ -2218,7 +2222,8 @@ function resetAll(){
   document.getElementById('q-pov-block').style.display='none';
   document.getElementById('q-hav-block').style.display='none';
   document.getElementById('q-pripoj-block').style.display='none';
-  document.getElementById('q-text-block').style.display='none';
+  // Speciální požadavek – zpět na výchozí (skrytá textarea, viditelné CTA)
+  {const w=document.getElementById('spec-req-wrap');if(w)w.style.display='none';const b=document.getElementById('spec-req-btn');if(b)b.style.display='';}
   showScr('scr-k1');setWizard(1);validateK1();
 }
 
