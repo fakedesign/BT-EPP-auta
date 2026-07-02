@@ -39,6 +39,8 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:14px;backg
 .content{flex:1;overflow-y:auto;padding:28px 36px 0}
 .screen{display:none}
 .screen.active{display:flex;flex-direction:column;min-height:100%}
+/* fáze B vyplní výšku, aby CTA lišta držela dole */
+#phase-req{flex:1;flex-direction:column;min-height:0}
 
 /* ══ SCREEN HEADER ═══════════════════════════════════════════ */
 .scr-hdr{margin-bottom:24px}
@@ -67,6 +69,17 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:14px;backg
 .q-block{background:#fff;border:1px solid #e6e9ef;border-radius:16px;padding:20px 22px;box-shadow:0 1px 3px rgba(0,0,0,.03)}
 .q-label{font-size:15px;font-weight:700;color:#1a1d23;margin-bottom:12px;display:flex;align-items:center;gap:8px}
 .q-num{width:22px;height:22px;border-radius:50%;background:#2563eb;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.q-ico{width:28px;height:28px;border-radius:8px;background:#eff4fe;color:#2563eb;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.q-ico [data-lucide],.q-ico svg{width:16px;height:16px}
+/* vytěžený input čekající na potvrzení */
+input.pending,select.pending{background:#fff9ec;border-color:#f5d9a0}
+/* potvrzovací lišta sekce (secondary) */
+.sec-confirm{align-items:center;gap:10px;margin-top:14px;padding:10px 13px;background:#fff9ec;border:1px solid #f5d9a0;border-radius:10px;font-size:12.5px;color:#8a5a00}
+.sec-confirm [data-lucide],.sec-confirm svg{width:15px;height:15px}
+/* badge pro přidání speciálního požadavku */
+.chip.chip-add{border-style:dashed;border-color:#c7cfdd;color:#2563eb}
+.chip.chip-add:hover{border-color:#2563eb;background:#eff4fe}
+.chip.chip-add.sel{border-style:solid}
 .q-opts{display:flex;flex-wrap:wrap;gap:8px}
 .q-opt{padding:8px 16px;border:1.5px solid #e6e9ef;border-radius:8px;background:#fff;cursor:pointer;font-size:13px;font-weight:500;color:#4a5568;transition:all .15s;user-select:none}
 .q-opt:hover{border-color:#9bb8fb;color:#1a1d23}
@@ -124,9 +137,7 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:14px;backg
 
 /* ══ ZZJ LIVE PANEL ══════════════════════════════════════════ */
 .rpanel{width:320px;flex-shrink:0;background:#fff;border-left:1px solid #e8ecf5;display:flex;flex-direction:column;overflow:hidden}
-.rpanel-tabs{display:flex;border-bottom:1px solid #e8ecf5;flex-shrink:0}
-.rpanel-tab{flex:1;padding:11px 8px;text-align:center;font-size:12px;font-weight:600;color:#9aa3b2;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s}
-.rpanel-tab.active{color:#2563eb;border-bottom-color:#2563eb}
+.rpanel-head{padding:16px 18px;border-bottom:1px solid #e8ecf5;flex-shrink:0;font-size:16px;font-weight:700;color:#1a1d23}
 .rpanel-body{flex:1;overflow-y:auto;padding:18px 18px}
 
 /* Legislativní checklist (timeline dle Bety2) */
@@ -206,6 +217,29 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
 /* destruktivní (nevratná) akce */
 .btn-danger{background:#dc2626;color:#fff}
 .btn-danger:hover{background:#b91c1c}
+/* modré outline tlačítko (Nový klient) */
+.btn-outline-blue{background:#fff;color:#2563eb;border:1.5px solid #2563eb;flex-shrink:0}
+.btn-outline-blue:hover{background:#eff4fe}
+/* Vyhledávání klienta – dropdown */
+.client-results{position:absolute;top:calc(100% + 6px);left:0;right:0;background:#fff;border:1px solid #e6e9ef;border-radius:12px;box-shadow:0 8px 28px rgba(16,24,40,.10);z-index:20;overflow:hidden;max-height:280px;overflow-y:auto}
+.client-item{display:flex;align-items:center;gap:11px;padding:11px 14px;cursor:pointer;border-bottom:1px solid #f0f2f8}
+.client-item:last-child{border-bottom:none}
+.client-item:hover{background:#f5f8ff}
+.client-item .ci-av{width:34px;height:34px;border-radius:50%;background:#e7e9ef;color:#8a93a4;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.client-item-empty{padding:12px 14px;font-size:13px;color:#9aa3b2}
+/* Karta vybraného klienta (Pojistník) */
+.client-card{display:flex;align-items:center;gap:16px}
+.cc-av{width:64px;height:64px;border-radius:50%;background:#e7e9ef;color:#8a93a4;font-size:18px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+/* 3 volby vstupu (2:1:1) – jednotné hlavičky, liší se obsah */
+.entry3{display:grid;grid-template-columns:2fr 1fr 1fr;gap:14px;align-items:stretch}
+.entry3-box{background:#fff;border:1px solid #e6e9ef;border-radius:16px;padding:18px 20px;box-shadow:0 1px 2px rgba(16,24,40,.04),0 1px 3px rgba(16,24,40,.05);text-align:left;font-family:inherit;display:flex;flex-direction:column}
+.entry3-header{display:flex;align-items:center;gap:11px;margin-bottom:12px}
+.entry3-title{font-size:14px;font-weight:700;color:#1a1d23;line-height:1.3}
+.entry3-sub{font-size:12.5px;color:#6e768b;line-height:1.5}
+.entry3-foot{margin-top:auto;padding-top:14px;display:flex;align-items:center;flex-wrap:wrap}
+.entry3-opt{cursor:pointer;transition:all .15s}
+.entry3-opt:hover{border-color:#cdd4e0;background:#fcfcfe}
+@media(max-width:900px){.entry3{grid-template-columns:1fr}}
 
 /* ══ BANNERS ═════════════════════════════════════════════════ */
 .banner{padding:11px 14px;border-radius:9px;font-size:13px;margin-bottom:14px;display:flex;align-items:flex-start;gap:8px}
@@ -344,39 +378,77 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
          KROK 1 – POŽADAVKY KLIENTA
     ════════════════════════════════════════════════════════ -->
     <div class="screen active" id="scr-k1">
-      <div class="scr-hdr">
-        <h1>Požadavky klienta</h1>
-        <p>Nahrajte modelaci od pojišťovny pro automatické vytěžení parametrů, nebo zadejte údaje ručně.</p>
-      </div>
 
-      <!-- UPLOAD PATH (výchozí) -->
-      <div id="path-upload" style="display:block">
+      <!-- ═══ FÁZE A: výběr pojistníka ═══ -->
+      <div id="phase-client">
+        <div class="scr-hdr">
+          <h1>Požadavky klienta</h1>
+          <p>Vyberte klienta, pro kterého budeme sjednávat pojištění.</p>
+        </div>
         <div class="card">
-          <div class="card-hdr" style="cursor:default">
-            <span class="card-ttl">Modelace od pojišťovny</span>
-          </div>
+          <div class="card-hdr" style="cursor:default"><span class="card-ttl">Výběr klienta</span></div>
           <div class="card-body">
-            <div class="upzone" id="up-zone-k1" onclick="showUpFiles('k1')">
-              <div class="upzone-ico"><i data-lucide="upload"></i></div>
-              <div class="upzone-ttl">Přetáhněte soubor sem nebo jej vyberte</div>
-              <div class="upzone-sub">Podporované formáty: PDF, XLS, DOC (kalkulace nebo návrh smlouvy)</div>
-            </div>
-            <div class="up-file-list" id="up-files-k1" style="display:none"></div>
-            <div id="up-k1-done" style="display:none;margin-top:14px">
-              <div class="banner banner-ok"><i data-lucide="circle-check"></i> Parametry byly vytěženy a předvyplněny. Zkontrolujte je a v případě potřeby upravte.</div>
-              <button class="btn-ai" onclick="editParams()" style="margin-top:4px"><i data-lucide="clipboard-list"></i> Upravit parametry</button>
+            <div class="slbl" style="margin-bottom:8px">Pojistník <span style="font-weight:400;color:#98a2b3">(pro kterého budeme sjednávat pojištění)</span></div>
+            <div style="display:flex;gap:12px;align-items:flex-start">
+              <div style="flex:1;position:relative">
+                <i data-lucide="search" style="position:absolute;left:14px;top:22px;transform:translateY(-50%);color:#98a2b3;width:16px;height:16px;pointer-events:none"></i>
+                <input type="text" id="client-search" placeholder="Najít klienta" autocomplete="off" readonly style="padding-left:40px;cursor:pointer" onclick="selectClientAuto()" onfocus="selectClientAuto()">
+              </div>
+              <button class="btn btn-outline-blue" onclick="openNewClientModal()"><i data-lucide="plus"></i> Nový klient</button>
             </div>
           </div>
         </div>
-        <div class="card alt-card" id="up-secondary" onclick="selectEntry('manual')">
-          <div class="card-body" style="display:flex;align-items:center;gap:14px">
-            <span class="alt-ic"><i data-lucide="pencil"></i></span>
-            <div style="flex:1">
-              <div style="font-size:14px;font-weight:700;color:#1a1d23">Nemáte modelaci? Zadejte údaje ručně</div>
-              <div style="font-size:12.5px;color:#6e768b;margin-top:2px">Projděte krátkým průvodcem a vyplňte požadavky klienta krok za krokem.</div>
+      </div>
+
+      <!-- ═══ FÁZE B: požadavky klienta ═══ -->
+      <div id="phase-req" style="display:none">
+      <div class="scr-hdr">
+        <h1>Požadavky klienta</h1>
+        <p>Nahrajte modelaci od pojišťovny, zadejte údaje ručně, nebo vložte text s požadavky klienta.</p>
+      </div>
+
+      <!-- Vybraný pojistník -->
+      <div class="card">
+        <div class="card-hdr" style="cursor:default"><span class="card-ttl">Výběr klienta</span></div>
+        <div class="card-body">
+          <div class="client-card">
+            <div class="cc-av" id="pojistnik-initials">—</div>
+            <div style="flex:1;min-width:0">
+              <div style="display:flex;align-items:center;gap:8px"><span id="pojistnik-name" style="font-size:17px;font-weight:700;color:#1a1d23">—</span><i data-lucide="pencil" style="width:15px;height:15px;color:#2563eb"></i></div>
+              <div style="font-size:13px;color:#6e768b;font-weight:600;margin-top:3px">Pojistník · <span id="pojistnik-born">—</span></div>
+              <div style="font-size:13px;color:#9aa3b2;margin-top:2px" id="pojistnik-addr">—</div>
             </div>
-            <i data-lucide="arrow-right" style="color:#9aa3b2;flex-shrink:0"></i>
+            <button class="link-btn" onclick="changeClient()" style="display:inline-flex;align-items:center;gap:6px;flex-shrink:0"><i data-lucide="rotate-cw"></i> Vyměnit klienta</button>
           </div>
+        </div>
+      </div>
+
+      <!-- 3 VOLBY (2:1:1) -->
+      <div class="entry3" id="entry3">
+        <div class="entry3-box">
+          <div class="entry3-header"><span class="alt-ic"><i data-lucide="upload"></i></span><div class="entry3-title">Modelace od pojišťovny</div></div>
+          <div class="upzone" id="up-zone-k1" onclick="showUpFiles('k1')">
+            <div class="upzone-ico"><i data-lucide="upload"></i></div>
+            <div class="upzone-ttl">Přetáhněte soubor sem nebo jej vyberte</div>
+            <div class="upzone-sub">PDF, XLS, DOC (kalkulace nebo návrh smlouvy)</div>
+          </div>
+          <div class="up-file-list" id="up-files-k1" style="display:none"></div>
+          <div id="up-k1-done" style="display:none;margin-top:14px">
+            <div class="banner banner-ok"><i data-lucide="circle-check"></i> Parametry byly vytěženy a předvyplněny. Zkontrolujte je a v případě potřeby upravte.</div>
+            <button class="btn-ai" onclick="editParams()" style="margin-top:4px"><i data-lucide="clipboard-list"></i> Upravit parametry</button>
+          </div>
+        </div>
+        <div class="entry3-box">
+          <div class="entry3-header"><span class="alt-ic"><i data-lucide="pencil"></i></span><div class="entry3-title">Nemáte modelaci? Zadejte údaje ručně</div></div>
+          <div class="entry3-sub">Projděte krátkým průvodcem a vyplňte požadavky klienta krok za krokem.</div>
+          <div class="entry3-foot"><button class="btn btn-s btn-sm" onclick="chooseManual()"><i data-lucide="pencil"></i> Zadat ručně</button></div>
+        </div>
+        <div class="entry3-box">
+          <div class="entry3-header"><span class="alt-ic"><i data-lucide="sparkles"></i></span><div class="entry3-title">Máte text s požadavky klienta?</div></div>
+          <textarea id="k1-ai-text" rows="3" placeholder="Vložte e-mail od klienta, poznámky nebo přepis hovoru…"></textarea>
+          <div class="entry3-foot"><button class="btn btn-s btn-sm" onclick="aiExtractFromText()"><i data-lucide="sparkles"></i> Vytěžit a vyplnit formulář</button>
+          <span id="ai-extract-sp" style="display:none;font-size:12px;color:#818da0;margin-left:8px"><span class="spnr"></span> Analyzuji text…</span>
+          <span id="ai-extract-done" style="display:none;font-size:12px;color:#16a34a;font-weight:600;margin-left:8px">✓ Vyplněno</span></div>
         </div>
       </div>
 
@@ -384,98 +456,80 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
       <div id="path-manual" style="display:none">
         <div class="q-wrap">
 
-          <!-- Q0: AI vytěžení z volného textu (email, poznámky atd.) -->
-          <div class="q-block" style="border-style:dashed;border-color:#c8d0e8;background:#f8f9ff">
-            <div class="q-label" style="margin-bottom:8px">
-              <span style="font-size:18px"><i data-lucide="sparkles"></i></span>
-              Máte text s požadavky klienta? (e-mail, poznámky, přepis hovoru)
-            </div>
-            <textarea id="k1-ai-text" rows="3" placeholder="Vložte text – např. e-mail od klienta nebo poznámky z telefonátu. AI z toho vytěží a předvyplní formulář níže…"></textarea>
-            <div style="display:flex;align-items:center;gap:8px;margin-top:9px">
-              <button class="btn-ai" onclick="aiExtractFromText()"><i data-lucide="sparkles"></i> Vytěžit a vyplnit formulář</button>
-              <span id="ai-extract-sp" style="display:none;font-size:12px;color:#818da0"><span class="spnr"></span> Analyzuji text…</span>
-              <span id="ai-extract-done" style="display:none;font-size:12px;color:#16a34a;font-weight:600">✓ Formulář předvyplněn níže</span>
-            </div>
-          </div>
-
           <!-- Q1: Vozidlo -->
           <div class="q-block" id="q-vozidlo">
-            <div class="q-label"><span class="q-num">1</span>Údaje o vozidle</div>
+            <div class="q-label"><span class="q-ico"><i data-lucide="car"></i></span>Údaje o vozidle</div>
 
-            <!-- RZ/VIN lookup -->
-            <div style="margin-bottom:14px">
-              <label style="font-size:13px;font-weight:600;color:#475467;display:block;margin-bottom:5px">SPZ nebo VIN <span class="req">*</span></label>
-              <div style="display:flex;gap:8px;align-items:center">
-                <input type="text" id="k1-rz" placeholder="např. 1AE Z080 nebo WVW…" style="flex:1;text-transform:uppercase" oninput="onRzInput()" onkeydown="if(event.key==='Enter')lookupRz()">
-                <button class="btn btn-s" id="rz-lookup-btn" onclick="lookupRz()" style="white-space:nowrap;flex-shrink:0;display:flex;align-items:center;gap:6px;padding:8px 14px" disabled>
-                  <span id="rz-btn-ico"><i data-lucide="search"></i></span>
-                  <span id="rz-btn-lbl">Vyhledat z registru</span>
-                </button>
-              </div>
-              <div style="font-size:11px;color:#9aa3b2;margin-top:4px">Zadejte SPZ nebo VIN a vyhledejte vozidlo v registru MDŽ</div>
+            <!-- Volba způsobu zadání (ruční režim) -->
+            <div id="veh-choice" style="display:none;gap:10px;margin-bottom:4px">
+              <button class="btn btn-s" onclick="vehLookup()"><i data-lucide="search"></i> Vyhledat z registru</button>
+              <button class="btn btn-s" onclick="vehManual()"><i data-lucide="pencil"></i> Zadat ručně</button>
             </div>
 
-            <!-- Výsledek lookup -->
-            <div id="rz-result" style="display:none;margin-bottom:14px">
-              <div id="rz-result-card" style="border:1.5px solid #bbf7d0;border-radius:10px;padding:14px 16px;background:#f0fdf4">
+            <!-- Vyhledání z registru -->
+            <div id="veh-lookup" style="display:none;margin-bottom:4px">
+              <label style="font-size:13px;font-weight:600;color:#475467;display:block;margin-bottom:5px">SPZ nebo VIN <span class="req">*</span></label>
+              <div style="display:flex;gap:8px;align-items:center">
+                <input type="text" id="veh-lookup-input" placeholder="např. 1AE Z080 nebo WVW…" style="flex:1;text-transform:uppercase" oninput="onRzInput()" onkeydown="if(event.key==='Enter')lookupRz()">
+                <button class="btn btn-s" id="rz-lookup-btn" onclick="lookupRz()" style="white-space:nowrap;flex-shrink:0;display:flex;align-items:center;gap:6px;padding:8px 14px" disabled>
+                  <span id="rz-btn-ico"><i data-lucide="search"></i></span>
+                  <span id="rz-btn-lbl">Vyhledat</span>
+                </button>
+              </div>
+              <div style="font-size:11px;color:#9aa3b2;margin-top:4px">Zadejte SPZ nebo VIN a vyhledejte vozidlo v registru</div>
+            </div>
+
+            <!-- Výsledek lookup (zelený box) -->
+            <div id="rz-result" style="display:none;margin-bottom:4px">
+              <div id="rz-result-card" style="border:1.5px solid #bbf7d0;border-radius:12px;padding:14px 16px;background:#f0fdf4">
                 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
                   <div style="display:flex;align-items:center;gap:7px">
-                    <span style="font-size:16px"><i data-lucide="car"></i></span>
+                    <span style="font-size:16px;color:#16a34a"><i data-lucide="car"></i></span>
                     <span style="font-size:13px;font-weight:700;color:#166534" id="rz-result-ttl">Vozidlo nalezeno</span>
                   </div>
                   <button onclick="clearRzResult()" style="font-size:11px;color:#9aa3b2;background:none;border:none;cursor:pointer;text-decoration:underline">Zadat jiné</button>
                 </div>
                 <div class="dlg" id="rz-result-body" style="grid-template-columns:140px 1fr"></div>
                 <div style="margin-top:10px;display:flex;gap:8px">
-                  <button class="btn btn-p btn-sm" onclick="acceptRzResult()" style="font-size:12px">✓ Použít tato data</button>
-                  <button class="btn btn-s btn-sm" onclick="clearRzResult()" style="font-size:12px">Zadat ručně</button>
+                  <button class="btn btn-p btn-sm" onclick="acceptRzResult()"><i data-lucide="check"></i> Použít tato data</button>
+                  <button class="btn btn-s btn-sm" onclick="vehManual()">Zadat ručně</button>
                 </div>
               </div>
             </div>
 
-            <!-- Ruční pole vozidla – sekce se zobrazuje vždy celá -->
-            <div id="rz-manual-fields" style="display:block">
-              <div id="rz-from-lookup-bar" style="display:none;align-items:center;gap:7px;margin-bottom:12px;padding:7px 10px;background:#f4f6fb;border-radius:7px;font-size:12px;color:#6e768b">
+            <!-- Stav: nenalezeno -->
+            <div id="rz-not-found" style="display:none;padding:12px 14px;border:1.5px solid #fca5a5;border-radius:12px;background:#fff5f5;font-size:13px;color:#9b2335;margin-bottom:4px">
+              <i data-lucide="circle-x"></i> Vozidlo s touto SPZ/VIN nenalezeno. Zkontrolujte zadání nebo <button onclick="vehManual()" style="background:none;border:none;color:#2563eb;cursor:pointer;font-size:13px;text-decoration:underline;padding:0">zadejte ručně</button>.
+            </div>
+
+            <!-- Pole vozidla -->
+            <div id="rz-manual-fields" style="display:none">
+              <div id="rz-from-lookup-bar" style="display:none;align-items:center;gap:7px;margin-bottom:12px;padding:7px 10px;background:#f4f6fb;border-radius:8px;font-size:12px;color:#6e768b">
                 <span><i data-lucide="pencil"></i></span> Data načtena z registru – lze upravit
                 <button onclick="clearRzResult()" style="margin-left:auto;font-size:11px;color:#2563eb;background:none;border:none;cursor:pointer;text-decoration:underline">Vymazat a hledat znovu</button>
               </div>
               <div class="frow" style="margin-bottom:0">
-                <div class="f f2"><label>Značka</label><input type="text" id="k1-znacka" placeholder="Škoda" oninput="liveZzj()"></div>
-                <div class="f f2"><label>Model</label><input type="text" id="k1-model" placeholder="Karoq" oninput="liveZzj()"></div>
-                <div class="f f2"><label>Rok výroby / uvedení</label><input type="date" id="k1-datum" onchange="liveZzj()"></div>
+                <div class="f"><label>Značka</label><input type="text" id="k1-znacka" placeholder="Škoda" oninput="liveZzj()"></div>
+                <div class="f"><label>Model</label><input type="text" id="k1-model" placeholder="Karoq" oninput="liveZzj()"></div>
+                <div class="f"><label>Typ</label><input type="text" id="k1-typ" placeholder="1.5 TSI"></div>
               </div>
               <div class="frow" style="margin-top:8px;margin-bottom:0">
-                <div class="f"><label>Barva</label><input type="text" id="k1-barva" placeholder="Šedá"></div>
+                <div class="f"><label>SPZ</label><input type="text" id="k1-rz" placeholder="1AE 0080" style="text-transform:uppercase" oninput="liveZzj()"></div>
+                <div class="f"><label>VIN</label><input type="text" id="k1-vin" placeholder="TMBJ…" style="text-transform:uppercase"></div>
+                <div class="f"><label>Rok uvedení</label><input type="date" id="k1-datum" onchange="liveZzj()"></div>
+              </div>
+              <div class="frow" style="margin-top:8px;margin-bottom:0">
+                <div class="f f2"><label>Majitel <span style="font-weight:400;color:#98a2b3">(pokud jiný než klient)</span></label><input type="text" id="k1-majitel" placeholder="Jméno a příjmení"></div>
                 <div class="f"><label>Palivo</label><select id="k1-palivo"><option>Benzín</option><option>Diesel</option><option>Elektro</option><option>Hybrid</option><option>LPG</option></select></div>
-                <div class="f"><label>Roční nájezd (km)</label><input type="number" id="k1-najezd" placeholder="15 000" oninput="liveZzj()"></div>
               </div>
-
-              <!-- Pojištěný – jen pokud jiný než pojistník -->
-              <div style="margin-top:12px" id="pojisteny-wrap">
-                <button class="btn btn-s btn-sm" id="add-pojisteny-btn" onclick="addPojisteny()">+ Přidat pojištěného (pokud jiný než klient)</button>
-                <div id="pojisteny-fields" style="display:none;margin-top:10px;border:1.5px solid #e6e9ef;border-radius:9px;padding:13px;background:#fafbfd">
-                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px">
-                    <span style="font-size:12px;font-weight:600;color:#6e768b">Pojištěný (jiná osoba)</span>
-                    <button onclick="removePojisteny()" style="background:none;border:none;color:#9aa3b2;cursor:pointer;font-size:13px">✕</button>
-                  </div>
-                  <div class="frow" style="margin-bottom:0">
-                    <div class="f f2"><label>Jméno a příjmení</label><input type="text" id="k1-poj-jmeno" placeholder="Jan Novák"></div>
-                    <div class="f f2"><label>Rodné číslo</label><input type="text" id="k1-poj-rc" placeholder="000000/0000"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Stav: nič nenalezeno -->
-            <div id="rz-not-found" style="display:none;padding:12px 14px;border:1.5px solid #fca5a5;border-radius:10px;background:#fff5f5;font-size:13px;color:#9b2335;margin-bottom:10px">
-              <i data-lucide="circle-x"></i> Vozidlo s touto SPZ/VIN nenalezeno. Zkontrolujte zadání nebo <button onclick="showManualOnly()" style="background:none;border:none;color:#2563eb;cursor:pointer;font-size:13px;text-decoration:underline;padding:0">zadejte ručně</button>.
+              <div class="sec-confirm" style="display:none"><span style="display:inline-flex"><i data-lucide="clock"></i></span><span style="flex:1">Vytěžené údaje čekají na potvrzení. Zkontrolujte je a potvrďte správnost.</span><button class="btn btn-s btn-sm" onclick="confirmSection(this)"><i data-lucide="check"></i> Potvrdit vytěžené údaje</button></div>
             </div>
 
           </div>
 
           <!-- Q2: Smlouva a co chce pojistit -->
           <div class="q-block">
-            <div class="q-label"><span class="q-num">2</span>Smlouva</div>
+            <div class="q-label"><span class="q-ico"><i data-lucide="file-text"></i></span>Smlouva</div>
             <div class="frow">
               <div class="f"><label>Počátek pojištění <span class="req">*</span></label><input type="date" id="k1-poc" onchange="liveZzj()"></div>
               <div class="f"><label>Frekvence placení <span class="req">*</span></label>
@@ -491,21 +545,23 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
               <div class="q-opt" data-v="hav" onclick="selQ('q-ins',this,'single');showPovHav();liveZzj()"><i data-lucide="car"></i> Jen havarijní pojištění (HAV)</div>
               <div class="q-opt" data-v="both" onclick="selQ('q-ins',this,'single');showPovHav();liveZzj()"><i data-lucide="shield"></i>+<i data-lucide="car"></i> POV i HAV</div>
             </div>
+            <div class="sec-confirm" style="display:none"><span style="display:inline-flex"><i data-lucide="clock"></i></span><span style="flex:1">Vytěžené údaje čekají na potvrzení.</span><button class="btn btn-s btn-sm" onclick="confirmSection(this)"><i data-lucide="check"></i> Potvrdit vytěžené údaje</button></div>
           </div>
 
           <!-- Q3: POV limity (conditional) -->
           <div class="q-block" id="q-pov-block" style="display:none">
-            <div class="q-label"><span class="q-num">3</span><span style="background:#dbeafe;color:#1d4ed8;font-size:10px;font-weight:700;border-radius:5px;padding:2px 7px;text-transform:uppercase;letter-spacing:.4px;margin-right:6px">POV</span>Jak velké limity povinného ručení klient chce?</div>
+            <div class="q-label"><span class="q-ico"><i data-lucide="shield"></i></span><span style="background:#dbeafe;color:#1d4ed8;font-size:10px;font-weight:700;border-radius:5px;padding:2px 7px;text-transform:uppercase;letter-spacing:.4px;margin-right:6px">POV</span>Jak velké limity povinného ručení klient chce?</div>
             <div class="q-opts">
               <div class="q-opt" data-lim="niz" onclick="selQ('q-lim',this,'single');liveZzj()">Malé – 50/50 mil Kč</div>
               <div class="q-opt" data-lim="str" onclick="selQ('q-lim',this,'single');liveZzj()">Střední – 100/100 mil Kč</div>
               <div class="q-opt" data-lim="vys" onclick="selQ('q-lim',this,'single');liveZzj()">Velké – 150/150 mil Kč a více</div>
             </div>
+            <div class="sec-confirm" style="display:none"><span style="display:inline-flex"><i data-lucide="clock"></i></span><span style="flex:1">Vytěžené údaje čekají na potvrzení.</span><button class="btn btn-s btn-sm" onclick="confirmSection(this)"><i data-lucide="check"></i> Potvrdit vytěžené údaje</button></div>
           </div>
 
           <!-- Q4: HAV rozsah (conditional) -->
           <div class="q-block" id="q-hav-block" style="display:none">
-            <div class="q-label"><span class="q-num" id="q-hav-num">4</span><span style="background:#fce7f3;color:#be185d;font-size:10px;font-weight:700;border-radius:5px;padding:2px 7px;text-transform:uppercase;letter-spacing:.4px;margin-right:6px">HAV</span>Jak velké riziko chce klient krýt?</div>
+            <div class="q-label"><span class="q-ico"><i data-lucide="car-front"></i></span><span style="background:#fce7f3;color:#be185d;font-size:10px;font-weight:700;border-radius:5px;padding:2px 7px;text-transform:uppercase;letter-spacing:.4px;margin-right:6px">HAV</span>Jak velké riziko chce klient krýt?</div>
             <div class="q-opts" style="margin-bottom:14px">
               <div class="q-opt" data-ar="1" onclick="selQ('q-ar',this,'single');toggleARGuided(true);liveZzj()"><i data-lucide="star"></i> Allrisk – vše</div>
               <div class="q-opt" data-ar="0" onclick="selQ('q-ar',this,'single');toggleARGuided(false);liveZzj()"><i data-lucide="clipboard-list"></i> Vyberu rizika sám</div>
@@ -548,12 +604,13 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
               <div class="chip" data-v="z-imob" onclick="togChip(this)"><span class="chip-ico"><i data-lucide="key-round"></i></span>Imobilizér</div>
               <div class="chip" data-v="z-gps" onclick="togChip(this)"><span class="chip-ico"><i data-lucide="map-pin"></i></span>GPS lokátor</div>
             </div>
+            <div class="sec-confirm" style="display:none"><span style="display:inline-flex"><i data-lucide="clock"></i></span><span style="flex:1">Vytěžené údaje čekají na potvrzení.</span><button class="btn btn-s btn-sm" onclick="confirmSection(this)"><i data-lucide="check"></i> Potvrdit vytěžené údaje</button></div>
           </div>
 
 
           <!-- Q5: Připojištění -->
           <div class="q-block" id="q-pripoj-block" style="display:none">
-            <div class="q-label"><span class="q-num" id="q-pp-num">5</span>Co chce mít navíc?</div>
+            <div class="q-label"><span class="q-ico"><i data-lucide="circle-plus"></i></span>Co chce klient navíc?</div>
             <div class="chip-grid" id="q-pripoj">
               <div class="chip" data-v="p-skla" onclick="togChip(this);toggleSklarLim();liveZzj()"><span class="chip-ico"><i data-lucide="square"></i></span>Skla</div>
               <div class="chip" data-v="p-asist" onclick="togChip(this);liveZzj()"><span class="chip-ico"><i data-lucide="siren"></i></span>Rozšířená asistence</div>
@@ -565,6 +622,7 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
               <div class="chip" data-v="p-gap" onclick="togChip(this);liveZzj()"><span class="chip-ico"><i data-lucide="banknote"></i></span>GAP</div>
               <div class="chip" data-v="p-pravni" onclick="togChip(this);liveZzj()"><span class="chip-ico"><i data-lucide="scale"></i></span>Právní ochrana</div>
               <div class="chip" data-v="p-prima" onclick="togChip(this);liveZzj()"><span class="chip-ico"><i data-lucide="wrench"></i></span>Přímá likvidace</div>
+              <div class="chip chip-add" id="spec-req-chip" onclick="toggleSpecReq()"><span class="chip-ico"><i data-lucide="plus"></i></span>Speciální požadavek</div>
             </div>
             <div id="q-skla-lim" style="display:none;margin-top:12px">
               <div class="f" style="max-width:200px">
@@ -578,14 +636,12 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
               </div>
             </div>
 
-            <!-- Speciální požadavek (volitelné) -->
-            <div style="margin-top:16px">
-              <button class="rec-add-btn" id="spec-req-btn" onclick="toggleSpecReq()"><i data-lucide="plus"></i> Přidat speciální požadavek</button>
-              <div id="spec-req-wrap" style="display:none;margin-top:10px">
-                <label class="slbl" style="display:block;margin-bottom:6px">Speciální požadavek klienta</label>
-                <textarea id="k1-text" rows="2" placeholder="Popište speciální požadavek, prioritu nebo poznámku k jednání…" oninput="liveZzj()"></textarea>
-              </div>
+            <!-- Speciální požadavek (otevře se z badge výše) -->
+            <div id="spec-req-wrap" style="display:none;margin-top:14px">
+              <label class="slbl" style="display:block;margin-bottom:6px">Speciální požadavek klienta</label>
+              <textarea id="k1-text" rows="2" placeholder="Popište speciální požadavek, prioritu nebo poznámku k jednání…" oninput="liveZzj()"></textarea>
             </div>
+            <div class="sec-confirm" style="display:none"><span style="display:inline-flex"><i data-lucide="clock"></i></span><span style="flex:1">Vytěžené údaje čekají na potvrzení.</span><button class="btn btn-s btn-sm" onclick="confirmSection(this)"><i data-lucide="check"></i> Potvrdit vytěžené údaje</button></div>
           </div>
 
         </div><!-- /q-wrap -->
@@ -596,6 +652,8 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
         <span id="k1-nav-hint" style="font-size:12px;color:#9aa3b2">Vyplňte údaje o vozidle a smlouvě pro pokračování</span>
         <button class="btn btn-p" id="k1-next-btn" onclick="goK2()" disabled>Doporučení poradce <i data-lucide="arrow-right"></i></button>
       </div>
+
+      </div><!-- /phase-req -->
 
     </div><!-- /scr-k1 -->
 
@@ -762,15 +820,12 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
 
   <!-- ══ RIGHT PANEL ════════════════════════════════════════════ -->
   <div class="rpanel" id="rpanel">
-    <div class="rpanel-tabs">
-      <div class="rpanel-tab active" id="tab-legal" onclick="switchTab('legal')">Legislativa</div>
-      <div class="rpanel-tab" id="tab-zzj" onclick="switchTab('zzj')">ZZJ náhled</div>
-    </div>
+    <div class="rpanel-head">Legislativní požadavky</div>
     <div class="rpanel-body" id="rpanel-legal">
       <!-- Legislativní checklist -->
     </div>
     <div class="rpanel-body" id="rpanel-zzj" style="display:none">
-      <!-- Live ZZJ preview -->
+      <!-- Live ZZJ preview (skryté, ponecháno kvůli liveZzj) -->
     </div>
   </div>
 
@@ -812,22 +867,34 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
 
 <!-- DOCTYPE MODAL (ověření typu nahraného dokumentu) -->
 <div class="modal-bg" id="doctype-modal" style="display:none" onclick="if(event.target===this)cancelDocType()">
-  <div class="modal-box modal-form" style="width:460px">
+  <div class="modal-box modal-form" style="width:480px">
     <div class="modal-form-hd">
-      <span class="modal-form-ttl">Rozpoznán dokument</span>
+      <span class="modal-form-ttl" id="doctype-ttl">Rozpoznán dokument</span>
       <button type="button" class="modal-close" aria-label="Zavřít" onclick="cancelDocType()"><i data-lucide="x"></i></button>
     </div>
-    <div style="display:flex;gap:13px;align-items:flex-start;background:#f7f8fa;border:1px solid #e6e9ef;border-radius:12px;padding:14px;margin-bottom:18px">
-      <span style="width:40px;height:40px;border-radius:10px;background:#eff4fe;color:#2563eb;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i data-lucide="file-text"></i></span>
+    <div id="doctype-info" style="display:flex;gap:13px;align-items:flex-start;border-radius:12px;padding:14px;margin-bottom:16px">
+      <span id="doctype-ico" style="width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i data-lucide="file-text"></i></span>
       <div>
         <div style="font-size:14px;font-weight:700;color:#1a1d23" id="doctype-name">Modelace pojištění vozidla</div>
         <div style="font-size:12.5px;color:#6e768b;margin-top:2px" id="doctype-detail">—</div>
       </div>
     </div>
-    <p style="font-size:13.5px;color:#475467;line-height:1.6;margin-bottom:20px">Přejete si vytěžit parametry z dokumentu a předvyplnit jimi formulář?</p>
-    <div class="brow btw">
-      <button class="btn btn-s" onclick="cancelDocType()">Zrušit</button>
-      <button class="btn btn-p" onclick="confirmDocType()"><i data-lucide="sparkles"></i> Vytěžit a vyplnit</button>
+    <p id="doctype-msg" style="font-size:13.5px;color:#475467;line-height:1.6;margin-bottom:20px">Přejete si vytěžit parametry z dokumentu a předvyplnit jimi formulář?</p>
+    <div class="brow btw" id="doctype-actions"></div>
+  </div>
+</div>
+
+<!-- NOVÝ KLIENT MODAL -->
+<div class="modal-bg" id="newclient-modal" style="display:none" onclick="if(event.target===this)closeNewClientModal()">
+  <div class="modal-box modal-form" style="width:560px">
+    <div class="modal-form-hd">
+      <span class="modal-form-ttl">Nový klient</span>
+      <button type="button" class="modal-close" aria-label="Zavřít" onclick="closeNewClientModal()"><i data-lucide="x"></i></button>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px">
+      <button class="btn btn-p" style="flex:1;justify-content:center;padding:16px 14px" onclick="newClientChosen('qr')"><i data-lucide="qr-code"></i> Načíst QR kód z eDokladů</button>
+      <span style="font-size:13px;color:#818da0;flex-shrink:0">nebo</span>
+      <button class="btn btn-p" style="flex:1;justify-content:center;padding:16px 14px" onclick="newClientChosen('manual')"><i data-lucide="pencil"></i> Ručně vyplnit údaje</button>
     </div>
   </div>
 </div>
@@ -875,6 +942,7 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
 // STATE
 // ═══════════════════════════════════════════════════════════════
 let S = {
+  client: null,
   entry: null,
   ins: null,
   allrisk: false,
@@ -894,13 +962,13 @@ const POJISTOVNY = [
 ];
 
 const SIMS = {
-  1:{rz:'1AE Z080',znacka:'Škoda',model:'Karoq',datum:'2024-09-01',najezd:15000,cena:750000,
+  1:{rz:'1AE 0080',znacka:'Škoda',model:'Karoq',typ:'1.5 TSI',vin:'TMBJJ7NU4PA123456',majitel:'',datum:'2024-09-01',najezd:15000,cena:750000,
      ins:'both',lim:'vys',spol:5000,allrisk:true,poc:'2026-07-01',freq:'Ročně',
      rizika:['r-hav','r-ziv','r-zver','r-odc','r-van','r-zvire'],
      pripoj:['p-skla','p-asist','p-nahr','p-zavaz','p-uraz','p-zver2','p-gap'],
      pojistovna:'Generali Česká pojišťovna a.s.',produkt:'GČP Pojištění aut',
      fname:'karoq nováková modelace.pdf'},
-  2:{rz:'1U9 1960',znacka:'Škoda',model:'Fabia',datum:'2000-01-01',najezd:8500,
+  2:{rz:'1U9 1960',znacka:'Škoda',model:'Fabia',typ:'1.2 HTP',vin:'TMBEF61U412345678',majitel:'',datum:'2000-01-01',najezd:8500,
      ins:'pov',lim:'niz',spol:0,allrisk:false,poc:'2026-07-01',freq:'Čtvrtletně',
      rizika:[],pripoj:['p-zver2'],pojistovna:'UNIQA pojišťovna, a.s.',produkt:'UNIQA Pojištění auta',
      fname:'kalkulace fabia.pdf'},
@@ -987,23 +1055,87 @@ function validateK2(){
 function editParams(){
   showManualSection();
   const t=document.getElementById('q-vozidlo');
-  if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
+  if(t&&t.scrollIntoView)t.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-function selectEntry(type){
-  S.entry=type;
-  document.getElementById('path-upload').style.display=(type==='upload')?'block':'none';
-  document.getElementById('path-manual').style.display=(type==='manual')?'block':'none';
-  const eu=document.getElementById('entry-upload'),em=document.getElementById('entry-manual');
-  if(eu)eu.classList.toggle('selected',type==='upload');
-  if(em)em.classList.toggle('selected',type==='manual');
-  if(type==='manual'){
-    showManualSection();
-    // Ruční zadání – hned zobraz pole pro vozidlo bez nutnosti lookupRz
-    document.getElementById('rz-manual-fields').style.display='block';
-  }
+// ── Výběr pojistníka (fáze A) ──────────────────────────────────
+function initials(n){return n.split(' ').filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase();}
+// V prototypu přeskakujeme našeptávání – klik do inputu rovnou vyplní pojistníka
+function selectClientAuto(){
+  S.client={name:'Jana Svobodná',born:'24. 3. 1931 (95 let)',addr:'Konec 125/31, 69153 Tvrdonice'};
+  showPhaseReq();
+}
+function showPhaseReq(){
+  document.getElementById('phase-client').style.display='none';
+  document.getElementById('phase-req').style.display='flex';
+  const c=S.client||{name:'—',born:'—',addr:'—'};
+  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  set('pojistnik-name',c.name||'—');
+  set('pojistnik-born',c.born||'—');
+  set('pojistnik-addr',c.addr||'—');
+  set('pojistnik-initials',c.name?initials(c.name):'—');
+  if(window.lucide)lucide.createIcons();
   liveZzj();
 }
+function changeClient(){
+  document.getElementById('phase-req').style.display='none';
+  document.getElementById('phase-client').style.display='block';
+}
+function openNewClientModal(){document.getElementById('newclient-modal').style.display='flex';if(window.lucide)lucide.createIcons();}
+function closeNewClientModal(){document.getElementById('newclient-modal').style.display='none';}
+function newClientChosen(){
+  closeNewClientModal();
+  S.client={name:'Nový klient',born:'—',addr:'—'};
+  showPhaseReq();
+}
+
+// ── Volby vstupu (fáze B) ──────────────────────────────────────
+function hideEntry3(){const e=document.getElementById('entry3');if(e)e.style.display='none';}
+function showManualForm(){
+  showManualSection();
+  document.getElementById('path-manual').style.display='block';
+}
+// Ruční zadání – zobraz formulář a volbu způsobu zadání vozidla
+function chooseManual(){
+  hideEntry3();
+  showManualForm();
+  resetVehicleSection('choice');
+  const t=document.getElementById('q-vozidlo');if(t&&t.scrollIntoView)t.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ── Sekce vozidla – režimy ─────────────────────────────────────
+const VEH_FIELDS=['k1-znacka','k1-model','k1-typ','k1-rz','k1-vin','k1-datum','k1-majitel','k1-palivo'];
+function vehShow(id,disp){const e=document.getElementById(id);if(e)e.style.display=disp;}
+function resetVehicleSection(mode){
+  vehShow('veh-choice','none');vehShow('veh-lookup','none');
+  vehShow('rz-result','none');vehShow('rz-not-found','none');
+  vehShow('rz-manual-fields','none');vehShow('rz-from-lookup-bar','none');
+  clearVehiclePending();
+  if(mode==='choice'){vehShow('veh-choice','flex');}
+  else if(mode==='lookup'){vehShow('veh-lookup','block');}
+  else if(mode==='fields'||mode==='extracted'){vehShow('rz-manual-fields','block');}
+}
+function vehLookup(){resetVehicleSection('lookup');const i=document.getElementById('veh-lookup-input');if(i)i.focus();}
+function vehManual(){resetVehicleSection('fields');}
+function markVehiclePending(){VEH_FIELDS.forEach(id=>{const e=document.getElementById(id);if(e)e.classList.add('pending');});}
+function clearVehiclePending(){VEH_FIELDS.forEach(id=>{const e=document.getElementById(id);if(e)e.classList.remove('pending');});}
+// Vytěžené sekce → zobraz potvrzovací lištu u každé viditelné sekce
+function showSectionConfirms(){
+  markVehiclePending();
+  document.querySelectorAll('.sec-confirm').forEach(bar=>{
+    const blk=bar.closest('.q-block');
+    if(blk&&blk.style.display!=='none') bar.style.display='flex';
+  });
+}
+function confirmSection(btn){
+  const bar=btn.closest('.sec-confirm');if(!bar)return;
+  bar.style.display='none';
+  if(bar.closest('#q-vozidlo')) clearVehiclePending();
+}
+function hideSectionConfirms(){document.querySelectorAll('.sec-confirm').forEach(b=>b.style.display='none');clearVehiclePending();}
+document.addEventListener('input',function(e){
+  if(e.target&&e.target.classList&&e.target.classList.contains('pending')) e.target.classList.remove('pending');
+});
 
 function showManualSection(){
   // Q1 (vozidlo) a Q2 (typ pojištění) jsou vždy viditelné v ručním zadání
@@ -1015,10 +1147,10 @@ function showManualSection(){
   updateQnums();
 }
 
-// Speciální požadavek – CTA otevře textareu
+// Speciální požadavek – poslední badge otevře textareu
 function toggleSpecReq(){
   document.getElementById('spec-req-wrap').style.display='block';
-  document.getElementById('spec-req-btn').style.display='none';
+  const chip=document.getElementById('spec-req-chip');if(chip)chip.classList.add('sel');
   const t=document.getElementById('k1-text');if(t)t.focus();
 }
 
@@ -1048,19 +1180,7 @@ function getQLim(){
   return el?el.dataset.lim:null;
 }
 
-function updateQnums(){
-  // Re-number visible q-blocks
-  let n=1;
-  rzLookupResult=null;
-  ['rz-result','rz-not-found'].forEach(id=>{const e=document.getElementById(id);if(e)e.style.display='none';});
-  {const rmf=document.getElementById('rz-manual-fields');if(rmf)rmf.style.display='block';}
-  const rzBtn=document.getElementById('rz-lookup-btn');if(rzBtn){rzBtn.disabled=true;rzBtn.style.opacity='.45';}
-  document.querySelectorAll('.q-block').forEach(b=>{
-    if(b.style.display==='none') return;
-    const num=b.querySelector('.q-num');
-    if(num) num.textContent=n++;
-  });
-}
+function updateQnums(){ /* sekce nejsou číslované (ikona + titulek) – ponecháno kvůli voláním */ }
 
 function toggleARGuided(on){
   S.allrisk=on;
@@ -1121,47 +1241,17 @@ function aiExtractFromText(){
     sp.style.display='none';
     done.style.display='inline';
 
-    // Simulace vytěžení – využijeme SIMS data jako "rozpoznaný" výsledek
-    const sim=SIMS[1];
-    const sv=(id,v)=>{const e=document.getElementById(id);if(e)e.value=v||'';};
-
-    sv('k1-rz',sim.rz);sv('k1-znacka',sim.znacka);sv('k1-model',sim.model);
-    sv('k1-datum',sim.datum);sv('k1-najezd',sim.najezd);
-    sv('k1-poc',sim.poc||'');sv('k1-freq',sim.freq||'');
-    sv('k1-cena',sim.cena||'');sv('inp-spol',sim.spol!=null?sim.spol:'');
-    document.querySelectorAll('#q-spol .q-opt').forEach(o=>{o.classList.toggle('sel',parseInt(o.dataset.spol)===sim.spol);});
-
-    S.ins=sim.ins;S.allrisk=sim.allrisk;
-
-    // Zobraz ruční pole vozidla
-    document.getElementById('rz-manual-fields').style.display='block';
+    // Volby zmizí, přejdeme k formuláři
+    hideEntry3();
+    S.simData=SIMS[1];
+    showManualForm();
+    fillFromSim(1);
+    resetVehicleSection('extracted');
+    showSectionConfirms();
     document.getElementById('rz-from-lookup-bar').style.display='flex';
     document.getElementById('rz-from-lookup-bar').innerHTML=`<span><i data-lucide="sparkles"></i></span> Data vytěžena z textu AI – lze upravit <button onclick="clearRzResult()" style="margin-left:auto;font-size:11px;color:#2563eb;background:none;border:none;cursor:pointer;text-decoration:underline">Vymazat</button>`;
-
-    // Vyber typ pojištění
-    document.querySelectorAll('#q-ins .q-opt').forEach(o=>{o.classList.toggle('sel',o.dataset.v===sim.ins);});
-    showPovHav();
-
-    // Vyber limit
-    document.querySelectorAll('[data-lim]').forEach(o=>{o.classList.toggle('sel',o.dataset.lim===sim.lim);});
-
-    // Allrisk
-    document.querySelectorAll('[data-ar]').forEach(o=>{o.classList.toggle('sel',o.dataset.ar===(sim.allrisk?'1':'0'));});
-    toggleARGuided(sim.allrisk);
-
-    // Rizika
-    sim.rizika.forEach(rk=>{const c=document.querySelector('#q-rizika [data-v="'+rk+'"]');if(c)c.classList.add('sel');});
-
-    // Připojištění
-    sim.pripoj.forEach(p=>{const c=document.querySelector('#q-pripoj [data-v="'+p+'"]');if(c)c.classList.add('sel');});
-    toggleSklarLim();
-
-    document.getElementById('k1-nav').style.display='';
-    updateQnums();
     liveZzj();
-
-    // Scroll k vyplněnému formuláři
-    document.getElementById('q-ins')?.closest('.q-block')?.scrollIntoView({behavior:'smooth',block:'center'});
+    const q=document.getElementById('q-vozidlo');if(q&&q.scrollIntoView)q.scrollIntoView({behavior:'smooth',block:'start'});
   },1800);
 }
 
@@ -1182,39 +1272,30 @@ function removePojisteny(){
   sv('k1-poj-jmeno','');sv('k1-poj-rc','');
 }
 function onRzInput(){
-  const v = document.getElementById('k1-rz').value.trim();
-  const btn = document.getElementById('rz-lookup-btn');
-  btn.disabled = v.length < 3;
-  btn.style.opacity = v.length < 3 ? '.45' : '1';
-  // Skryjeme předchozí výsledky při editaci
+  const el=document.getElementById('veh-lookup-input');
+  const v=el?el.value.trim():'';
+  const btn=document.getElementById('rz-lookup-btn');
+  if(btn){btn.disabled=v.length<3;btn.style.opacity=v.length<3?'.45':'1';}
   document.getElementById('rz-not-found').style.display='none';
-  liveZzj();
 }
 
 function lookupRz(){
-  const raw = document.getElementById('k1-rz').value.trim();
+  const el=document.getElementById('veh-lookup-input');
+  const raw=el?el.value.trim():'';
   if(!raw || raw.length < 3) return;
   const key = raw.toUpperCase().replace(/\s/g,'');
-
-  // UI – loading state
   const btn = document.getElementById('rz-lookup-btn');
-  const ico = document.getElementById('rz-btn-ico');
   const lbl = document.getElementById('rz-btn-lbl');
   btn.disabled = true;
-  ico.textContent = '<i data-lucide="clock"></i>';
-  lbl.textContent = 'Hledám…';
+  if(lbl)lbl.textContent = 'Hledám…';
   document.getElementById('rz-result').style.display='none';
   document.getElementById('rz-not-found').style.display='none';
-
   setTimeout(()=>{
-    ico.textContent = '<i data-lucide="search"></i>';
-    lbl.textContent = 'Vyhledat z registru';
+    if(lbl)lbl.textContent = 'Vyhledat';
     btn.disabled = false;
-
-    // Lookup – partial match, fallback na první záznam vždy
     const match = Object.entries(RZ_DB).find(([k])=>k.startsWith(key.substring(0,3))||key.startsWith(k.substring(0,3)));
     const result = match ? match[1] : RZ_DB[Object.keys(RZ_DB)[0]];
-    rzLookupResult = result;
+    rzLookupResult = result; rzLookupResult._spz = raw.toUpperCase();
     showRzResult(raw.toUpperCase(), result);
   }, 900);
 }
@@ -1238,31 +1319,25 @@ function acceptRzResult(){
   const sv=(id,v)=>{const e=document.getElementById(id);if(e)e.value=v||'';};
   sv('k1-znacka', rzLookupResult.znacka);
   sv('k1-model',  rzLookupResult.model);
+  sv('k1-typ',    rzLookupResult.typ||'');
+  sv('k1-rz',     rzLookupResult._spz||(document.getElementById('veh-lookup-input')?.value||''));
+  sv('k1-vin',    rzLookupResult.vin||'');
   sv('k1-datum',  rzLookupResult.datum);
-  sv('k1-barva',  rzLookupResult.barva||'');
+  sv('k1-majitel',rzLookupResult.majitel||'');
   if(rzLookupResult.palivo){
     const sel=document.getElementById('k1-palivo');
     if(sel)[...sel.options].forEach((o,i)=>{if(o.value===rzLookupResult.palivo||o.text===rzLookupResult.palivo)sel.selectedIndex=i;});
   }
-  document.getElementById('rz-result').style.display='none';
-  document.getElementById('rz-manual-fields').style.display='block';
+  resetVehicleSection('fields');
   document.getElementById('rz-from-lookup-bar').style.display='flex';
   liveZzj();
 }
 
 function clearRzResult(){
   rzLookupResult=null;
-  document.getElementById('rz-result').style.display='none';
-  document.getElementById('rz-not-found').style.display='none';
-  document.getElementById('rz-from-lookup-bar').style.display='none';
-  // Pokud je ruční zadání aktivní, pole zůstanou viditelná
-  if(S.entry==='manual') document.getElementById('rz-manual-fields').style.display='block';
-  else document.getElementById('rz-manual-fields').style.display='none';
-  document.getElementById('k1-rz').value='';
-  document.getElementById('k1-rz').focus();
-  const btn=document.getElementById('rz-lookup-btn');
-  btn.disabled=true; btn.style.opacity='.45';
-  liveZzj();
+  resetVehicleSection('lookup');
+  const el=document.getElementById('veh-lookup-input');if(el){el.value='';el.focus();}
+  const btn=document.getElementById('rz-lookup-btn');if(btn){btn.disabled=true;btn.style.opacity='.45';}
 }
 
 function showManualOnly(){
@@ -1270,51 +1345,83 @@ function showManualOnly(){
   document.getElementById('rz-manual-fields').style.display='block';
 }
 
-// Nahrání v K1 – nejdřív AI ověří typ dokumentu, pak nabídne vytěžení
+// Nahrání v K1 – AI ověří typ dokumentu, podle typu nabídne akce
 let _docTypeCtx=null;
+let _docAttempt=0;
 function showUpFiles(ctx){
   const zone=document.getElementById('up-zone-'+ctx);
   const fileList=document.getElementById('up-files-'+ctx);
   zone.style.display='none';
   fileList.style.display='flex';
-  const sim=SIMS[1];
-  fileList.innerHTML=`<div class="up-file"><span class="up-file-ico"><i data-lucide="file-text"></i></span><span class="up-file-name">${sim.fname}</span><span class="up-file-status loading">Ověřuji typ dokumentu…</span><button class="up-file-rm" onclick="resetUpload('${ctx}')">✕</button></div>`;
+  _docAttempt++;
+  const isContract=(_docAttempt===1); // první pokus = pojistná smlouva (nepovolené)
+  const fname=isContract?'smlouva_pojisteni.pdf':SIMS[1].fname;
+  fileList.innerHTML=`<div class="up-file"><span class="up-file-ico"><i data-lucide="file-text"></i></span><span class="up-file-name">${fname}</span><span class="up-file-status loading">Ověřuji typ dokumentu…</span><button class="up-file-rm" onclick="resetUpload('${ctx}')">✕</button></div>`;
   if(window.lucide)lucide.createIcons();
-  setTimeout(()=>{ openDocTypeModal(sim,ctx); },1500);
+  setTimeout(()=>{ openDocTypeModal(isContract?'contract':'modelace',ctx); },1400);
 }
 
-function openDocTypeModal(sim,ctx){
-  _docTypeCtx={sim,ctx};
-  document.getElementById('doctype-name').textContent='Modelace pojištění vozidla';
-  document.getElementById('doctype-detail').textContent=sim.pojistovna+' · '+sim.produkt;
+function openDocTypeModal(variant,ctx){
+  _docTypeCtx={variant,ctx};
+  const ico=document.getElementById('doctype-ico');
+  const info=document.getElementById('doctype-info');
+  const actions=document.getElementById('doctype-actions');
+  if(variant==='contract'){
+    document.getElementById('doctype-ttl').textContent='Nepodporovaný dokument';
+    ico.style.background='#fbe3e3';ico.style.color='#dc2626';ico.innerHTML='<i data-lucide="file-x"></i>';
+    info.style.background='#fdf1f1';info.style.border='1px solid #f3c6c6';
+    document.getElementById('doctype-name').textContent='Pojistná smlouva';
+    document.getElementById('doctype-detail').textContent='smlouva_pojisteni.pdf';
+    document.getElementById('doctype-msg').innerHTML='Nahraný dokument je <b>pojistná smlouva</b>. Z pojistné smlouvy není legislativně možné vytěžit a předvyplnit údaje do formuláře. Nahrajte prosím <b>modelaci od pojišťovny</b>.';
+    actions.innerHTML='<button class="btn btn-s" onclick="cancelDocType()">Zrušit</button><div style="display:flex;gap:10px"><button class="btn btn-s" onclick="docUseAnyway()">Přesto použít</button><button class="btn btn-p" onclick="docReupload()"><i data-lucide="upload"></i> Vložit nový dokument</button></div>';
+  }else{
+    document.getElementById('doctype-ttl').textContent='Rozpoznán dokument';
+    ico.style.background='#eff4fe';ico.style.color='#2563eb';ico.innerHTML='<i data-lucide="file-text"></i>';
+    info.style.background='#f7f8fa';info.style.border='1px solid #e6e9ef';
+    document.getElementById('doctype-name').textContent='Modelace pojištění vozidla';
+    document.getElementById('doctype-detail').textContent=SIMS[1].pojistovna+' · '+SIMS[1].produkt;
+    document.getElementById('doctype-msg').textContent='Přejete si vytěžit parametry z dokumentu a předvyplnit jimi formulář?';
+    actions.innerHTML='<button class="btn btn-s" onclick="cancelDocType()">Zrušit</button><button class="btn btn-p" onclick="confirmDocType()"><i data-lucide="sparkles"></i> Vytěžit a vyplnit</button>';
+  }
   document.getElementById('doctype-modal').style.display='flex';
   if(window.lucide)lucide.createIcons();
 }
 
 function cancelDocType(){
   document.getElementById('doctype-modal').style.display='none';
-  // Zrušení → návrat na začátek
   if(_docTypeCtx) resetUpload(_docTypeCtx.ctx);
+  _docTypeCtx=null;
+}
+// Smlouva → vložit nový dokument (znovu nahrát)
+function docReupload(){
+  document.getElementById('doctype-modal').style.display='none';
+  if(_docTypeCtx) resetUpload(_docTypeCtx.ctx);
+  _docTypeCtx=null;
+}
+// Smlouva → přesto použít (bez vytěžení, ruční vyplnění)
+function docUseAnyway(){
+  document.getElementById('doctype-modal').style.display='none';
+  const ctx=_docTypeCtx?.ctx||'k1';
+  if(ctx==='k1'){
+    hideEntry3();
+    showManualForm();
+    resetVehicleSection('choice');
+  }
+  if(window.lucide)lucide.createIcons();
+  liveZzj();
   _docTypeCtx=null;
 }
 
 function confirmDocType(){
   document.getElementById('doctype-modal').style.display='none';
   const ctx=_docTypeCtx?.ctx||'k1';
-  const sim=_docTypeCtx?.sim||SIMS[1];
-  const fileList=document.getElementById('up-files-'+ctx);
-  fileList.innerHTML=`<div class="up-file"><span class="up-file-ico"><i data-lucide="file-text"></i></span><span class="up-file-name">${sim.fname}</span><span class="up-file-status ok">✓ Vytěženo</span><button class="up-file-rm" onclick="resetUpload('${ctx}')">✕</button></div>`;
   if(ctx==='k1'){
-    document.getElementById('up-k1-done').style.display='block';
-    document.getElementById('up-secondary').style.display='none';
     S.simData=SIMS[1];
-    selectEntry('manual');
+    hideEntry3();
+    showManualForm();
     fillFromSim(1);
-    // Upload i manuální cesta zůstanou viditelné vedle sebe
-    document.getElementById('path-upload').style.display='block';
-    document.getElementById('path-manual').style.display='block';
-    document.getElementById('rz-from-lookup-bar').style.display='flex';
-    document.getElementById('rz-from-lookup-bar').innerHTML=`<span><i data-lucide="file-text"></i></span> Data vozidla načtena z modelace – lze upravit <button onclick="clearRzResult()" style="margin-left:auto;font-size:11px;color:#2563eb;background:none;border:none;cursor:pointer;text-decoration:underline">Vymazat</button>`;
+    resetVehicleSection('extracted');
+    showSectionConfirms();
   }
   if(window.lucide)lucide.createIcons();
   liveZzj();
@@ -1326,7 +1433,6 @@ function resetUpload(ctx){
   document.getElementById('up-files-'+ctx).style.display='none';
   if(ctx==='k1'){
     document.getElementById('up-k1-done').style.display='none';
-    const sec=document.getElementById('up-secondary');if(sec)sec.style.display='';
   }
 }
 
@@ -1334,7 +1440,8 @@ function fillFromSim(n){
   const sim=SIMS[n];
   const sv=(id,v)=>{const e=document.getElementById(id);if(e)e.value=v||'';};
   sv('k1-rz',sim.rz);sv('k1-znacka',sim.znacka);sv('k1-model',sim.model);
-  sv('k1-datum',sim.datum);sv('k1-najezd',sim.najezd);
+  sv('k1-typ',sim.typ);sv('k1-vin',sim.vin);sv('k1-majitel',sim.majitel);
+  sv('k1-datum',sim.datum);
   sv('k1-poc',sim.poc||'');sv('k1-freq',sim.freq||'');
   sv('k1-cena',sim.cena||'');sv('inp-spol',sim.spol!=null?sim.spol:'');
   document.querySelectorAll('#q-spol .q-opt').forEach(o=>{o.classList.toggle('sel',parseInt(o.dataset.spol)===sim.spol);});
@@ -1792,7 +1899,7 @@ function initK3(){
   // Vozidlo
   const rz=gv('k1-rz');const znacka=gv('k1-znacka');const model=gv('k1-model');
   const vozHtml=(rz||znacka||model)
-    ?`<div class="dlg">${dl('RZ/VIN',rz)+dl('Značka',znacka)+dl('Model',model)+dl('Datum uvedení',gv('k1-datum'))+dl('Nájezd (km)',gv('k1-najezd'))}</div>`
+    ?`<div class="dlg">${dl('Značka',znacka)+dl('Model',gv('k1-model'))+dl('Typ',gv('k1-typ'))+dl('SPZ',rz)+dl('VIN',gv('k1-vin'))+dl('Rok uvedení',gv('k1-datum'))+dl('Majitel',gv('k1-majitel')||'Klient')}</div>`
     :`<div class="banner banner-warn"><i data-lucide="triangle-alert"></i> Informace o vozidle nejsou vyplněny.</div>`;
   document.getElementById('k3-voz').innerHTML=vozHtml;
 
@@ -2192,7 +2299,7 @@ function liveZzj(){
 // Gating: tlačítko "Doporučení poradce" aktivní až po vyplnění sekce 1 (vozidlo) a sekce 2 (smlouva)
 function validateK1(){
   const has=id=>{const e=document.getElementById(id);return !!(e&&e.value&&e.value.trim()!=='');};
-  const sec1=has('k1-rz')||has('k1-znacka')||has('k1-model')||has('k1-datum')||has('k1-najezd');
+  const sec1=has('k1-rz')||has('k1-znacka')||has('k1-model')||has('k1-typ')||has('k1-vin')||has('k1-datum');
   const sec2=has('k1-poc')||has('k1-freq')||!!document.querySelector('#q-ins .q-opt.sel');
   const ok=sec1&&sec2;
   const btn=document.getElementById('k1-next-btn');
@@ -2208,30 +2315,29 @@ function toggleCard(hdr){hdr.nextElementSibling.classList.toggle('shut');}
 function toggleAcc(hdr){const b=hdr.nextElementSibling;const a=hdr.querySelector('.acc-arr');b.classList.toggle('shut');if(a)a.classList.toggle('open',!b.classList.contains('shut'));}
 
 function resetAll(){
-  S={entry:null,ins:null,allrisk:false,recs:[],odmit:[],ups:[],simData:null,rp:{vizitka:null,pozadavky:null,zzj:null},k4dirty:false};
+  S={client:null,entry:null,ins:null,allrisk:false,recs:[],odmit:[],ups:[],simData:null,rp:{vizitka:null,pozadavky:null,zzj:null},k4dirty:false};
   recId=0;
-  // Reset UI – upload zóna je výchozí krok
-  document.getElementById('path-upload').style.display='block';
+  // Reset UI – zpět na výběr pojistníka
+  document.getElementById('phase-client').style.display='block';
+  document.getElementById('phase-req').style.display='none';
+  const cs=document.getElementById('client-search');if(cs)cs.value='';
   document.getElementById('path-manual').style.display='none';
+  const e3=document.getElementById('entry3');if(e3)e3.style.display='';
+  _docAttempt=0;
   resetUpload('k1');
   const upDone=document.getElementById('up-k1-done');if(upDone)upDone.style.display='none';
-  const upSec=document.getElementById('up-secondary');if(upSec)upSec.style.display='';
   document.querySelectorAll('.q-opt').forEach(o=>o.classList.remove('sel'));
   document.querySelectorAll('.chip').forEach(c=>c.classList.remove('sel'));
-  ['k1-rz','k1-znacka','k1-model','k1-datum','k1-najezd','k1-cena','inp-spol','k1-text','k1-barva','k1-ai-text','k1-poc','k1-freq','k1-poj-jmeno','k1-poj-rc'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
+  ['veh-lookup-input','k1-rz','k1-znacka','k1-model','k1-typ','k1-vin','k1-majitel','k1-datum','k1-cena','inp-spol','k1-text','k1-ai-text','k1-poc','k1-freq'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
   rzLookupResult=null;
-  ['rz-result','rz-not-found'].forEach(id=>{const e=document.getElementById(id);if(e)e.style.display='none';});
-  {const rmf=document.getElementById('rz-manual-fields');if(rmf)rmf.style.display='block';}
-  const rzBtn=document.getElementById('rz-lookup-btn');if(rzBtn){rzBtn.disabled=true;rzBtn.style.opacity='.45';}
-  // Pojištěný – schovat a vrátit tlačítko
-  document.getElementById('pojisteny-fields').style.display='none';
-  document.getElementById('add-pojisteny-btn').style.display='inline-block';
+  resetVehicleSection('hidden');
   // Skryj jen podmíněné bloky (Q3 POV, Q4 HAV, Q5 připojištění); Q1 vozidlo a Q2 typ pojištění zůstávají vždy viditelné
   document.getElementById('q-pov-block').style.display='none';
   document.getElementById('q-hav-block').style.display='none';
   document.getElementById('q-pripoj-block').style.display='none';
-  // Speciální požadavek – zpět na výchozí (skrytá textarea, viditelné CTA)
-  {const w=document.getElementById('spec-req-wrap');if(w)w.style.display='none';const b=document.getElementById('spec-req-btn');if(b)b.style.display='';}
+  // Speciální požadavek – zpět na výchozí (skrytá textarea, odznačený badge)
+  {const w=document.getElementById('spec-req-wrap');if(w)w.style.display='none';const c=document.getElementById('spec-req-chip');if(c)c.classList.remove('sel');}
+  hideSectionConfirms();
   showScr('scr-k1');setWizard(1);validateK1();
 }
 
