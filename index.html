@@ -249,8 +249,9 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
 .entry3-primary{border:1.5px solid #bcd0f7;background:#fff}
 .entry3-badge{margin-left:auto;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:#2563eb;background:#eff4fe;border-radius:6px;padding:2px 8px}
 @media(max-width:900px){.entry3{grid-template-columns:1fr}}
-/* zvýraznění sekcí POV/HAV – výraznější okraj, bílé pozadí */
+/* zvýraznění sekcí POV/HAV – výraznější okraj + zvýrazněná hlavička */
 #q-pov-block,#q-hav-block{background:#fff;border:1.5px solid #bcccef}
+#q-pov-block>.q-label,#q-hav-block>.q-label{margin:-20px -22px 16px;padding:13px 22px;background:#f4f7fd;border-bottom:1px solid #e2e8f4;border-radius:14px 14px 0 0}
 /* druhy pojištění – větší tlačítka s radiem */
 .ins-opts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .q-opt.ins-opt{display:flex;align-items:center;gap:11px;padding:15px 16px;font-size:14px;font-weight:600;border-radius:12px}
@@ -642,21 +643,18 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
               <div class="f"><label>s/bez DPH</label><select id="k1-dph"><option>s DPH</option><option>bez DPH</option></select></div>
             </div>
 
-            <div class="frow" style="margin-bottom:14px">
-              <div class="f" style="max-width:280px"><label>Spoluúčast</label>
-                <select id="inp-spol" onchange="liveZzj()">
-                  <option value="">Vyberte…</option>
-                  <option value="0 Kč">0 Kč</option>
-                  <option value="5 000 Kč">5 000 Kč</option>
-                  <option value="10 000 Kč">10 000 Kč</option>
-                  <option value="15 000 Kč">15 000 Kč</option>
-                  <option value="20 000 Kč">20 000 Kč</option>
-                  <option value="1 % / min. 1 000 Kč">1 % / min. 1 000 Kč</option>
-                  <option value="5 % / min. 5 000 Kč">5 % / min. 5 000 Kč</option>
-                  <option value="10 % / min. 10 000 Kč">10 % / min. 10 000 Kč</option>
-                </select>
-              </div>
+            <div class="slbl">Spoluúčast</div>
+            <div class="q-opts ins-opts spol-types" style="margin-bottom:12px">
+              <div class="q-opt ins-opt" data-spoltype="pct" onclick="selQ('spol-type',this,'single');onSpolType()"><span class="ins-radio"></span>Procentuální</div>
+              <div class="q-opt ins-opt" data-spoltype="fix" onclick="selQ('spol-type',this,'single');onSpolType()"><span class="ins-radio"></span>Fixní částka</div>
+              <div class="q-opt ins-opt" data-spoltype="kom" onclick="selQ('spol-type',this,'single');onSpolType()"><span class="ins-radio"></span>Kombinovaná</div>
             </div>
+            <div class="frow" id="spol-inputs" style="margin-bottom:14px">
+              <div class="f spol-pct" style="max-width:180px;display:none"><label>Spoluúčast (%)</label><input type="number" id="spol-pct" min="0" max="100" step="1" placeholder="10" oninput="updateSpol()"><div style="font-size:11px;color:#9aa3b2;margin-top:4px">Doporučený rozsah 0–20 %</div></div>
+              <div class="f spol-fix" style="max-width:180px;display:none"><label>Spoluúčast (Kč)</label><input type="number" id="spol-fix" min="0" step="1000" placeholder="5 000" oninput="updateSpol()"></div>
+              <div class="f spol-min" style="max-width:180px;display:none"><label>Min. částka (Kč)</label><input type="number" id="spol-min" min="0" step="1000" placeholder="5 000" oninput="updateSpol()"></div>
+            </div>
+            <input type="hidden" id="inp-spol" value="">
 
             <div class="slbl">Zabezpečení vozidla <span style="font-weight:400;color:#b0b8c8;text-transform:none;letter-spacing:0">(lze vybrat víc)</span></div>
             <div class="chip-grid" id="q-zabezpeceni" style="margin-bottom:4px">
@@ -1358,9 +1356,25 @@ function aiExtractFromText(){
   },1800);
 }
 
-function setSpol(v){
-  const e=document.getElementById('inp-spol');
-  if(e)e.value=v;
+// Spoluúčast – typ + adaptivní vstupy
+function onSpolType(){
+  const t=document.querySelector('.spol-types .q-opt.sel')?.dataset.spoltype;
+  const pct=document.querySelector('.spol-pct'),fix=document.querySelector('.spol-fix'),min=document.querySelector('.spol-min');
+  if(pct)pct.style.display=(t==='pct'||t==='kom')?'':'none';
+  if(fix)fix.style.display=(t==='fix')?'':'none';
+  if(min)min.style.display=(t==='kom')?'':'none';
+  updateSpol();
+}
+function updateSpol(){
+  const t=document.querySelector('.spol-types .q-opt.sel')?.dataset.spoltype;
+  const gv=id=>{const e=document.getElementById(id);return e?e.value:'';};
+  const kc=v=>Number(v).toLocaleString('cs')+' Kč';
+  let s='';
+  const p=gv('spol-pct'),f=gv('spol-fix'),m=gv('spol-min');
+  if(t==='pct') s=p!==''?p+' %':'';
+  else if(t==='fix') s=f!==''?kc(f):'';
+  else if(t==='kom') s=[p!==''?p+' %':'',m!==''?'min. '+kc(m):''].filter(Boolean).join(' / ');
+  const e=document.getElementById('inp-spol');if(e)e.value=s;
   liveZzj();
 }
 
@@ -1551,8 +1565,11 @@ function fillFromSim(n){
   sv('k1-datum',sim.datum);
   sv('k1-poc',sim.poc||'');sv('k1-freq',sim.freq||'');
   sv('k1-cena',sim.cena||'');
-  const spolMap={0:'0 Kč',5000:'5 000 Kč',10000:'10 000 Kč',15000:'15 000 Kč',20000:'20 000 Kč'};
-  sv('inp-spol',sim.spol!=null?(spolMap[sim.spol]||''):'');
+  if(sim.spol!=null){
+    document.querySelectorAll('.spol-types .q-opt').forEach(o=>o.classList.toggle('sel',o.dataset.spoltype==='fix'));
+    sv('spol-fix',sim.spol);
+    onSpolType();
+  }
   S.ins=sim.ins;S.allrisk=sim.allrisk;
   // Select ins opt
   document.querySelectorAll('#q-ins .q-opt').forEach(o=>{o.classList.toggle('sel',o.dataset.v===sim.ins);});
@@ -2437,7 +2454,8 @@ function resetAll(){
   const upDone=document.getElementById('up-k1-done');if(upDone)upDone.style.display='none';
   document.querySelectorAll('.q-opt').forEach(o=>o.classList.remove('sel'));
   document.querySelectorAll('.chip').forEach(c=>c.classList.remove('sel'));
-  ['veh-lookup-input','k1-rz','k1-znacka','k1-model','k1-typ','k1-vin','k1-prevodovka','k1-najezd','k1-majitel','k1-datum','k1-cena','inp-spol','k1-text','k1-ai-text','k1-poc','k1-freq'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
+  ['veh-lookup-input','k1-rz','k1-znacka','k1-model','k1-typ','k1-vin','k1-prevodovka','k1-najezd','k1-majitel','k1-datum','k1-cena','inp-spol','spol-pct','spol-fix','spol-min','k1-text','k1-ai-text','k1-poc','k1-freq'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
+  document.querySelectorAll('#spol-inputs .f').forEach(f=>f.style.display='none');
   rzLookupResult=null;
   resetVehicleSection('hidden');
   // Skryj jen podmíněné bloky (Q3 POV, Q4 HAV, Q5 připojištění); Q1 vozidlo a Q2 typ pojištění zůstávají vždy viditelné
