@@ -345,6 +345,14 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
 .modal-box.modal-form{text-align:left;width:440px;padding:24px}
 .modal-form-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
 .modal-form-ttl{font-size:16px;font-weight:700;color:#1a1d23}
+/* Editace klienta – rolovatelný dialog */
+.ce-box{width:540px;max-width:94vw;max-height:88vh;padding:0;display:flex;flex-direction:column}
+.ce-hd{padding:18px 24px;border-bottom:1px solid #eef1f6;margin:0;flex-shrink:0}
+.ce-body{overflow-y:auto;padding:20px 24px;display:flex;flex-direction:column;gap:15px}
+.ce-foot{padding:16px 24px;border-top:1px solid #eef1f6;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.ce-lbl{display:flex;align-items:baseline;justify-content:space-between}
+.req-hint{font-size:12px;color:#9aa3b2;font-weight:500}
+.ce-group{border:1px solid #e6e9ef;border-radius:12px;padding:14px 16px;background:#fafbfd}
 .modal-close{background:none;border:none}
 .modal-form .modal-close{position:static;display:inline-flex;align-items:center;justify-content:center;padding:8px;margin:-8px;border-radius:8px;cursor:pointer;color:#818da0}
 .modal-form .modal-close:hover{background:#f1f3f8;color:#1a1d23}
@@ -444,29 +452,14 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
           <h1>Požadavky klienta</h1>
           <p>Nahrajte modelaci od pojišťovny, zadejte údaje ručně, nebo vložte text s požadavky klienta.</p>
         </div>
-        <div class="client-mini-wrap" style="position:relative;flex-shrink:0">
-          <button type="button" class="client-mini" onclick="toggleClientDetail(event)" title="Zobrazit detail klienta">
-            <span class="cc-av" id="mini-initials" style="width:38px;height:38px;font-size:13px">—</span>
-            <span style="text-align:left;min-width:0">
-              <span style="display:block;font-size:11px;color:#98a2b3;font-weight:600">POJISTNÍK</span>
-              <span id="mini-name" style="display:block;font-size:13.5px;font-weight:700;color:#1a1d23;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">—</span>
-            </span>
-            <i data-lucide="chevron-down" id="mini-chevron" style="color:#9aa3b2;width:16px;height:16px;flex-shrink:0;transition:transform .2s"></i>
-          </button>
-          <div id="client-pop" class="client-pop" style="display:none">
-            <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
-              <div class="cc-av" id="cd-initials" style="width:44px;height:44px;font-size:14px">—</div>
-              <div><div style="font-size:15px;font-weight:700;color:#1a1d23" id="cd-name">—</div><div style="font-size:12px;color:#6e768b">Pojistník</div></div>
-            </div>
-            <div class="dlg" style="grid-template-columns:110px 1fr;gap:5px 10px">
-              <div class="dll">Nar.</div><div class="dlv" id="cd-born">—</div>
-              <div class="dll">Rodné číslo</div><div class="dlv" id="cd-rc">—</div>
-              <div class="dll">Adresa</div><div class="dlv" id="cd-addr">—</div>
-              <div class="dll">Telefon</div><div class="dlv" id="cd-tel">—</div>
-              <div class="dll">E-mail</div><div class="dlv" id="cd-email">—</div>
-            </div>
-          </div>
-        </div>
+        <button type="button" class="client-mini" onclick="openClientEdit()" title="Upravit údaje klienta">
+          <span class="cc-av" id="mini-initials" style="width:38px;height:38px;font-size:13px">—</span>
+          <span style="text-align:left;min-width:0">
+            <span style="display:block;font-size:11px;color:#98a2b3;font-weight:600">POJISTNÍK</span>
+            <span id="mini-name" style="display:block;font-size:13.5px;font-weight:700;color:#1a1d23;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">—</span>
+          </span>
+          <i data-lucide="pencil" style="color:#2563eb;width:16px;height:16px;flex-shrink:0"></i>
+        </button>
       </div>
 
       <!-- 3 VOLBY (2:1:1) -->
@@ -651,8 +644,8 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
             </div>
             <div class="frow" id="spol-inputs" style="margin-bottom:14px">
               <div class="f spol-pct" style="max-width:180px;display:none"><label>Spoluúčast (%)</label><input type="number" id="spol-pct" min="0" max="100" step="1" placeholder="10" oninput="updateSpol()"><div style="font-size:11px;color:#9aa3b2;margin-top:4px">Doporučený rozsah 0–20 %</div></div>
-              <div class="f spol-fix" style="max-width:180px;display:none"><label>Spoluúčast (Kč)</label><input type="number" id="spol-fix" min="0" step="1000" placeholder="5 000" oninput="updateSpol()"></div>
-              <div class="f spol-min" style="max-width:180px;display:none"><label>Min. částka (Kč)</label><input type="number" id="spol-min" min="0" step="1000" placeholder="5 000" oninput="updateSpol()"></div>
+              <div class="f spol-fix" style="max-width:180px;display:none"><label>Spoluúčast (Kč)</label><input type="number" id="spol-fix" min="0" step="1000" placeholder="5 000" oninput="updateSpol()" onkeydown="if(['ArrowUp','ArrowDown','Tab'].indexOf(event.key)<0)event.preventDefault()" onpaste="event.preventDefault()"><div style="font-size:11px;color:#9aa3b2;margin-top:4px">Nastavte šipkami (po 1 000 Kč)</div></div>
+              <div class="f spol-min" style="max-width:180px;display:none"><label>Min. částka (Kč)</label><input type="number" id="spol-min" min="0" step="1000" placeholder="5 000" oninput="updateSpol()" onkeydown="if(['ArrowUp','ArrowDown','Tab'].indexOf(event.key)<0)event.preventDefault()" onpaste="event.preventDefault()"><div style="font-size:11px;color:#9aa3b2;margin-top:4px">Nastavte šipkami (po 1 000 Kč)</div></div>
             </div>
             <input type="hidden" id="inp-spol" value="">
 
@@ -959,6 +952,44 @@ textarea{resize:vertical;line-height:1.55;min-height:84px}
   </div>
 </div>
 
+<!-- EDITACE ÚDAJŮ KLIENTA MODAL -->
+<div class="modal-bg" id="client-edit-modal" style="display:none" onclick="if(event.target===this)closeClientEdit()">
+  <div class="modal-box modal-form ce-box">
+    <div class="modal-form-hd ce-hd">
+      <span class="modal-form-ttl">Editace údajů klienta</span>
+      <button type="button" class="modal-close" aria-label="Zavřít" onclick="closeClientEdit()"><i data-lucide="x"></i></button>
+    </div>
+    <div class="ce-body">
+      <div class="f"><div class="ce-lbl"><label>Typ subjektu</label><span class="req-hint">povinné</span></div>
+        <select id="ce-typ"><option>Fyzická osoba</option><option>Právnická osoba</option><option>Osoba samostatně výdělečně činná</option></select></div>
+      <div class="f"><div class="ce-lbl"><label>Jméno</label><span class="req-hint">povinné</span></div><input type="text" id="ce-jmeno" placeholder="Jméno"></div>
+      <div class="f"><div class="ce-lbl"><label>Příjmení</label><span class="req-hint">povinné</span></div><input type="text" id="ce-prijmeni" placeholder="Příjmení"></div>
+      <div class="frow" style="margin-bottom:0">
+        <div class="f"><label>Tituly před</label><select id="ce-tit-pred"><option value="">Vyberte…</option><option>Bc.</option><option>Mgr.</option><option>Ing.</option><option>MUDr.</option><option>JUDr.</option></select></div>
+        <div class="f"><label>Tituly za</label><select id="ce-tit-za"><option value="">Vyberte…</option><option>DiS.</option><option>Ph.D.</option><option>MBA</option></select></div>
+      </div>
+      <div class="ce-group">
+        <div style="font-size:12px;color:#9aa3b2;text-align:right;margin-bottom:8px">alespoň jeden z kontaktů je povinný</div>
+        <div class="f" style="margin-bottom:12px"><label>E-mail</label><input type="text" id="ce-email" placeholder="jmeno@email.cz"></div>
+        <div class="f"><label>Telefon</label><input type="text" id="ce-tel" placeholder="+420…"></div>
+      </div>
+      <div class="f"><div class="ce-lbl"><label>Datum narození</label><span class="req-hint">povinné</span></div><input type="date" id="ce-dob"></div>
+      <label class="rdr" style="align-items:center"><input type="checkbox" id="ce-cizinec"> Klient je cizinec bez RČ</label>
+      <div class="f"><div class="ce-lbl"><label>Pohlaví</label><span class="req-hint">povinné</span></div><select id="ce-pohlavi"><option>Muž</option><option>Žena</option></select></div>
+      <div style="font-size:15px;font-weight:700;color:#1a1d23;margin-top:4px">Místo narození a státní příslušnost</div>
+      <div class="frow" style="margin-bottom:0">
+        <div class="f"><div class="ce-lbl"><label>Země narození</label><span class="req-hint">nepovinné</span></div><input type="text" id="ce-zeme" placeholder="Země"></div>
+        <div class="f"><div class="ce-lbl"><label>Město narození</label><span class="req-hint">nepovinné</span></div><input type="text" id="ce-mesto" placeholder="Město"></div>
+      </div>
+      <div class="f"><div class="ce-lbl"><label>Státní příslušnost</label><span class="req-hint">nepovinné</span></div><select id="ce-stat"><option>Česko</option><option>Slovensko</option><option>Jiná…</option></select></div>
+    </div>
+    <div class="ce-foot">
+      <button class="btn btn-s" onclick="closeClientEdit()">Zrušit</button>
+      <button class="btn btn-p" onclick="saveClientEdit()">Uložit změny</button>
+    </div>
+  </div>
+</div>
+
 <!-- ENDCASE MODAL (ukončení / smazání obchodního případu) -->
 <div class="modal-bg" id="endcase-modal" style="display:none" onclick="if(event.target===this)cancelEndCase()">
   <div class="modal-box modal-form" style="width:440px">
@@ -1153,29 +1184,30 @@ function showPhaseReq(){
   if(window.lucide)lucide.createIcons();
   liveZzj();
 }
-function toggleClientDetail(ev){
-  if(ev)ev.stopPropagation();
-  const pop=document.getElementById('client-pop');
-  const open=pop.style.display==='none'||pop.style.display==='';
-  if(open){
-    const c=S.client||{};
-    setTxt('cd-name',c.name||'—');setTxt('cd-initials',c.name?initials(c.name):'—');
-    setTxt('cd-born',c.born||'—');setTxt('cd-rc',c.rc||'—');setTxt('cd-addr',c.addr||'—');
-    setTxt('cd-tel',c.tel||'—');setTxt('cd-email',c.email||'—');
-    pop.style.display='block';
-    const ch=document.getElementById('mini-chevron');if(ch)ch.style.transform='rotate(180deg)';
-    if(window.lucide)lucide.createIcons();
-  }else{closeClientDetail();}
+// Editace údajů klienta
+function openClientEdit(){
+  const c=S.client||{};
+  const parts=(c.name||'').trim().split(' ');
+  const prijmeni=parts.length>1?parts.slice(1).join(' '):'';
+  const jmeno=parts[0]||'';
+  const sv=(id,v)=>{const e=document.getElementById(id);if(e)e.value=v||'';};
+  sv('ce-jmeno',jmeno);sv('ce-prijmeni',prijmeni);
+  sv('ce-email',c.email);sv('ce-tel',c.tel);
+  sv('ce-zeme',c.zeme||'Česko');sv('ce-mesto',c.mesto||'');
+  document.getElementById('client-edit-modal').style.display='flex';
+  if(window.lucide)lucide.createIcons();
 }
-function closeClientDetail(){
-  const pop=document.getElementById('client-pop');if(pop)pop.style.display='none';
-  const ch=document.getElementById('mini-chevron');if(ch)ch.style.transform='';
+function closeClientEdit(){document.getElementById('client-edit-modal').style.display='none';}
+function saveClientEdit(){
+  const gv=id=>{const e=document.getElementById(id);return e?e.value.trim():'';};
+  const jm=gv('ce-jmeno'),pr=gv('ce-prijmeni');
+  const nm=(jm+' '+pr).trim();
+  if(nm)S.client.name=nm;
+  S.client.email=gv('ce-email');S.client.tel=gv('ce-tel');
+  S.client.zeme=gv('ce-zeme');S.client.mesto=gv('ce-mesto');
+  setTxt('mini-name',S.client.name||'—');setTxt('mini-initials',S.client.name?initials(S.client.name):'—');
+  closeClientEdit();
 }
-// zavřít popover při kliku mimo
-document.addEventListener('click',function(e){
-  const wrap=e.target.closest&&e.target.closest('.client-mini-wrap');
-  if(!wrap)closeClientDetail();
-});
 function openNewClientModal(){document.getElementById('newclient-modal').style.display='flex';if(window.lucide)lucide.createIcons();}
 function closeNewClientModal(){document.getElementById('newclient-modal').style.display='none';}
 function newClientChosen(){
